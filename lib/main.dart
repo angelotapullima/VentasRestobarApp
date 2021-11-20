@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
+import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/pages/home_page.dart';
 import 'package:ventas_restobar/src/pages/splah.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<IndexBlocListener>(
             create: (_) => IndexBlocListener(),
+          ),
+          ChangeNotifierProvider<IndexMesasBlocListener>(
+            create: (_) => IndexMesasBlocListener(),
           ),
         ],
         child: ScreenUtilInit(

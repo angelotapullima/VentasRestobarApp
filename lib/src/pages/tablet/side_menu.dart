@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
+import 'package:ventas_restobar/src/pages/tablet/logout.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/widgets/side_menu_item.dart';
 
@@ -129,7 +130,31 @@ class SideMenu extends StatelessWidget {
                       SizedBox(width: kDefaultPadding * 4),
                       Center(
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                opaque: false,
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return Logout();
+                                },
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  var begin = Offset(0.0, 1.0);
+                                  var end = Offset.zero;
+                                  var curve = Curves.ease;
+
+                                  var tween = Tween(begin: begin, end: end).chain(
+                                    CurveTween(curve: curve),
+                                  );
+
+                                  return SlideTransition(
+                                    position: animation.drive(tween),
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+                          },
                           icon: Icon(Icons.logout),
                           iconSize: ScreenUtil().setHeight(24),
                         ),

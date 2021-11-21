@@ -15,5 +15,6 @@ const kTitleTextColor = Color(0xFF323232);
 const kTextColor = Color(0xFF7D7D7D);
 const kTextInactiveColor = Color(0xFFC4C8C9);
 const kOrangeColor = Color(0xFFFFB100);
+const kOrangeTitleTextColor = Color(0xFFFF9900);
 
 const kDefaultPadding = 20.0;

@@ -25,45 +25,114 @@ class MesasPage extends StatelessWidget {
                 //MOSTRAR FONDO Y CIRCULOS DE MESAS
                 Row(
                   children: [
-                    Container(
-                      width: ScreenUtil().setWidth(769),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: -5,
-                            left: -20,
-                            child: Container(
-                                height: ScreenUtil().setHeight(100),
-                                width: ScreenUtil().setWidth(100),
-                                child: SvgPicture.asset('assets/svg/circles.svg')),
-                          ),
-                          Positioned(
-                            bottom: -5,
-                            left: -20,
-                            child: Container(
-                                height: ScreenUtil().setHeight(100),
-                                width: ScreenUtil().setWidth(100),
-                                child: SvgPicture.asset('assets/svg/circles.svg')),
-                          ),
-                          Positioned(
-                            bottom: -5,
-                            right: 0,
-                            child: Container(
-                                height: ScreenUtil().setHeight(100),
-                                width: ScreenUtil().setWidth(100),
-                                child: SvgPicture.asset('assets/svg/circles.svg')),
-                          ),
-                          Positioned(
-                            top: -5,
-                            right: 0,
-                            child: Container(
-                                height: ScreenUtil().setHeight(100),
-                                width: ScreenUtil().setWidth(100),
-                                child: SvgPicture.asset('assets/svg/circles.svg')),
-                          ),
-                        ],
-                      ),
-                    ),
+                    (data == EnumIndex.mesas)
+                        ? Container(
+                            width: ScreenUtil().setWidth(769),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  top: -5,
+                                  left: -20,
+                                  child: Container(
+                                      height: ScreenUtil().setHeight(100),
+                                      width: ScreenUtil().setWidth(100),
+                                      child: SvgPicture.asset('assets/svg/circles.svg')),
+                                ),
+                                Positioned(
+                                  bottom: -5,
+                                  left: -20,
+                                  child: Container(
+                                      height: ScreenUtil().setHeight(100),
+                                      width: ScreenUtil().setWidth(100),
+                                      child: SvgPicture.asset('assets/svg/circles.svg')),
+                                ),
+                                Positioned(
+                                  bottom: -5,
+                                  right: 0,
+                                  child: Container(
+                                      height: ScreenUtil().setHeight(100),
+                                      width: ScreenUtil().setWidth(100),
+                                      child: SvgPicture.asset('assets/svg/circles.svg')),
+                                ),
+                                Positioned(
+                                  top: -5,
+                                  right: 0,
+                                  child: Container(
+                                      height: ScreenUtil().setHeight(100),
+                                      width: ScreenUtil().setWidth(100),
+                                      child: SvgPicture.asset('assets/svg/circles.svg')),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(
+                            width: ScreenUtil().setWidth(769),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: ScreenUtil().setWidth(410),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: -5,
+                                        left: -20,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                      Positioned(
+                                        bottom: -5,
+                                        left: -20,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                      Positioned(
+                                        bottom: -5,
+                                        right: 0,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                      Positioned(
+                                        top: -5,
+                                        right: 0,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: ScreenUtil().setWidth(355),
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        bottom: -5,
+                                        right: 0,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                      Positioned(
+                                        top: -5,
+                                        right: 0,
+                                        child: Container(
+                                            height: ScreenUtil().setHeight(100),
+                                            width: ScreenUtil().setWidth(100),
+                                            child: SvgPicture.asset('assets/svg/circles.svg')),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )),
                     Container(
                       width: ScreenUtil().setWidth(254),
                       child: Stack(

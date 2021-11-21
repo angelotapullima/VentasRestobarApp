@@ -25,7 +25,7 @@ class FamiliaDatabase {
     return list;
   }
 
-  deleteCFamilias() async {
+  deleteFamilias() async {
     final db = await dbprovider.database;
 
     final res = await db.rawDelete('DELETE FROM Familias');

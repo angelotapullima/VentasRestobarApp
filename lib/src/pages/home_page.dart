@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
 import 'package:ventas_restobar/src/pages/mesas/mesas_page.dart';
 import 'package:ventas_restobar/src/pages/tablet/side_menu.dart';
-import 'package:ventas_restobar/src/utils/responsive.dart';
 import 'package:ventas_restobar/src/utils/responsive_builder.dart';
 
 class HomePage extends StatelessWidget {

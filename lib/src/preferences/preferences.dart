@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Preferences {
   static final Preferences _instancia = new Preferences._internal();
 
-  factory Preferences() { 
+  factory Preferences() {
     return _instancia;
   }
 
@@ -18,9 +18,6 @@ class Preferences {
   clearPreferences() async {
     await _prefs.clear();
   }
-
-
-
 
 /////////////////////////////////////////////////////////
   get locacionId {
@@ -94,9 +91,6 @@ class Preferences {
     _prefs.setString('apellidoMaterno', value);
   }
 
-
-
-
 /////////////////////////////////////////////////////////
   get tiendaId {
     return _prefs.getString('tiendaId');
@@ -106,10 +100,21 @@ class Preferences {
     _prefs.setString('tiendaId', value);
   }
 
+  get negocioImagen {
+    return _prefs.getString('negocioImagen');
+  }
 
+  set negocioImagen(String value) {
+    _prefs.setString('negocioImagen', value);
+  }
 
+  get negocioNombre {
+    return _prefs.getString('negocioNombre');
+  }
 
-
+  set negocioNombre(String value) {
+    _prefs.setString('negocioNombre', value);
+  }
 
 /////////////////////////////////////////////////////////
   get url {
@@ -119,8 +124,6 @@ class Preferences {
   set url(String value) {
     _prefs.setString('url', value);
   }
-
-
 
 /////////////////////////////////////////////////////////
   get llamadaLocacion {

@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
+import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/pages/home_page.dart';
+import 'package:ventas_restobar/src/pages/login_page.dart';
 import 'package:ventas_restobar/src/pages/splah.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 
@@ -26,6 +28,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<IndexBlocListener>(
             create: (_) => IndexBlocListener(),
           ),
+          ChangeNotifierProvider<IndexMesasBlocListener>(
+            create: (_) => IndexMesasBlocListener(),
+          ),
         ],
         child: ScreenUtilInit(
           designSize: Size(1024, 768),
@@ -40,7 +45,7 @@ class MyApp extends StatelessWidget {
             routes: {
               "splash": (BuildContext context) => Splash(),
               "home": (BuildContext context) => HomePage(),
-              //"login": (BuildContext context) => LoginPage(),
+              "login": (BuildContext context) => LoginPage(),
             },
           ),
         ),

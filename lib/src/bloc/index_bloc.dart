@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 enum EnumIndex { mesas, pedidos, asistencia }
 
 class IndexBlocListener with ChangeNotifier {
-  int index = 0;
-  //final preferences = Preferences();
+  // int index = 0;
+  // //final preferences = Preferences();
 
-  void changeIndex(int i) {
-    print('index $i');
-    index = i;
-    notifyListeners();
-  }
+  // void changeIndex(int i) {
+  //   print('index $i');
+  //   index = i;
+  //   notifyListeners();
+  // }
 
   ValueNotifier<EnumIndex> _page = ValueNotifier(EnumIndex.mesas);
   ValueNotifier<EnumIndex> get page => this._page;
@@ -27,10 +27,6 @@ class IndexBlocListener with ChangeNotifier {
   void _init() {}
 
   void changeToMesa(BuildContext context) {
-    // final mesabloc = ProviderBloc.mesas(context);
-
-    //mesabloc.obtenerMesasPorLocacion(preferences.locacionId);
-
     _page.value = EnumIndex.mesas;
     notifyListeners();
   }

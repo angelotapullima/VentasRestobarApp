@@ -180,7 +180,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                     // }
                                     return InkWell(
                                       onTap: () {
-                                        provider.changeToProductos();
+                                        mesasBloc.obtenerDetalleMesa(datos[index].idMesa);
                                       },
                                       child: Container(
                                         width: constraints.maxWidth,

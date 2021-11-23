@@ -23,6 +23,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
     familiasBloc.obtenerFamilias();
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     final productosFamiliaBloc = ProviderBloc.productos(context);
+    final detalleMesaBloc = ProviderBloc.mesas(context);
     return ValueListenableBuilder(
         valueListenable: provider.vista,
         builder: (BuildContext context, EnumIndex data, Widget child) {
@@ -36,15 +37,14 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                 ),
                 child: Column(
                   children: [
+                    SizedBox(
+                      height: ScreenUtil().setHeight(30),
+                    ),
                     Row(
                       children: [
-                        IconButton(
-                            onPressed: () {
-                              provider.changeToMesas();
-                            },
-                            icon: Icon(Icons.arrow_back_ios),
-                            color: Color(0XFFC4C8C9),
-                            iconSize: ScreenUtil().setHeight(24)),
+                        SizedBox(
+                          width: ScreenUtil().setHeight(24),
+                        ),
                         Text(
                           'Categorías',
                           style: Theme.of(context).textTheme.button.copyWith(
@@ -183,91 +183,92 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                         child: Padding(
                                           padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
                                           child: Container(
-                                              //padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
-                                              height: ScreenUtil().setHeight(100),
-                                              child: Row(
-                                                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    height: ScreenUtil().setHeight(100),
-                                                    width: ScreenUtil().setWidth(100),
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.white,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Color(0XFF808080).withOpacity(0.25),
-                                                          blurRadius: 0.4,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    child: Stack(
-                                                      children: [
-                                                        Center(
-                                                          child: Container(
-                                                            height: ScreenUtil().setHeight(75),
-                                                            width: ScreenUtil().setWidth(75),
-                                                            decoration: BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                              color: Colors.white,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  color: Color(0XFF808080).withOpacity(0.25),
-                                                                  blurRadius: 0.4,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Center(
-                                                          child: Container(
-                                                            height: ScreenUtil().setHeight(50),
-                                                            child: SvgPicture.asset('assets/svg/cubiertos.svg'),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
+                                            //padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
+                                            height: ScreenUtil().setHeight(100),
+                                            child: Row(
+                                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Container(
+                                                  height: ScreenUtil().setHeight(100),
+                                                  width: ScreenUtil().setWidth(100),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Color(0XFF808080).withOpacity(0.25),
+                                                        blurRadius: 0.4,
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Container(
-                                                    width: ScreenUtil().setWidth(105),
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Spacer(),
-                                                        Text(
-                                                          '${datos[index].productoNombre}',
-                                                          style: Theme.of(context).textTheme.button.copyWith(
-                                                                color: kTitleTextColor,
-                                                                fontSize: ScreenUtil().setSp(16),
-                                                                fontWeight: FontWeight.w400,
-                                                              ),
-                                                        ),
-                                                        Spacer(),
-                                                        Text(
-                                                          'S/${datos[index].productoPrecio}',
-                                                          style: Theme.of(context).textTheme.button.copyWith(
-                                                                color: kTextColor,
-                                                                fontSize: ScreenUtil().setSp(16),
-                                                                fontWeight: FontWeight.w600,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Spacer(),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                  child: Stack(
                                                     children: [
-                                                      Spacer(),
-                                                      Container(
-                                                        width: ScreenUtil().setWidth(40),
-                                                        height: ScreenUtil().setHeight(40),
-                                                        child: SvgPicture.asset('assets/svg/add.svg'),
+                                                      Center(
+                                                        child: Container(
+                                                          height: ScreenUtil().setHeight(75),
+                                                          width: ScreenUtil().setWidth(75),
+                                                          decoration: BoxDecoration(
+                                                            shape: BoxShape.circle,
+                                                            color: Colors.white,
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Color(0XFF808080).withOpacity(0.25),
+                                                                blurRadius: 0.4,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                        child: Container(
+                                                          height: ScreenUtil().setHeight(50),
+                                                          child: SvgPicture.asset('assets/svg/cubiertos.svg'),
+                                                        ),
                                                       )
                                                     ],
                                                   ),
-                                                ],
-                                              )),
+                                                ),
+                                                Container(
+                                                  width: ScreenUtil().setWidth(105),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Spacer(),
+                                                      Text(
+                                                        '${datos[index].productoNombre}',
+                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                              color: kTitleTextColor,
+                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
+                                                      ),
+                                                      Spacer(),
+                                                      Text(
+                                                        'S/${datos[index].productoPrecio}',
+                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                              color: kTextColor,
+                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontWeight: FontWeight.w600,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Spacer(),
+                                                    Container(
+                                                      width: ScreenUtil().setWidth(40),
+                                                      height: ScreenUtil().setHeight(40),
+                                                      child: SvgPicture.asset('assets/svg/add.svg'),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       );
                                     });

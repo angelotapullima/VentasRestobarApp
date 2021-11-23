@@ -1,3 +1,5 @@
+import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
+
 class ComandaModel {
   String idComanda;
   String idMesa;
@@ -5,12 +7,15 @@ class ComandaModel {
   String fecha;
   String estado;
 
+  List<DetalleComandaModel> detalleComanda;
+
   ComandaModel({
     this.idComanda,
     this.idMesa,
     this.total,
     this.fecha,
     this.estado,
+    this.detalleComanda,
   });
 
   factory ComandaModel.fromJson(Map<String, dynamic> json) => ComandaModel(

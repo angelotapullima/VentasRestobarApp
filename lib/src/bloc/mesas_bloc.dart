@@ -11,9 +11,11 @@ class MesasBloc {
 
   final _mesasNegocioController = BehaviorSubject<List<MesaModel>>();
   final _mesasNegocioSalonController = BehaviorSubject<List<MesaModel>>();
+  final _mesaDetalleController = BehaviorSubject<List<MesaModel>>();
 
   Stream<List<MesaModel>> get mesasStream => _mesasNegocioController.stream;
   Stream<List<MesaModel>> get mesasSalonStream => _mesasNegocioSalonController.stream;
+  Stream<List<MesaModel>> get mesDetalleStream => _mesaDetalleController.stream;
 
   void obtenerMesasNegocio(int lugar) async {
     if (lugar == 1) {
@@ -27,8 +29,17 @@ class MesasBloc {
     }
   }
 
+  void obtenerDetalleMesa(String idMesa) async {
+    _mesaDetalleController.sink.add(await _mesasDatabase.obtenerMesaPorIdMesa(idMesa));
+  }
+
+  void limpiarMesa() async {
+    _mesaDetalleController.sink.add(null);
+  }
+
   dispose() {
     _mesasNegocioController?.close();
     _mesasNegocioSalonController?.close();
+    _mesaDetalleController?.close();
   }
 }

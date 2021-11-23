@@ -1,125 +1,123 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
+import 'package:ventas_restobar/src/bloc/provider.dart';
+import 'package:ventas_restobar/src/models/mesas_model.dart';
+import 'package:ventas_restobar/src/pages/mesas/comanda_widget.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
-import 'package:ventas_restobar/src/utils/responsive.dart';
 
 class DetalleMesa extends StatelessWidget {
   const DetalleMesa({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final responsive = Responsive.of(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: ScreenUtil().setHeight(30),
-        horizontal: ScreenUtil().setWidth(24),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Spacer(),
-          Center(
-            child: Text(
-              'Toque sobre una mesa para ver los detalles',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.button.copyWith(
-                    color: kTitleTextColor,
-                    fontSize: ScreenUtil().setSp(16),
-                    fontWeight: FontWeight.w500,
-                  ),
+    final detalleMesaBloc = ProviderBloc.mesas(context);
+    final comandaBloc = ProviderBloc.comanda(context);
+
+    return StreamBuilder(
+      stream: detalleMesaBloc.mesDetalleStream,
+      builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
+        if (snapshot.hasData && snapshot.data.length > 0) {
+          var mesa = snapshot.data;
+          comandaBloc.obtenerComandaPorMesa(mesa[0].idMesa);
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: ScreenUtil().setWidth(16),
+              //vertical: ScreenUtil().setHeight(30),
             ),
-          ),
-          SizedBox(
-            height: ScreenUtil().setHeight(180),
-          ),
-          Center(
-            child: Container(
-              height: ScreenUtil().setHeight(180),
-              width: ScreenUtil().setWidth(180),
-              child: Row(
-                children: [
-                  Container(
-                    width: ScreenUtil().setWidth(30),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(1)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: ScreenUtil().setHeight(30),
+                ),
+                Container(
+                  height: ScreenUtil().setHeight(40),
+                  child: Row(
+                    children: [
+                      Stack(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0XFFE5E5E5),
-                              borderRadius: BorderRadius.circular(5),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(
+                              '${mesa[0].mesaNombre}',
+                              style: Theme.of(context).textTheme.button.copyWith(
+                                    color: Colors.transparent,
+                                    fontSize: ScreenUtil().setSp(20),
+                                    fontWeight: FontWeight.w600,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: kOrangeColor,
+                                    decorationThickness: 4,
+                                  ),
                             ),
-                            height: ScreenUtil().setHeight(30),
-                            width: ScreenUtil().setWidth(24),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0XFFE5E5E5),
-                              borderRadius: BorderRadius.circular(5),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              '${mesa[0].mesaNombre}',
+                              style: Theme.of(context).textTheme.button.copyWith(
+                                    color: kTitleTextColor,
+                                    fontSize: ScreenUtil().setSp(20),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
-                            height: ScreenUtil().setHeight(30),
-                            width: ScreenUtil().setWidth(24),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: responsive.wp(.5),
-                  ),
-                  Container(
-                    height: ScreenUtil().setHeight(150),
-                    width: ScreenUtil().setWidth(100),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomLeft,
-                        end: Alignment.topRight,
-                        colors: [
-                          Color(0XFFE5E5E5),
-                          Color(0XFFE5E5E5),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: responsive.wp(.5),
-                  ),
-                  Container(
-                    width: ScreenUtil().setWidth(30),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: responsive.hp(1)),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0XFFE5E5E5),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            height: ScreenUtil().setHeight(30),
-                            width: ScreenUtil().setWidth(24),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0XFFE5E5E5),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            height: ScreenUtil().setHeight(30),
-                            width: ScreenUtil().setWidth(24),
-                          )
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
+                SizedBox(
+                  height: ScreenUtil().setHeight(16),
+                ),
+                ComandaWidget(),
+              ],
+            ),
+          );
+        } else {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(),
+              Center(
+                child: Text(
+                  'Toque sobre una mesa para ver los detalles',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.button.copyWith(
+                        color: kTitleTextColor,
+                        fontSize: ScreenUtil().setSp(16),
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
               ),
-            ),
-          ),
-          Spacer(),
-        ],
-      ),
+              Container(
+                height: ScreenUtil().setHeight(300),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: ScreenUtil().setHeight(150),
+                        //width: ScreenUtil().setWidth(300),
+                        child: SvgPicture.asset('assets/svg/mesa_disable.svg'),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        height: ScreenUtil().setHeight(270),
+                        child: Image.asset('assets/img/hand.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Spacer(),
+            ],
+          );
+        }
+      },
     );
   }
 }

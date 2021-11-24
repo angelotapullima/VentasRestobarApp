@@ -133,4 +133,21 @@ class Preferences {
   set llamadaLocacion(String value) {
     _prefs.setString('llamadaLocacion', value);
   }
+
+  /////////////////////////////////////////////////////////
+  get esComanda {
+    return _prefs.getBool('esComanda');
+  }
+
+  set esComanda(bool value) {
+    _prefs.setBool('esComanda', value);
+  }
+
+  get idEnviarEnComanda {
+    return _prefs.getString('idEnviarEnComanda');
+  }
+
+  set idEnviarEnComanda(String value) {
+    _prefs.setString('idEnviarEnComanda', value);
+  }
 }

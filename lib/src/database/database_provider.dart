@@ -78,6 +78,20 @@ class DatabaseProvider {
           ' llevar TEXT'
           ')');
 
+      await db.execute(' CREATE TABLE DetalleComandaTemporal('
+          ' id INTEGER PRIMARY KEY AUTOINCREMENT,'
+          ' idMesa TEXT,'
+          ' idProducto TEXT,'
+          ' nombreProducto TEXT,'
+          ' fotoProducto TEXT,'
+          ' cantidad TEXT,'
+          ' subtotal TEXT,'
+          ' totalDetalle TEXT,'
+          ' observaciones TEXT,'
+          ' estado TEXT,'
+          ' despacho TEXT'
+          ')');
+
       // await db.execute(' CREATE TABLE DetallePedidosTemporales('
       //     ' id INTEGER PRIMARY KEY AUTOINCREMENT,'
       //     ' idMesa TEXT,'

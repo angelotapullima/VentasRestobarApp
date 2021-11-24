@@ -15,65 +15,75 @@ class DetalleMesa extends StatelessWidget {
   Widget build(BuildContext context) {
     final detalleMesaBloc = ProviderBloc.mesas(context);
     final comandaBloc = ProviderBloc.comanda(context);
-
+    final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     return StreamBuilder(
       stream: detalleMesaBloc.mesDetalleStream,
       builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
         if (snapshot.hasData && snapshot.data.length > 0) {
           var mesa = snapshot.data;
           comandaBloc.obtenerComandaPorMesa(mesa[0].idMesa);
-          return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: ScreenUtil().setWidth(16),
-              //vertical: ScreenUtil().setHeight(30),
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: ScreenUtil().setHeight(30),
+          return Column(
+            children: [
+              SizedBox(
+                height: ScreenUtil().setHeight(30),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                  left: ScreenUtil().setWidth(16),
                 ),
-                Container(
-                  height: ScreenUtil().setHeight(40),
-                  child: Row(
-                    children: [
-                      Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              '${mesa[0].mesaNombre}',
-                              style: Theme.of(context).textTheme.button.copyWith(
-                                    color: Colors.transparent,
-                                    fontSize: ScreenUtil().setSp(20),
-                                    fontWeight: FontWeight.w600,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: kOrangeColor,
-                                    decorationThickness: 4,
-                                  ),
-                            ),
+                height: ScreenUtil().setHeight(40),
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            '${mesa[0].mesaNombre}',
+                            style: Theme.of(context).textTheme.button.copyWith(
+                                  color: Colors.transparent,
+                                  fontSize: ScreenUtil().setSp(20),
+                                  fontWeight: FontWeight.w600,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: kOrangeColor,
+                                  decorationThickness: 4,
+                                ),
                           ),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              '${mesa[0].mesaNombre}',
-                              style: Theme.of(context).textTheme.button.copyWith(
-                                    color: kTitleTextColor,
-                                    fontSize: ScreenUtil().setSp(20),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '${mesa[0].mesaNombre}',
+                            style: Theme.of(context).textTheme.button.copyWith(
+                                  color: kTitleTextColor,
+                                  fontSize: ScreenUtil().setSp(20),
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    IconButton(
+                      padding: EdgeInsets.all(0),
+                      onPressed: () {
+                        provider.changeToMesas();
+                        final detalleMesaBloc = ProviderBloc.mesas(context);
+                        detalleMesaBloc.limpiarMesa();
+                      },
+                      icon: Icon(Icons.close),
+                      iconSize: ScreenUtil().setHeight(30),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(16),
-                ),
-                ComandaWidget(),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(16),
+              ),
+              ComandaWidget(
+                idMesa: mesa[0].mesaNombre,
+              ),
+            ],
           );
         } else {
           return Column(

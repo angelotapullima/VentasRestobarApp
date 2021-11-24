@@ -1,13 +1,19 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:ventas_restobar/src/database/comanda_database.dart';
+import 'package:ventas_restobar/src/database/detalle_comanda_temporal_database.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
+import 'package:ventas_restobar/src/models/detalle_comanda_temporal_model.dart';
 
 class ComandaBloc {
   final _comandaDatabase = ComandaDatabase();
+  final _comandaTemporalDatabase = DetalleComandaTemporalDatabase();
+
   final _comandaPorMesaController = BehaviorSubject<List<ComandaModel>>();
+  final _comandaTemporalController = BehaviorSubject<List<DetalleComandaTemporalModel>>();
 
   Stream<List<ComandaModel>> get comandaPorMesaStream => _comandaPorMesaController.stream;
+  Stream<List<DetalleComandaTemporalModel>> get comandaTemporalStream => _comandaTemporalController.stream;
 
   void obtenerComandaPorMesa(String idMesa) async {
     _comandaPorMesaController.sink.add(null);
@@ -37,7 +43,13 @@ class ComandaBloc {
     return listaComandaGeneral;
   }
 
+  void obtenerComandaTemporal(String idMesa) async {
+    _comandaTemporalController.sink.add(null);
+    _comandaTemporalController.sink.add(await _comandaTemporalDatabase.obtenerDetalleComandaPorIdMesa(idMesa));
+  }
+
   void dispose() {
     _comandaPorMesaController?.close();
+    _comandaTemporalController?.close();
   }
 }

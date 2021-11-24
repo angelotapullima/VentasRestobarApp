@@ -6,6 +6,7 @@ import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/familias_model.dart';
 import 'package:ventas_restobar/src/models/productos_familia_model.dart';
+import 'package:ventas_restobar/src/pages/mesas/agregrar_producto_comanda.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class ProductoFamilia extends StatefulWidget {
@@ -23,7 +24,6 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
     familiasBloc.obtenerFamilias();
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     final productosFamiliaBloc = ProviderBloc.productos(context);
-    final detalleMesaBloc = ProviderBloc.mesas(context);
     return ValueListenableBuilder(
         valueListenable: provider.vista,
         builder: (BuildContext context, EnumIndex data, Widget child) {
@@ -63,6 +63,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                             if (snapshot.data.length > 0) {
                               var datos = snapshot.data;
                               if (_controller.index == 0) {
+                                _controller.changeCategoria(datos[0].familiaNombre);
                                 productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[0].idFamilia);
                               }
 
@@ -75,6 +76,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                       onTap: () {
                                         productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[index].idFamilia);
                                         _controller.channgeIndex(index);
+                                        _controller.changeCategoria(datos[index].familiaNombre);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
@@ -92,6 +94,9 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                       Container(
                                                         height: ScreenUtil().setHeight(50),
                                                         child: SvgPicture.asset('assets/svg/fire.svg'),
+                                                      ),
+                                                      SizedBox(
+                                                        width: ScreenUtil().setWidth(24),
                                                       ),
                                                       Text(
                                                         '${datos[index].familiaNombre}',
@@ -184,7 +189,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                           padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
                                           child: Container(
                                             //padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
-                                            height: ScreenUtil().setHeight(100),
+                                            height: ScreenUtil().setHeight(150),
                                             child: Row(
                                               //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -229,7 +234,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: ScreenUtil().setWidth(105),
+                                                  width: ScreenUtil().setWidth(130),
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
@@ -259,10 +264,40 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Spacer(),
-                                                    Container(
-                                                      width: ScreenUtil().setWidth(40),
-                                                      height: ScreenUtil().setHeight(40),
-                                                      child: SvgPicture.asset('assets/svg/add.svg'),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                            opaque: false,
+                                                            pageBuilder: (context, animation, secondaryAnimation) {
+                                                              return AgregarProductoComanda(
+                                                                producto: datos[index],
+                                                                nombreCategoria: _controller.categoria,
+                                                              );
+                                                            },
+                                                            // transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                                            //   var begin = Offset(0.0, 1.0);
+                                                            //   var end = Offset.zero;
+                                                            //   var curve = Curves.ease;
+
+                                                            //   var tween = Tween(begin: begin, end: end).chain(
+                                                            //     CurveTween(curve: curve),
+                                                            //   );
+
+                                                            //   return SlideTransition(
+                                                            //     position: animation.drive(tween),
+                                                            //     child: child,
+                                                            //   );
+                                                            // },
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width: ScreenUtil().setWidth(40),
+                                                        height: ScreenUtil().setHeight(40),
+                                                        child: SvgPicture.asset('assets/svg/add.svg'),
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -311,8 +346,14 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
 
 class IndexController extends ChangeNotifier {
   int index = 0;
+  String categoria = 'Productos';
   void channgeIndex(int i) {
     index = i;
+    notifyListeners();
+  }
+
+  void changeCategoria(String c) {
+    categoria = c;
     notifyListeners();
   }
 }

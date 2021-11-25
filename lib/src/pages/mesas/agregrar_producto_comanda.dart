@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ventas_restobar/src/api/comanda_api.dart';
 import 'package:ventas_restobar/src/api/comanda_temporal_api.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/productos_familia_model.dart';
@@ -137,6 +138,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                             wmax: 100,
                             hmin: 75,
                             wmin: 75,
+                            image: 'cubiertos',
                           ),
                           Container(
                             width: ScreenUtil().setWidth(130),
@@ -309,8 +311,21 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                             textColor: Colors.white,
                             elevation: 0,
                             onPressed: () async {
+                              _controller.changeCargando(true);
                               final _preferences = Preferences();
                               if (_preferences.esComanda) {
+                                final comandaApi = ComandaApi();
+                                final res = await comandaApi.agregarProductoAComanda(widget.producto, _controller.cantidad, _controller.precioMuestra,
+                                    (_controller.llevar) ? 'PARA LLEVAR' : 'SALON', _observacionController.text);
+                                if (res.code == 1) {
+                                  final mesasBloc = ProviderBloc.mesas(context);
+                                  await mesasBloc.updateMesas(_preferences.indexSelect);
+                                  final comandaBloc = ProviderBloc.comanda(context);
+                                  comandaBloc.obtenerComandaPorMesa(_preferences.idMesa);
+                                  Navigator.pop(context);
+                                } else {
+                                  showToast2(res.message, Colors.red);
+                                }
                               } else {
                                 final temporal = ComandaTemporalApi();
                                 final res = await temporal.guardarDetalleTemporal(widget.producto, _controller.cantidad, _controller.precioMuestra,
@@ -323,6 +338,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                   showToast2(res.message, Colors.red);
                                 }
                               }
+                              _controller.changeCargando(false);
                             },
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
@@ -345,6 +361,23 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                 ),
               ),
             ),
+          ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (_, f) {
+              return (_controller.cargando)
+                  ? Container(
+                      height: double.infinity,
+                      width: double.infinity,
+                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: kOrangeTitleTextColor,
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
           ),
         ],
       ),

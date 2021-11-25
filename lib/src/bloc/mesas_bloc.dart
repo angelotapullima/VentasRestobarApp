@@ -30,7 +30,19 @@ class MesasBloc {
   }
 
   void obtenerDetalleMesa(String idMesa) async {
+    print('Entré');
     _mesaDetalleController.sink.add(await _mesasDatabase.obtenerMesaPorIdMesa(idMesa));
+  }
+
+  Future<int> updateMesas(int lugar) async {
+    _mesasNegocioController.sink.add(null);
+    await _mesasApi.obtenerMesasPorNegocio();
+    if (lugar == 1) {
+      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
+    } else {
+      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
+    }
+    return 0;
   }
 
   void limpiarMesa() async {

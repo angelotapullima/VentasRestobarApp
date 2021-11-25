@@ -69,6 +69,7 @@ class DetalleMesa extends StatelessWidget {
                       onPressed: () {
                         provider.changeToMesas();
                         final detalleMesaBloc = ProviderBloc.mesas(context);
+
                         detalleMesaBloc.limpiarMesa();
                       },
                       icon: Icon(Icons.close),
@@ -81,7 +82,7 @@ class DetalleMesa extends StatelessWidget {
                 height: ScreenUtil().setHeight(16),
               ),
               ComandaWidget(
-                idMesa: mesa[0].mesaNombre,
+                idMesa: mesa[0].idMesa,
               ),
             ],
           );

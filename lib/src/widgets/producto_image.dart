@@ -10,9 +10,11 @@ class ProductoImage extends StatelessWidget {
     @required this.wmin,
     @required this.hmin,
     @required this.himage,
+    @required this.image,
   }) : super(key: key);
 
   final double hmax, wmax, hmin, wmin, himage;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class ProductoImage extends StatelessWidget {
           Center(
             child: Container(
               height: ScreenUtil().setHeight(himage),
-              child: SvgPicture.asset('assets/svg/cubiertos.svg'),
+              child: SvgPicture.asset('assets/svg/$image.svg'),
             ),
           )
         ],

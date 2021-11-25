@@ -150,4 +150,20 @@ class Preferences {
   set idEnviarEnComanda(String value) {
     _prefs.setString('idEnviarEnComanda', value);
   }
+
+  get idMesa {
+    return _prefs.getString('idMesa');
+  }
+
+  set idMesa(String value) {
+    _prefs.setString('idMesa', value);
+  }
+
+  get indexSelect {
+    return _prefs.getInt('indexSelect');
+  }
+
+  set indexSelect(int value) {
+    _prefs.setInt('indexSelect', value);
+  }
 }

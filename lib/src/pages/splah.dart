@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ventas_restobar/src/api/login_api.dart';
+import 'package:ventas_restobar/src/api/mesas_api.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 
 class Splash extends StatefulWidget {
@@ -23,20 +23,12 @@ class _SplashState extends State<Splash> {
       // }
 
       if (preferences.token == null || preferences.token.isEmpty) {
-        final _loginApi = LoginApi();
-        final res = await _loginApi.login('superadmin', '1234');
-        if (res.code == 1) {
-          Navigator.pushNamed(context, 'home');
-        }
+        Navigator.pushNamed(context, 'login');
       } else {
+        final mesaApi = MesasApi();
+        await mesaApi.obtenerMesasPorNegocio();
         Navigator.pushNamed(context, 'home');
       }
-
-      // if (preferences.token == null || preferences.token.isEmpty) {
-      //   Navigator.pushNamed(context, 'login');
-      // } else {
-      //   Navigator.pushNamed(context, 'home');
-      // }
     });
     super.initState();
   }

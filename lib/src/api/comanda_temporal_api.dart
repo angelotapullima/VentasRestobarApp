@@ -13,7 +13,8 @@ class ComandaTemporalApi {
     final ResultApiModel result = ResultApiModel();
 
     try {
-      final _listProducto = await _comandaTemporalDatabase.obtenerDetalleComandaPorIdProducto(producto.idProducto, despacho);
+      final _listProducto =
+          await _comandaTemporalDatabase.obtenerDetalleComandaPorIdProducto(producto.idProducto, despacho, _preferences.idEnviarEnComanda);
       if (_listProducto.length > 0) {
         DetalleComandaTemporalModel detalle = DetalleComandaTemporalModel();
         detalle.id = _listProducto[0].id;
@@ -57,6 +58,51 @@ class ComandaTemporalApi {
       }
 
       return result;
+    } catch (e) {
+      result.code = 3;
+      result.message = 'Ocurrió un error';
+      return result;
+    }
+  }
+
+  Future<ResultApiModel> updateDetalle(DetalleComandaTemporalModel dato, int cantidad) async {
+    final ResultApiModel result = ResultApiModel();
+    try {
+      if (int.parse(dato.cantidad) == 1 && cantidad < 0) {
+        final res = await _comandaTemporalDatabase.deleteDetalleTemporalPorId(dato.id);
+        if (res > 0) {
+          result.code = 1;
+          result.message = 'Operación exitosa';
+          return result;
+        } else {
+          result.code = 3;
+          result.message = 'Ocurrió un error';
+          return result;
+        }
+      } else {
+        int newCant = int.parse(dato.cantidad) + cantidad;
+        double total = double.parse(dato.totalDetalle) + (cantidad * double.parse(dato.subtotal));
+        DetalleComandaTemporalModel detalle = DetalleComandaTemporalModel();
+        detalle.id = dato.id;
+        detalle.idMesa = dato.idMesa;
+        detalle.nombreProducto = dato.nombreProducto;
+        detalle.idProducto = dato.idProducto;
+        detalle.fotoProducto = dato.fotoProducto;
+        detalle.cantidad = newCant.toString();
+        detalle.subtotal = dato.subtotal;
+        detalle.totalDetalle = total.toStringAsFixed(2);
+        detalle.observaciones = dato.observaciones;
+        detalle.despacho = dato.despacho;
+        final res = await _comandaTemporalDatabase.updateDetallePorIdComandaDetalle(detalle);
+        if (res > 0) {
+          result.code = 1;
+          result.message = '';
+        } else {
+          result.code = 3;
+          result.message = 'Ocurrió un error';
+        }
+        return result;
+      }
     } catch (e) {
       result.code = 3;
       result.message = 'Ocurrió un error';

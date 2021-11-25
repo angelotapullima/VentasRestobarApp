@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
+import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/responsive.dart';
 
@@ -21,10 +22,12 @@ final _controller = Controller();
 class _MesasWidgetState extends State<MesasWidget> {
   @override
   Widget build(BuildContext context) {
+    final _prefs = Preferences();
     final mesasBloc = ProviderBloc.mesas(context);
     if (cargaInicial == 0) {
       mesasBloc.obtenerMesasNegocio(1);
       cargaInicial++;
+      _prefs.indexSelect = 1;
     }
     final responsive = Responsive.of(context);
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
@@ -45,6 +48,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                       padding: EdgeInsets.all(6),
                       onSelected: (value) {
                         mesasBloc.obtenerMesasNegocio(value);
+                        _prefs.indexSelect = value;
                         if (value == 1) {
                           _controller.changeValue('Salón principal');
                         } else {
@@ -148,7 +152,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                   crossAxisCount: 3,
                                   childAspectRatio: 1,
                                   mainAxisSpacing: responsive.hp(0),
-                                  crossAxisSpacing: responsive.wp(2),
+                                  crossAxisSpacing: responsive.wp(1),
                                 ),
                                 itemCount: datos.length,
                                 scrollDirection: Axis.vertical,
@@ -180,7 +184,9 @@ class _MesasWidgetState extends State<MesasWidget> {
                                     // }
                                     return InkWell(
                                       onTap: () {
+                                        print('Tap');
                                         mesasBloc.obtenerDetalleMesa(datos[index].idMesa);
+                                        _prefs.idMesa = datos[index].idMesa;
                                       },
                                       child: Container(
                                         width: constraints.maxWidth,

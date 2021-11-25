@@ -17,10 +17,10 @@ class ComandaBloc {
 
   void obtenerComandaPorMesa(String idMesa) async {
     _comandaPorMesaController.sink.add(null);
-    _comandaPorMesaController.sink.add(await obtenerComandaMesas(idMesa));
+    _comandaPorMesaController.sink.add(await _obtenerComandaMesas(idMesa));
   }
 
-  Future<List<ComandaModel>> obtenerComandaMesas(String idMesa) async {
+  Future<List<ComandaModel>> _obtenerComandaMesas(String idMesa) async {
     final List<ComandaModel> listaComandaGeneral = [];
 
     final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesa);

@@ -26,9 +26,10 @@ class DetalleComandaTemporalDatabase {
     return list;
   }
 
-  Future<List<DetalleComandaTemporalModel>> obtenerDetalleComandaPorIdProducto(String idProducto, String despacho) async {
+  Future<List<DetalleComandaTemporalModel>> obtenerDetalleComandaPorIdProducto(String idProducto, String despacho, String idMesa) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM DetalleComandaTemporal WHERE idProducto='$idProducto' AND despacho='$despacho'  ");
+    final res =
+        await db.rawQuery("SELECT * FROM DetalleComandaTemporal WHERE idProducto='$idProducto' AND despacho='$despacho'  AND idMesa='$idMesa'");
 
     List<DetalleComandaTemporalModel> list = res.isNotEmpty ? res.map((c) => DetalleComandaTemporalModel.fromJson(c)).toList() : [];
     return list;
@@ -46,7 +47,7 @@ class DetalleComandaTemporalDatabase {
           "totalDetalle='${detalle.totalDetalle}',"
           "observaciones='${detalle.observaciones}',"
           "despacho='${detalle.despacho}',"
-          "estado='${detalle.estado}' WHERE id='${detalle.id}'");
+          "estado='${detalle.estado}' WHERE id='${detalle.id}' AND idMesa='${detalle.idMesa}'");
 
       return res;
     } catch (exception) {
@@ -70,7 +71,7 @@ class DetalleComandaTemporalDatabase {
     return res;
   }
 
-  deleteDetalleTemporalPorId(String id) async {
+  deleteDetalleTemporalPorId(int id) async {
     final db = await dbprovider.database;
 
     final res = await db.rawDelete("DELETE FROM DetalleComandaTemporal WHERE id='$id'");

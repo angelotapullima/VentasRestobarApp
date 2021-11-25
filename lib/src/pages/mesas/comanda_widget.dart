@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:ventas_restobar/src/api/comanda_api.dart';
+import 'package:ventas_restobar/src/api/comanda_temporal_api.dart';
 import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_temporal_model.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
+import 'package:ventas_restobar/src/utils/utils.dart';
 import 'package:ventas_restobar/src/widgets/producto_image.dart';
 
-class ComandaWidget extends StatelessWidget {
+class ComandaWidget extends StatefulWidget {
   final String idMesa;
   const ComandaWidget({Key key, @required this.idMesa}) : super(key: key);
 
+  @override
+  _ComandaWidgetState createState() => _ComandaWidgetState();
+}
+
+class _ComandaWidgetState extends State<ComandaWidget> {
+  final _controller = Controller();
   @override
   Widget build(BuildContext context) {
     final _prefs = Preferences();
@@ -26,9 +36,13 @@ class ComandaWidget extends StatelessWidget {
             builder: (context, AsyncSnapshot<List<ComandaModel>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.length > 0) {
+                  double total = 0.00;
                   var datos = snapshot.data;
                   _prefs.idEnviarEnComanda = datos[0].idComanda;
                   _prefs.esComanda = true;
+                  for (var i = 0; i < datos[0].detalleComanda.length; i++) {
+                    total = total + double.parse(datos[0].detalleComanda[i].totalDetalle);
+                  }
                   return (datos[0].detalleComanda.length > 0)
                       ? Expanded(
                           child: Stack(
@@ -56,6 +70,7 @@ class ComandaWidget extends StatelessWidget {
                                                 wmax: 40,
                                                 hmin: 30,
                                                 wmin: 30,
+                                                image: (datos[0].detalleComanda[index].llevar == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                               ),
                                               Container(
                                                 width: ScreenUtil().setWidth(105),
@@ -126,7 +141,7 @@ class ComandaWidget extends StatelessWidget {
                                               width: ScreenUtil().setWidth(16),
                                             ),
                                             Text(
-                                              'S/00.00',
+                                              'S/ ${total.toStringAsFixed(2)}',
                                               style: Theme.of(context).textTheme.button.copyWith(
                                                     color: Colors.white,
                                                     fontSize: ScreenUtil().setSp(16),
@@ -184,9 +199,9 @@ class ComandaWidget extends StatelessWidget {
                         )
                       : Container();
                 } else {
-                  _prefs.idEnviarEnComanda = idMesa;
+                  _prefs.idEnviarEnComanda = widget.idMesa;
                   _prefs.esComanda = false;
-                  comandaBloc.obtenerComandaTemporal(idMesa);
+                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
                   return Expanded(
                     child: StreamBuilder(
                       stream: comandaBloc.comandaTemporalStream,
@@ -221,9 +236,10 @@ class ComandaWidget extends StatelessWidget {
                                                     wmax: 40,
                                                     hmin: 30,
                                                     wmin: 30,
+                                                    image: (datitos[index].despacho == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                                   ),
                                                   Container(
-                                                    width: ScreenUtil().setWidth(105),
+                                                    width: ScreenUtil().setWidth(80),
                                                     child: Text(
                                                       '${datitos[index].nombreProducto}',
                                                       style: Theme.of(context).textTheme.button.copyWith(
@@ -233,22 +249,82 @@ class ComandaWidget extends StatelessWidget {
                                                           ),
                                                     ),
                                                   ),
-                                                  Text(
-                                                    'X ${datitos[index].cantidad}',
-                                                    style: Theme.of(context).textTheme.button.copyWith(
-                                                          color: kTitleTextColor,
-                                                          fontSize: ScreenUtil().setSp(16),
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
+                                                  Column(
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () async {
+                                                              final apiTemporal = ComandaTemporalApi();
+
+                                                              final res = await apiTemporal.updateDetalle(datitos[index], -1);
+
+                                                              if (res.code == 1) {
+                                                                comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                              } else {
+                                                                showToast2('Ocurrió un error', Colors.red);
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              height: ScreenUtil().setHeight(24),
+                                                              child: SvgPicture.asset('assets/svg/minus_on.svg'),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin: EdgeInsets.symmetric(
+                                                              horizontal: ScreenUtil().setWidth(8),
+                                                            ),
+                                                            child: Text(
+                                                              '${datitos[index].cantidad}',
+                                                              textAlign: TextAlign.center,
+                                                              style: Theme.of(context).textTheme.button.copyWith(
+                                                                    color: kTitleTextColor,
+                                                                    fontSize: ScreenUtil().setSp(14),
+                                                                    fontWeight: FontWeight.w500,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () async {
+                                                              final apiTemporal = ComandaTemporalApi();
+
+                                                              final res = await apiTemporal.updateDetalle(datitos[index], 1);
+
+                                                              if (res.code == 1) {
+                                                                comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                              } else {
+                                                                showToast2('Ocurrió un error', Colors.red);
+                                                              }
+                                                            },
+                                                            child: Container(
+                                                              height: ScreenUtil().setHeight(24),
+                                                              child: SvgPicture.asset('assets/svg/add.svg'),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: ScreenUtil().setHeight(8),
+                                                      ),
+                                                      Text(
+                                                        'S/${datitos[index].totalDetalle}',
+                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                              color: kTextColor,
+                                                              fontSize: ScreenUtil().setSp(14),
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
+                                                      )
+                                                    ],
                                                   ),
-                                                  Text(
-                                                    'S/${datitos[index].totalDetalle}',
-                                                    style: Theme.of(context).textTheme.button.copyWith(
-                                                          color: kTextColor,
-                                                          fontSize: ScreenUtil().setSp(14),
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
-                                                  )
+                                                  // Text(
+                                                  //   'X ${datitos[index].cantidad}',
+                                                  //   style: Theme.of(context).textTheme.button.copyWith(
+                                                  //         color: kTitleTextColor,
+                                                  //         fontSize: ScreenUtil().setSp(16),
+                                                  //         fontWeight: FontWeight.w400,
+                                                  //       ),
+                                                  // ),
                                                 ],
                                               ),
                                             ),
@@ -270,7 +346,22 @@ class ComandaWidget extends StatelessWidget {
                                             color: kOrangeColor,
                                             textColor: Colors.white,
                                             elevation: 0,
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              _controller.changeCargando(true);
+                                              final comandaApi = ComandaApi();
+                                              final res = await comandaApi.generarComanda(widget.idMesa);
+                                              if (res.code == 1) {
+                                                // final apiMesas = MesasApi();
+                                                // await apiMesas.obtenerMesasPorNegocio();
+                                                final _prefs = Preferences();
+                                                final mesasBloc = ProviderBloc.mesas(context);
+                                                await mesasBloc.updateMesas(_prefs.indexSelect);
+                                                comandaBloc.obtenerComandaPorMesa(widget.idMesa);
+                                              } else {
+                                                showToast2(res.message, Colors.red);
+                                              }
+                                              _controller.changeCargando(false);
+                                            },
                                             shape: const RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                 Radius.circular(8.0),
@@ -331,6 +422,23 @@ class ComandaWidget extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                  AnimatedBuilder(
+                                    animation: _controller,
+                                    builder: (_, f) {
+                                      return (_controller.cargando)
+                                          ? Container(
+                                              height: double.infinity,
+                                              width: double.infinity,
+                                              color: Color.fromRGBO(0, 0, 0, 0.1),
+                                              child: Center(
+                                                child: CircularProgressIndicator(
+                                                  color: kOrangeTitleTextColor,
+                                                ),
+                                              ),
+                                            )
+                                          : Container();
+                                    },
+                                  ),
                                 ],
                               ),
                             );
@@ -347,6 +455,7 @@ class ComandaWidget extends StatelessWidget {
                                         wmax: 100,
                                         hmin: 75,
                                         wmin: 75,
+                                        image: 'cubiertos',
                                       ),
                                       SizedBox(
                                         height: ScreenUtil().setWidth(24),
@@ -363,9 +472,9 @@ class ComandaWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
+                                  bottom: 5,
+                                  left: 16,
+                                  right: 16,
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: MaterialButton(
@@ -443,5 +552,13 @@ class ComandaWidget extends StatelessWidget {
             });
       },
     );
+  }
+}
+
+class Controller extends ChangeNotifier {
+  bool cargando = false;
+  void changeCargando(bool c) {
+    cargando = c;
+    notifyListeners();
   }
 }

@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ventas_restobar/src/api/login_api.dart';
+import 'package:ventas_restobar/src/api/mesas_api.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
+import 'package:ventas_restobar/src/utils/utils.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
 
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _controller = Controller();
+  final TextEditingController _usuarioController = TextEditingController();
+  final TextEditingController _passwdController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,13 +78,185 @@ class LoginPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(40),
+                    ),
+                    Container(
+                      width: ScreenUtil().setWidth(310),
+                      child: TextField(
+                        maxLines: 1,
+                        controller: _usuarioController,
+                        onChanged: (value) {
+                          if (_usuarioController.text.length > 0 && _passwdController.text.length > 0) {
+                            _controller.changeBoton(true);
+                          } else {
+                            _controller.changeBoton(false);
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Usuario',
+                          hintStyle: TextStyle(
+                            color: Color(0XFF808080),
+                            fontWeight: FontWeight.w400,
+                            fontSize: ScreenUtil().setSp(16),
+                            fontStyle: FontStyle.normal,
+                          ),
+                          filled: true,
+                          fillColor: Color(0XFFEEEEEE),
+                          contentPadding:
+                              EdgeInsets.only(left: ScreenUtil().setWidth(10), top: ScreenUtil().setHeight(5), bottom: ScreenUtil().setHeight(1)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Color(0XFF585858),
+                          fontWeight: FontWeight.w400,
+                          fontSize: ScreenUtil().setSp(16),
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(16),
+                    ),
+                    Container(
+                      width: ScreenUtil().setWidth(310),
+                      child: TextField(
+                        maxLines: 1,
+                        controller: _passwdController,
+                        obscureText: true,
+                        onChanged: (value) {
+                          if (_usuarioController.text.length > 0 && _passwdController.text.length > 0) {
+                            _controller.changeBoton(true);
+                          } else {
+                            _controller.changeBoton(false);
+                          }
+                        },
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintText: 'Contraseña',
+                          hintStyle: TextStyle(
+                            color: Color(0XFF808080),
+                            fontWeight: FontWeight.w400,
+                            fontSize: ScreenUtil().setSp(16),
+                            fontStyle: FontStyle.normal,
+                          ),
+                          filled: true,
+                          fillColor: Color(0XFFEEEEEE),
+                          contentPadding:
+                              EdgeInsets.only(left: ScreenUtil().setWidth(10), top: ScreenUtil().setHeight(5), bottom: ScreenUtil().setHeight(1)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0XFFEEEEEE), width: ScreenUtil().setWidth(1)),
+                          ),
+                        ),
+                        style: TextStyle(
+                          color: Color(0XFF585858),
+                          fontWeight: FontWeight.w400,
+                          fontSize: ScreenUtil().setSp(16),
+                          fontStyle: FontStyle.normal,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(16),
+                    ),
+                    SizedBox(
+                      width: ScreenUtil().setWidth(310),
+                      child: MaterialButton(
+                        height: ScreenUtil().setHeight(56),
+                        color: kOrangeTitleTextColor,
+                        textColor: Colors.white,
+                        elevation: 0,
+                        onPressed: () async {
+                          _controller.changeCargando(true);
+                          if (_controller.boton) {
+                            final _loginApi = LoginApi();
+                            final res = await _loginApi.login(_usuarioController.text, _passwdController.text);
+                            if (res.code == 1) {
+                              final mesaApi = MesasApi();
+                              await mesaApi.obtenerMesasPorNegocio();
+                              Navigator.pushReplacementNamed(context, 'home');
+                            } else {
+                              showToast2(res.message, Colors.black);
+                            }
+                          } else {
+                            showToast2('Complete todos los campos', Colors.black);
+                          }
+                          _controller.changeCargando(false);
+                        },
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                        ),
+                        child: Text(
+                          'Ingresar',
+                          style: Theme.of(context).textTheme.button.copyWith(
+                                color: Colors.white,
+                                fontSize: ScreenUtil().setSp(16),
+                                fontWeight: FontWeight.w500,
+                              ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (_, f) {
+                return (_controller.cargando)
+                    ? Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        color: Color.fromRGBO(0, 0, 0, 0.3),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: kOrangeTitleTextColor,
+                          ),
+                        ),
+                      )
+                    : Container();
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class Controller extends ChangeNotifier {
+  bool cargando = false, boton = false;
+
+  void changeCargando(bool c) {
+    cargando = c;
+    notifyListeners();
+  }
+
+  void changeBoton(bool b) {
+    boton = b;
+    notifyListeners();
   }
 }

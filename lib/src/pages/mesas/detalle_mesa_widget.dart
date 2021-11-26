@@ -6,6 +6,7 @@ import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
 import 'package:ventas_restobar/src/pages/mesas/comanda_widget.dart';
+import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class DetalleMesa extends StatelessWidget {
@@ -87,13 +88,14 @@ class DetalleMesa extends StatelessWidget {
             ],
           );
         } else {
+          final _prefs = Preferences();
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Spacer(),
               Center(
                 child: Text(
-                  'Toque sobre una mesa para ver los detalles',
+                  (_prefs.indexSelect == 1) ? 'Toque sobre una mesa para ver los detalles' : 'Toque sobre una banca para ver los detalles',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.button.copyWith(
                         color: kTitleTextColor,
@@ -106,14 +108,26 @@ class DetalleMesa extends StatelessWidget {
                 height: ScreenUtil().setHeight(300),
                 child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: ScreenUtil().setHeight(150),
-                        //width: ScreenUtil().setWidth(300),
-                        child: SvgPicture.asset('assets/svg/mesa_disable.svg'),
-                      ),
-                    ),
+                    (_prefs.indexSelect == 1)
+                        ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: ScreenUtil().setHeight(150),
+                              //width: ScreenUtil().setWidth(300),
+                              child: SvgPicture.asset('assets/svg/mesa_disable.svg'),
+                            ),
+                          )
+                        : Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              height: ScreenUtil().setHeight(100),
+                              width: ScreenUtil().setWidth(100),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0XFFC4C4C4),
+                              ),
+                            ),
+                          ),
                     Align(
                       alignment: Alignment.topRight,
                       child: Container(

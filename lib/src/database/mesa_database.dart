@@ -27,7 +27,7 @@ class MesaDatabase {
 
   Future<List<MesaModel>> obtenerMesasPorNegocioSalon(String idNegocio) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM Mesas WHERE idNegocio='$idNegocio' AND cast(idMesa as int) >=0 ");
+    final res = await db.rawQuery("SELECT * FROM Mesas WHERE idNegocio='$idNegocio' AND cast(idMesa as int) >0 ORDER BY cast(idMesa as int) ");
 
     List<MesaModel> list = res.isNotEmpty ? res.map((c) => MesaModel.fromJson(c)).toList() : [];
     return list;
@@ -35,7 +35,7 @@ class MesaDatabase {
 
   Future<List<MesaModel>> obtenerMesasPorNegocioBarra(String idNegocio) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM Mesas WHERE idNegocio='$idNegocio' AND cast(idMesa as int) < 0 ");
+    final res = await db.rawQuery("SELECT * FROM Mesas WHERE idNegocio='$idNegocio' AND cast(idMesa as int) < -6 ORDER BY cast(idMesa as int) DESC ");
 
     List<MesaModel> list = res.isNotEmpty ? res.map((c) => MesaModel.fromJson(c)).toList() : [];
     return list;

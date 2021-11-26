@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
+import 'package:ventas_restobar/src/pages/asistencia/asistencia_page.dart';
 import 'package:ventas_restobar/src/pages/mesas/mesas_page.dart';
 import 'package:ventas_restobar/src/pages/tablet/side_menu.dart';
 import 'package:ventas_restobar/src/utils/responsive_builder.dart';
@@ -174,9 +175,11 @@ class VistaTablet extends StatelessWidget {
               Expanded(
                 child: (data == EnumIndex.mesas)
                     ? MesasPage()
-                    : Container(
-                        color: Color(0XFFE9EEF6),
-                      ),
+                    : (data == EnumIndex.asistencia)
+                        ? AsistenciaPage()
+                        : Container(
+                            color: Color(0XFFE9EEF6),
+                          ),
               )
             ],
           );

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/bloc/index_bloc.dart';
 import 'package:ventas_restobar/src/pages/tablet/logout.dart';
+import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/widgets/side_menu_item.dart';
 
@@ -16,6 +17,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<IndexBlocListener>(context, listen: false);
+    final _prefs = Preferences();
     return Container(
       width: double.infinity,
       height: ScreenUtil().setHeight(64),
@@ -91,6 +93,20 @@ class SideMenu extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: kDefaultPadding),
+                      Container(
+                        height: ScreenUtil().setHeight(40),
+                        child: Image.asset('assets/img/logo.png'),
+                      ),
+                      SizedBox(width: ScreenUtil().setWidth(21)),
+                      Text(
+                        _prefs.nombres,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.button.copyWith(
+                              fontSize: ScreenUtil().setSp(20),
+                              fontWeight: FontWeight.bold,
+                              color: kTitleTextColor,
+                            ),
+                      ),
                       Spacer(),
                       Container(
                         child: Center(

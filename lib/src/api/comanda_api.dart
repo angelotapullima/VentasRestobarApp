@@ -1,4 +1,6 @@
+import 'package:ventas_restobar/src/database/comanda_database.dart';
 import 'package:ventas_restobar/src/database/detalle_comanda_temporal_database.dart';
+import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
 import 'package:ventas_restobar/src/models/productos_familia_model.dart';
 import 'package:ventas_restobar/src/models/result_api_model.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
@@ -97,6 +99,51 @@ class ComandaApi {
       final decodedData = json.decode(resp.body);
       print(decodedData);
       if (decodedData['result']["code"] == 1) {
+        respuesta.code = decodedData['result']["code"];
+        respuesta.message = 'Ok';
+      } else {
+        respuesta.code = decodedData['result']["code"];
+        respuesta.message = 'Ocurrió un error';
+      }
+
+      return respuesta;
+    } catch (e) {
+      respuesta.code = 2;
+      respuesta.message = 'Ocurrió un error';
+      return respuesta;
+    }
+  }
+
+  Future<ResultApiModel> eliminarProductoAComanda(DetalleComandaModel detalle, String contra, String motivo) async {
+    final ResultApiModel respuesta = ResultApiModel();
+    try {
+      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/eliminar_comanda_detalle');
+
+      final resp = await http.post(
+        url,
+        body: {
+          'tn': _preferences.token,
+          'id_comanda': detalle.idComanda,
+          'password': contra,
+          'id_comanda_detalle': detalle.idDetalle,
+          'comanda_detalle_eliminacion': motivo,
+          'id_mesa': _preferences.idMesa,
+          'app': 'true',
+        },
+      );
+
+      if (resp.statusCode == 401) {
+        respuesta.code = 3;
+        respuesta.message = 'Problemas de conexión';
+
+        return respuesta;
+      }
+
+      final decodedData = json.decode(resp.body);
+      print(decodedData);
+      if (decodedData['result']["code"] == 1) {
+        final _comandaDatabase = ComandaDatabase();
+        await _comandaDatabase.deleteDetalleComandaPorIdDetalle(detalle.idDetalle);
         respuesta.code = decodedData['result']["code"];
         respuesta.message = 'Ok';
       } else {

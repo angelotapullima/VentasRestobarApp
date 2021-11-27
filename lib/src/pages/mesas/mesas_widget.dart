@@ -114,28 +114,31 @@ class _MesasWidgetState extends State<MesasWidget> {
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: ScreenUtil().setHeight(4),
-                        horizontal: ScreenUtil().setWidth(10),
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: kOrangeColor,
-                          ),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Unir mesas',
-                            style: Theme.of(context).textTheme.button.copyWith(
-                                  color: kOrangeColor,
-                                  fontSize: ScreenUtil().setSp(16),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                          ),
-                          Container(height: ScreenUtil().setHeight(24), child: SvgPicture.asset('assets/svg/plus_orange.svg'))
-                        ],
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setHeight(4),
+                          horizontal: ScreenUtil().setWidth(10),
+                        ),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: kOrangeColor,
+                            ),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Unir mesas',
+                              style: Theme.of(context).textTheme.button.copyWith(
+                                    color: kOrangeColor,
+                                    fontSize: ScreenUtil().setSp(16),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            Container(height: ScreenUtil().setHeight(24), child: SvgPicture.asset('assets/svg/plus_orange.svg'))
+                          ],
+                        ),
                       ),
                     )
                   ],

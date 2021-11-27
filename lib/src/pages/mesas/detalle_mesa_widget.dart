@@ -6,12 +6,18 @@ import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
 import 'package:ventas_restobar/src/pages/mesas/comanda_widget.dart';
+import 'package:ventas_restobar/src/pages/mesas/mover_mesa_page.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
-class DetalleMesa extends StatelessWidget {
+class DetalleMesa extends StatefulWidget {
   const DetalleMesa({Key key}) : super(key: key);
 
+  @override
+  _DetalleMesaState createState() => _DetalleMesaState();
+}
+
+class _DetalleMesaState extends State<DetalleMesa> {
   @override
   Widget build(BuildContext context) {
     final detalleMesaBloc = ProviderBloc.mesas(context);
@@ -65,6 +71,45 @@ class DetalleMesa extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
+                    (mesa[0].mesaEstadoAtencion == '1')
+                        ? InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (context, animation, secondaryAnimation) {
+                                    return MoverMesaPage(
+                                      mesa: mesa[0],
+                                    );
+                                  },
+                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                    var begin = Offset(0.0, 1.0);
+                                    var end = Offset.zero;
+                                    var curve = Curves.ease;
+
+                                    var tween = Tween(begin: begin, end: end).chain(
+                                      CurveTween(curve: curve),
+                                    );
+
+                                    return SlideTransition(
+                                      position: animation.drive(tween),
+                                      child: child,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Mover mesa',
+                              style: Theme.of(context).textTheme.button.copyWith(
+                                    color: kOrangeColor,
+                                    fontSize: ScreenUtil().setSp(10),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          )
+                        : Container(),
                     IconButton(
                       padding: EdgeInsets.all(0),
                       onPressed: () {

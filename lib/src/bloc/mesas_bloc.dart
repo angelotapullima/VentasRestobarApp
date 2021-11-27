@@ -45,11 +45,12 @@ class MesasBloc {
   }
 
   Future<int> updateMesas(int lugar) async {
-    _mesasNegocioController.sink.add(null);
     await _mesasApi.obtenerMesasPorNegocio();
     if (lugar == 1) {
+      //_mesasNegocioSalonController.sink.add(null);
       _mesasNegocioSalonController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
     } else {
+      //_mesasNegocioBarraController.sink.add(null);
       _mesasNegocioBarraController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
     }
     return 0;
@@ -57,6 +58,14 @@ class MesasBloc {
 
   void limpiarMesa() async {
     _mesaDetalleController.sink.add(null);
+  }
+
+  void obtenerMesasChange(int lugar) async {
+    if (lugar == 1) {
+      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
+    } else {
+      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
+    }
   }
 
   dispose() {

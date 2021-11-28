@@ -60,12 +60,8 @@ class MesasBloc {
     _mesaDetalleController.sink.add(null);
   }
 
-  void obtenerMesasChange(int lugar) async {
-    if (lugar == 1) {
-      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
-    } else {
-      _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
-    }
+  void obtenerMesasDisponibles() async {
+    _mesasNegocioController.sink.add(await _mesasDatabase.obtenerMesasDisponibles(_prefs.tiendaId));
   }
 
   dispose() {

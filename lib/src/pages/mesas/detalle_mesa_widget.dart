@@ -74,6 +74,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                     (mesa[0].mesaEstadoAtencion == '1')
                         ? InkWell(
                             onTap: () {
+                              detalleMesaBloc.obtenerMesasDisponibles();
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(

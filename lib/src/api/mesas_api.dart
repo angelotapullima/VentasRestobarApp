@@ -17,7 +17,7 @@ class MesasApi {
 
   Future<bool> obtenerMesasPorNegocio() async {
     try {
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Mesa/listar_mesas');
+      final url = Uri.parse('$apiBaseURL/api/Mesa/listar_mesas');
 
       final resp = await http.post(
         url,
@@ -31,6 +31,7 @@ class MesasApi {
       final decodedData = json.decode(resp.body);
 
       if (decodedData['result']["code"] == 1) {
+        await _mesaDatabase.deleteMesas();
         for (var i = 0; i < decodedData['result']["datos"].length; i++) {
           MesaModel mesa = MesaModel();
           mesa.idMesa = decodedData['result']["datos"][i]['id_mesa'];
@@ -75,9 +76,11 @@ class MesasApi {
         }
         return true;
       } else {
+        await _mesaDatabase.deleteMesas();
         return false;
       }
     } catch (e) {
+      await _mesaDatabase.deleteMesas();
       print('ERROR EXCEPCION: $e');
       return false;
     }
@@ -89,7 +92,7 @@ class MesasApi {
       final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesaOrigen);
 
       if (_listaComandaMesa.length > 0) {
-        final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/cambiar_mesa');
+        final url = Uri.parse('$apiBaseURL/api/Pedido/cambiar_mesa');
 
         final resp = await http.post(
           url,

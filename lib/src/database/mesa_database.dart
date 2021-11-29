@@ -5,6 +5,7 @@ class MesaDatabase {
   final dbprovider = DatabaseProvider.db;
 
   insertarMesa(MesaModel mesa) async {
+    print('inserrtar mesas');
     try {
       final db = await dbprovider.database;
 
@@ -59,6 +60,7 @@ class MesaDatabase {
   }
 
   deleteMesas() async {
+    print('borrando mesas');
     final db = await dbprovider.database;
 
     final res = await db.rawDelete('DELETE FROM Mesas');

@@ -15,7 +15,7 @@ class FamiliasApi {
 
   Future<bool> obtenerFamilias() async {
     try {
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/listar_familias_productos');
+      final url = Uri.parse('$apiBaseURL/api/Pedido/listar_familias_productos');
 
       final resp = await http.post(
         url,
@@ -59,6 +59,7 @@ class FamiliasApi {
         return false;
       }
     } catch (e) {
+      print(e);
       return false;
     }
   }

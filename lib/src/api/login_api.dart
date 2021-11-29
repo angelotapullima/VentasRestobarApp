@@ -10,7 +10,7 @@ class LoginApi {
   Future<ResultApiModel> login(String user, String pass) async {
     final ResultApiModel result = ResultApiModel();
     try {
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Login/validar_sesion_app');
+      final url = Uri.parse('$apiBaseURL/api/Login/validar_sesion_app');
 
       final resp = await http.post(url, body: {
         'usuario_nickname': '$user',

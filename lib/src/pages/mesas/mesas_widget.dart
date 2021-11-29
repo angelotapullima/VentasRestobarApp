@@ -114,7 +114,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                         ),
                       ),
                     ),
-                    InkWell(
+                   /*  InkWell(
                       onTap: () {},
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -141,7 +141,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                         ),
                       ),
                     )
-                  ],
+                   */],
                 ),
                 AnimatedBuilder(
                     animation: _controller,

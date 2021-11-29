@@ -26,7 +26,7 @@ class ComandaApi {
           total = total + double.parse(_listaDetalleTemporal[i].totalDetalle);
         }
 
-        final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/guardar_comanda');
+        final url = Uri.parse('$apiBaseURL/api/Pedido/guardar_comanda');
 
         final resp = await http.post(
           url,
@@ -77,7 +77,7 @@ class ComandaApi {
       String contenido =
           '${producto.idProducto}-.-.${producto.productoNombre}-.-.${producto.productoPrecio}-.-.$cantidad-.-.$despacho-.-.$observaciones-.-.$precioTotal/./.';
 
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/guardar_comanda_nuevo');
+      final url = Uri.parse('$apiBaseURL/api/Pedido/guardar_comanda_nuevo');
 
       final resp = await http.post(
         url,
@@ -117,7 +117,7 @@ class ComandaApi {
   Future<ResultApiModel> eliminarProductoAComanda(DetalleComandaModel detalle, String contra, String motivo) async {
     final ResultApiModel respuesta = ResultApiModel();
     try {
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/eliminar_comanda_detalle');
+      final url = Uri.parse('$apiBaseURL/api/Pedido/eliminar_comanda_detalle');
 
       final resp = await http.post(
         url,

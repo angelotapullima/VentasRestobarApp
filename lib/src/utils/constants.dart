@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-//const apiBaseURL = "https://bufeotec.com";
-const apiBaseURL = "http://192.168.1.193/laultimaconchita";
+const apiBaseURL = "https://bufeotec.com/ventas_app";
+//const apiBaseURL = "http://192.168.1.193/laultimaconchita";
 
 // All of our constant stuff
 

@@ -130,7 +130,7 @@ class MesasApi {
   Future<ResultApiModel> limpiarMesa(String idMesa) async {
     final ResultApiModel result = ResultApiModel();
     try {
-      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/habilitar_mesa');
+      final url = Uri.parse('$apiBaseURL/api/Pedido/habilitar_mesa');
 
       final resp = await http.post(
         url,

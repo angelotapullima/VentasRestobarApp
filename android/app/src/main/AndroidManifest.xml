@@ -2,9 +2,9 @@
     package="com.example.ventas_restobar">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="ventas_restobar"
+        android:label="La última conchita"
         android:screenOrientation="landscape"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape"

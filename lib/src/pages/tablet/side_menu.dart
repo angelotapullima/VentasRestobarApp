@@ -55,19 +55,19 @@ class SideMenu extends StatelessWidget {
                               isActive: (data == EnumIndex.mesas) ? true : false,
                             )),
                           ),
-                          SizedBox(width: ScreenUtil().setWidth(56)),
-                          Container(
-                            child: Center(
-                                child: SideMenuItem(
-                              press: () {
-                                provider.changeToPedidos();
-                              },
-                              color: Colors.transparent,
-                              title: "Historial de pedidos",
-                              showBorder: (data == EnumIndex.pedidos) ? true : false,
-                              isActive: (data == EnumIndex.pedidos) ? true : false,
-                            )),
-                          ),
+                          // SizedBox(width: ScreenUtil().setWidth(56)),
+                          // Container(
+                          //   child: Center(
+                          //       child: SideMenuItem(
+                          //     press: () {
+                          //       provider.changeToPedidos();
+                          //     },
+                          //     color: Colors.transparent,
+                          //     title: "Historial de pedidos",
+                          //     showBorder: (data == EnumIndex.pedidos) ? true : false,
+                          //     isActive: (data == EnumIndex.pedidos) ? true : false,
+                          //   )),
+                          // ),
                           SizedBox(width: ScreenUtil().setWidth(56)),
                           Container(
                             child: Center(
@@ -119,18 +119,18 @@ class SideMenu extends StatelessWidget {
                           isActive: (data == EnumIndex.mesas) ? true : false,
                         )),
                       ),
-                      SizedBox(width: ScreenUtil().setWidth(56)),
-                      Container(
-                        child: Center(
-                            child: SideMenuItem(
-                          press: () {
-                            provider.changeToPedidos();
-                          },
-                          color: (data == EnumIndex.pedidos) ? kTitleTextColor : kTextInactiveColor,
-                          title: "Historial de pedidos",
-                          isActive: (data == EnumIndex.pedidos) ? true : false,
-                        )),
-                      ),
+                      // SizedBox(width: ScreenUtil().setWidth(56)),
+                      // Container(
+                      //   child: Center(
+                      //       child: SideMenuItem(
+                      //     press: () {
+                      //       provider.changeToPedidos();
+                      //     },
+                      //     color: (data == EnumIndex.pedidos) ? kTitleTextColor : kTextInactiveColor,
+                      //     title: "Historial de pedidos",
+                      //     isActive: (data == EnumIndex.pedidos) ? true : false,
+                      //   )),
+                      // ),
                       SizedBox(width: ScreenUtil().setWidth(56)),
                       Container(
                         child: Center(

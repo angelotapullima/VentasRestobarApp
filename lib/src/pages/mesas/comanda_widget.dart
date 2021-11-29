@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:ventas_restobar/src/api/comanda_api.dart';
 import 'package:ventas_restobar/src/api/comanda_temporal_api.dart';
+import 'package:ventas_restobar/src/api/mesas_api.dart';
 import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
@@ -17,7 +18,8 @@ import 'package:ventas_restobar/src/widgets/producto_image.dart';
 
 class ComandaWidget extends StatefulWidget {
   final String idMesa;
-  const ComandaWidget({Key key, @required this.idMesa}) : super(key: key);
+  final String estadoAtencion;
+  const ComandaWidget({Key key, @required this.idMesa, @required this.estadoAtencion}) : super(key: key);
 
   @override
   _ComandaWidgetState createState() => _ComandaWidgetState();
@@ -240,341 +242,411 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                         )
                       : Container();
                 } else {
-                  _prefs.idEnviarEnComanda = widget.idMesa;
-                  _prefs.esComanda = false;
-                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
-                  return Expanded(
-                    child: StreamBuilder(
-                      stream: comandaBloc.comandaTemporalStream,
-                      builder: (context, AsyncSnapshot<List<DetalleComandaTemporalModel>> snapshot2) {
-                        if (snapshot2.hasData) {
-                          if (snapshot2.data.length > 0) {
-                            var datitos = snapshot2.data;
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: ScreenUtil().setWidth(16),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                      bottom: ScreenUtil().setHeight(90),
+                  if (widget.estadoAtencion == '2') {
+                    return Expanded(
+                      child: Stack(
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              width: ScreenUtil().setWidth(200),
+                              child: MaterialButton(
+                                height: ScreenUtil().setHeight(36),
+                                color: kOrangeColor,
+                                textColor: Colors.white,
+                                elevation: 0,
+                                onPressed: () async {
+                                  _controller.changeCargando(true);
+                                  final _mesaApi = MesasApi();
+                                  final res = await _mesaApi.limpiarMesa(widget.idMesa);
+                                  if (res.code == 1) {
+                                    final _prefs = Preferences();
+                                    final mesasBloc = ProviderBloc.mesas(context);
+                                    await mesasBloc.updateMesas(_prefs.indexSelect);
+                                    mesasBloc.limpiarMesa();
+                                  } else {
+                                    showToast2(res.message, Colors.red);
+                                  }
+                                  _controller.changeCargando(false);
+                                },
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.cleaning_services_outlined,
+                                      color: Colors.white,
+                                      size: ScreenUtil().setHeight(24),
                                     ),
-                                    child: ListView.builder(
-                                      itemCount: datitos.length,
-                                      scrollDirection: Axis.vertical,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
-                                            child: Container(
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  ProductoImage(
-                                                    himage: 20,
-                                                    hmax: 40,
-                                                    wmax: 40,
-                                                    hmin: 30,
-                                                    wmin: 30,
-                                                    image: (datitos[index].despacho == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
-                                                  ),
-                                                  Container(
-                                                    width: ScreenUtil().setWidth(80),
-                                                    child: Text(
-                                                      '${datitos[index].nombreProducto}',
-                                                      style: Theme.of(context).textTheme.button.copyWith(
-                                                            color: kTitleTextColor,
-                                                            fontSize: ScreenUtil().setSp(16),
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
+                                    SizedBox(
+                                      width: ScreenUtil().setWidth(10),
+                                    ),
+                                    Text(
+                                      (_prefs.indexSelect == 1) ? 'Limpiar mesa' : 'Limpiar banca',
+                                      style: Theme.of(context).textTheme.button.copyWith(
+                                            color: Colors.white,
+                                            fontSize: ScreenUtil().setSp(16),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          AnimatedBuilder(
+                            animation: _controller,
+                            builder: (_, f) {
+                              return (_controller.cargando)
+                                  ? Container(
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      color: Color.fromRGBO(0, 0, 0, 0.1),
+                                      child: Center(
+                                        child: CircularProgressIndicator(
+                                          color: kOrangeTitleTextColor,
+                                        ),
+                                      ),
+                                    )
+                                  : Container();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    _prefs.idEnviarEnComanda = widget.idMesa;
+                    _prefs.esComanda = false;
+                    comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                    return Expanded(
+                      child: StreamBuilder(
+                        stream: comandaBloc.comandaTemporalStream,
+                        builder: (context, AsyncSnapshot<List<DetalleComandaTemporalModel>> snapshot2) {
+                          if (snapshot2.hasData) {
+                            if (snapshot2.data.length > 0) {
+                              var datitos = snapshot2.data;
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: ScreenUtil().setWidth(16),
+                                ),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        bottom: ScreenUtil().setHeight(90),
+                                      ),
+                                      child: ListView.builder(
+                                        itemCount: datitos.length,
+                                        scrollDirection: Axis.vertical,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
+                                              child: Container(
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    ProductoImage(
+                                                      himage: 20,
+                                                      hmax: 40,
+                                                      wmax: 40,
+                                                      hmin: 30,
+                                                      wmin: 30,
+                                                      image: (datitos[index].despacho == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                                     ),
-                                                  ),
-                                                  Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () async {
-                                                              final apiTemporal = ComandaTemporalApi();
-
-                                                              final res = await apiTemporal.updateDetalle(datitos[index], -1);
-
-                                                              if (res.code == 1) {
-                                                                comandaBloc.obtenerComandaTemporal(widget.idMesa);
-                                                              } else {
-                                                                showToast2('Ocurrió un error', Colors.red);
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              height: ScreenUtil().setHeight(24),
-                                                              child: SvgPicture.asset('assets/svg/minus_on.svg'),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin: EdgeInsets.symmetric(
-                                                              horizontal: ScreenUtil().setWidth(8),
-                                                            ),
-                                                            child: Text(
-                                                              '${datitos[index].cantidad}',
-                                                              textAlign: TextAlign.center,
-                                                              style: Theme.of(context).textTheme.button.copyWith(
-                                                                    color: kTitleTextColor,
-                                                                    fontSize: ScreenUtil().setSp(14),
-                                                                    fontWeight: FontWeight.w500,
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () async {
-                                                              final apiTemporal = ComandaTemporalApi();
-
-                                                              final res = await apiTemporal.updateDetalle(datitos[index], 1);
-
-                                                              if (res.code == 1) {
-                                                                comandaBloc.obtenerComandaTemporal(widget.idMesa);
-                                                              } else {
-                                                                showToast2('Ocurrió un error', Colors.red);
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              height: ScreenUtil().setHeight(24),
-                                                              child: SvgPicture.asset('assets/svg/add.svg'),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: ScreenUtil().setHeight(8),
-                                                      ),
-                                                      Text(
-                                                        'S/${datitos[index].totalDetalle}',
+                                                    Container(
+                                                      width: ScreenUtil().setWidth(80),
+                                                      child: Text(
+                                                        '${datitos[index].nombreProducto}',
                                                         style: Theme.of(context).textTheme.button.copyWith(
-                                                              color: kTextColor,
-                                                              fontSize: ScreenUtil().setSp(14),
+                                                              color: kTitleTextColor,
+                                                              fontSize: ScreenUtil().setSp(16),
                                                               fontWeight: FontWeight.w400,
                                                             ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  // Text(
-                                                  //   'X ${datitos[index].cantidad}',
-                                                  //   style: Theme.of(context).textTheme.button.copyWith(
-                                                  //         color: kTitleTextColor,
-                                                  //         fontSize: ScreenUtil().setSp(16),
-                                                  //         fontWeight: FontWeight.w400,
-                                                  //       ),
-                                                  // ),
-                                                ],
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                final apiTemporal = ComandaTemporalApi();
+
+                                                                final res = await apiTemporal.updateDetalle(datitos[index], -1);
+
+                                                                if (res.code == 1) {
+                                                                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                                } else {
+                                                                  showToast2('Ocurrió un error', Colors.red);
+                                                                }
+                                                              },
+                                                              child: Container(
+                                                                height: ScreenUtil().setHeight(24),
+                                                                child: SvgPicture.asset('assets/svg/minus_on.svg'),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              margin: EdgeInsets.symmetric(
+                                                                horizontal: ScreenUtil().setWidth(8),
+                                                              ),
+                                                              child: Text(
+                                                                '${datitos[index].cantidad}',
+                                                                textAlign: TextAlign.center,
+                                                                style: Theme.of(context).textTheme.button.copyWith(
+                                                                      color: kTitleTextColor,
+                                                                      fontSize: ScreenUtil().setSp(14),
+                                                                      fontWeight: FontWeight.w500,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                final apiTemporal = ComandaTemporalApi();
+
+                                                                final res = await apiTemporal.updateDetalle(datitos[index], 1);
+
+                                                                if (res.code == 1) {
+                                                                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                                } else {
+                                                                  showToast2('Ocurrió un error', Colors.red);
+                                                                }
+                                                              },
+                                                              child: Container(
+                                                                height: ScreenUtil().setHeight(24),
+                                                                child: SvgPicture.asset('assets/svg/add.svg'),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: ScreenUtil().setHeight(8),
+                                                        ),
+                                                        Text(
+                                                          'S/${datitos[index].totalDetalle}',
+                                                          style: Theme.of(context).textTheme.button.copyWith(
+                                                                color: kTextColor,
+                                                                fontSize: ScreenUtil().setSp(14),
+                                                                fontWeight: FontWeight.w400,
+                                                              ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    Positioned(
+                                      bottom: 0,
+                                      left: 0,
+                                      right: 0,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            width: double.infinity,
+                                            child: MaterialButton(
+                                              height: ScreenUtil().setHeight(36),
+                                              color: kOrangeColor,
+                                              textColor: Colors.white,
+                                              elevation: 0,
+                                              onPressed: () async {
+                                                _controller.changeCargando(true);
+                                                final comandaApi = ComandaApi();
+                                                final res = await comandaApi.generarComanda(widget.idMesa);
+                                                if (res.code == 1) {
+                                                  // final apiMesas = MesasApi();
+                                                  // await apiMesas.obtenerMesasPorNegocio();
+                                                  final _prefs = Preferences();
+                                                  final mesasBloc = ProviderBloc.mesas(context);
+                                                  await mesasBloc.updateMesas(_prefs.indexSelect);
+                                                  comandaBloc.obtenerComandaPorMesa(widget.idMesa);
+                                                } else {
+                                                  showToast2(res.message, Colors.red);
+                                                }
+                                                _controller.changeCargando(false);
+                                              },
+                                              shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.0),
+                                                ),
+                                              ),
+                                              child: Text(
+                                                'Generar comanda',
+                                                style: Theme.of(context).textTheme.button.copyWith(
+                                                      color: Colors.white,
+                                                      fontSize: ScreenUtil().setSp(16),
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
                                               ),
                                             ),
                                           ),
-                                        );
+                                          (data == EnumIndex.mesas)
+                                              ? SizedBox(
+                                                  width: double.infinity,
+                                                  child: MaterialButton(
+                                                    height: ScreenUtil().setHeight(36),
+                                                    color: kOrangeColor,
+                                                    textColor: Colors.white,
+                                                    elevation: 0,
+                                                    onPressed: () {
+                                                      if (data == EnumIndex.mesas) {
+                                                        provider.changeToProductos();
+                                                      }
+                                                    },
+                                                    shape: const RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.all(
+                                                        Radius.circular(8.0),
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Icon(
+                                                          Icons.add,
+                                                          color: Colors.white,
+                                                          size: ScreenUtil().setHeight(24),
+                                                        ),
+                                                        SizedBox(
+                                                          width: ScreenUtil().setWidth(10),
+                                                        ),
+                                                        Text(
+                                                          'Agregar productos',
+                                                          style: Theme.of(context).textTheme.button.copyWith(
+                                                                color: Colors.white,
+                                                                fontSize: ScreenUtil().setSp(16),
+                                                                fontWeight: FontWeight.w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
+                                        ],
+                                      ),
+                                    ),
+                                    AnimatedBuilder(
+                                      animation: _controller,
+                                      builder: (_, f) {
+                                        return (_controller.cargando)
+                                            ? Container(
+                                                height: double.infinity,
+                                                width: double.infinity,
+                                                color: Color.fromRGBO(0, 0, 0, 0.1),
+                                                child: Center(
+                                                  child: CircularProgressIndicator(
+                                                    color: kOrangeTitleTextColor,
+                                                  ),
+                                                ),
+                                              )
+                                            : Container();
                                       },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            } else {
+                              final _prefs = Preferences();
+                              return Stack(
+                                children: [
+                                  Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        ProductoImage(
+                                          himage: 50,
+                                          hmax: 100,
+                                          wmax: 100,
+                                          hmin: 75,
+                                          wmin: 75,
+                                          image: 'cubiertos',
+                                        ),
+                                        SizedBox(
+                                          height: ScreenUtil().setWidth(24),
+                                        ),
+                                        Text(
+                                          (_prefs.indexSelect == 1) ? 'Agregue productos a la mesa' : 'Agregue productos a la banca',
+                                          style: Theme.of(context).textTheme.button.copyWith(
+                                                color: kTitleTextColor,
+                                                fontSize: ScreenUtil().setSp(16),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                   Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          width: double.infinity,
-                                          child: MaterialButton(
-                                            height: ScreenUtil().setHeight(36),
-                                            color: kOrangeColor,
-                                            textColor: Colors.white,
-                                            elevation: 0,
-                                            onPressed: () async {
-                                              _controller.changeCargando(true);
-                                              final comandaApi = ComandaApi();
-                                              final res = await comandaApi.generarComanda(widget.idMesa);
-                                              if (res.code == 1) {
-                                                // final apiMesas = MesasApi();
-                                                // await apiMesas.obtenerMesasPorNegocio();
-                                                final _prefs = Preferences();
-                                                final mesasBloc = ProviderBloc.mesas(context);
-                                                await mesasBloc.updateMesas(_prefs.indexSelect);
-                                                comandaBloc.obtenerComandaPorMesa(widget.idMesa);
-                                              } else {
-                                                showToast2(res.message, Colors.red);
-                                              }
-                                              _controller.changeCargando(false);
-                                            },
-                                            shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8.0),
-                                              ),
+                                    bottom: 5,
+                                    left: 16,
+                                    right: 16,
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: MaterialButton(
+                                        height: ScreenUtil().setHeight(36),
+                                        color: kOrangeColor,
+                                        textColor: Colors.white,
+                                        elevation: 0,
+                                        onPressed: () {
+                                          if (data == EnumIndex.mesas) {
+                                            provider.changeToProductos();
+                                          }
+                                        },
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(8.0),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                              size: ScreenUtil().setHeight(24),
                                             ),
-                                            child: Text(
-                                              'Generar comanda',
+                                            SizedBox(
+                                              width: ScreenUtil().setWidth(10),
+                                            ),
+                                            Text(
+                                              'Agregar productos',
                                               style: Theme.of(context).textTheme.button.copyWith(
                                                     color: Colors.white,
                                                     fontSize: ScreenUtil().setSp(16),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
-                                          ),
+                                          ],
                                         ),
-                                        (data == EnumIndex.mesas)
-                                            ? SizedBox(
-                                                width: double.infinity,
-                                                child: MaterialButton(
-                                                  height: ScreenUtil().setHeight(36),
-                                                  color: kOrangeColor,
-                                                  textColor: Colors.white,
-                                                  elevation: 0,
-                                                  onPressed: () {
-                                                    if (data == EnumIndex.mesas) {
-                                                      provider.changeToProductos();
-                                                    }
-                                                  },
-                                                  shape: const RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.all(
-                                                      Radius.circular(8.0),
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                        size: ScreenUtil().setHeight(24),
-                                                      ),
-                                                      SizedBox(
-                                                        width: ScreenUtil().setWidth(10),
-                                                      ),
-                                                      Text(
-                                                        'Agregar productos',
-                                                        style: Theme.of(context).textTheme.button.copyWith(
-                                                              color: Colors.white,
-                                                              fontSize: ScreenUtil().setSp(16),
-                                                              fontWeight: FontWeight.w500,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            : Container(),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                  AnimatedBuilder(
-                                    animation: _controller,
-                                    builder: (_, f) {
-                                      return (_controller.cargando)
-                                          ? Container(
-                                              height: double.infinity,
-                                              width: double.infinity,
-                                              color: Color.fromRGBO(0, 0, 0, 0.1),
-                                              child: Center(
-                                                child: CircularProgressIndicator(
-                                                  color: kOrangeTitleTextColor,
-                                                ),
-                                              ),
-                                            )
-                                          : Container();
-                                    },
                                   ),
                                 ],
+                              );
+                            }
+                          } else {
+                            return Center(
+                              child: Text(
+                                'Cargando...',
+                                style: Theme.of(context).textTheme.button.copyWith(
+                                      color: kTitleTextColor,
+                                      fontSize: ScreenUtil().setSp(16),
+                                      fontWeight: FontWeight.w400,
+                                    ),
                               ),
                             );
-                          } else {
-                            return Stack(
-                              children: [
-                                Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ProductoImage(
-                                        himage: 50,
-                                        hmax: 100,
-                                        wmax: 100,
-                                        hmin: 75,
-                                        wmin: 75,
-                                        image: 'cubiertos',
-                                      ),
-                                      SizedBox(
-                                        height: ScreenUtil().setWidth(24),
-                                      ),
-                                      Text(
-                                        'Agregue productos a la mesa',
-                                        style: Theme.of(context).textTheme.button.copyWith(
-                                              color: kTitleTextColor,
-                                              fontSize: ScreenUtil().setSp(16),
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 5,
-                                  left: 16,
-                                  right: 16,
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    child: MaterialButton(
-                                      height: ScreenUtil().setHeight(36),
-                                      color: kOrangeColor,
-                                      textColor: Colors.white,
-                                      elevation: 0,
-                                      onPressed: () {
-                                        if (data == EnumIndex.mesas) {
-                                          provider.changeToProductos();
-                                        }
-                                      },
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8.0),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                            size: ScreenUtil().setHeight(24),
-                                          ),
-                                          SizedBox(
-                                            width: ScreenUtil().setWidth(10),
-                                          ),
-                                          Text(
-                                            'Agregar productos',
-                                            style: Theme.of(context).textTheme.button.copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: ScreenUtil().setSp(16),
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
                           }
-                        } else {
-                          return Center(
-                            child: Text(
-                              'Cargando...',
-                              style: Theme.of(context).textTheme.button.copyWith(
-                                    color: kTitleTextColor,
-                                    fontSize: ScreenUtil().setSp(16),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  );
+                        },
+                      ),
+                    );
+                  }
                 }
               } else {
                 return Expanded(

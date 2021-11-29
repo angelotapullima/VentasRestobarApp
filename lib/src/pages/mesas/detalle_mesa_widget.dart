@@ -130,6 +130,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
               ),
               ComandaWidget(
                 idMesa: mesa[0].idMesa,
+                estadoAtencion: mesa[0].mesaEstadoAtencion,
               ),
             ],
           );

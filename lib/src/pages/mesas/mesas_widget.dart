@@ -187,11 +187,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                                 color2 = Color(0XFF9EDCFF);
                                                 texto = 'Reservado';
                                               }
-                                              // if (index == 0) {
-                                              //   color = Color(0XFF5FC52F);
-                                              //   color2 = Color(0XFF47D106);
-                                              //   texto = 'Disponible';
-                                              // }
+
                                               return InkWell(
                                                 onTap: () {
                                                   print('Tap');
@@ -339,113 +335,115 @@ class _MesasWidgetState extends State<MesasWidget> {
                                   if (snapshot.hasData) {
                                     if (snapshot.data.length > 0) {
                                       var datos = snapshot.data;
-                                      return Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                height: ScreenUtil().setHeight(272),
-                                                width: ScreenUtil().setWidth(184),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      height: ScreenUtil().setHeight(272),
-                                                      width: ScreenUtil().setWidth(80),
-                                                      child: Column(
-                                                        children: [
-                                                          circles(context, datos[0]),
-                                                          SizedBox(height: ScreenUtil().setHeight(64)),
-                                                          circles(context, datos[1]),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: ScreenUtil().setHeight(272),
-                                                      width: ScreenUtil().setWidth(80),
-                                                      decoration: BoxDecoration(
-                                                          color: kOrangeColor,
-                                                          borderRadius: BorderRadius.only(
-                                                            topLeft: Radius.circular(16),
-                                                            topRight: Radius.circular(16),
-                                                          )),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: ScreenUtil().setWidth(220),
-                                              ),
-                                              Container(
-                                                height: ScreenUtil().setHeight(272),
-                                                width: ScreenUtil().setWidth(184),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      height: ScreenUtil().setHeight(272),
-                                                      width: ScreenUtil().setWidth(80),
-                                                      decoration: BoxDecoration(
-                                                          color: kOrangeColor,
-                                                          borderRadius: BorderRadius.only(
-                                                            topLeft: Radius.circular(16),
-                                                            topRight: Radius.circular(16),
-                                                          )),
-                                                    ),
-                                                    Container(
-                                                      height: ScreenUtil().setHeight(272),
-                                                      width: ScreenUtil().setWidth(80),
-                                                      child: Column(
-                                                        children: [
-                                                          circles(context, datos[8]),
-                                                          SizedBox(height: ScreenUtil().setHeight(64)),
-                                                          circles(context, datos[7]),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              circles(context, datos[2]),
-                                              SizedBox(
-                                                width: ScreenUtil().setWidth(24),
-                                              ),
-                                              Container(
-                                                height: ScreenUtil().setHeight(100),
-                                                width: ScreenUtil().setWidth(380),
-                                                decoration: BoxDecoration(
-                                                    color: kOrangeColor,
-                                                    borderRadius: BorderRadius.only(
-                                                      bottomLeft: Radius.circular(16),
-                                                      bottomRight: Radius.circular(16),
-                                                    )),
-                                              ),
-                                              SizedBox(
-                                                width: ScreenUtil().setWidth(24),
-                                              ),
-                                              circles(context, datos[6]),
-                                            ],
-                                          ),
-                                          SizedBox(height: ScreenUtil().setHeight(24)),
-                                          Container(
-                                            height: ScreenUtil().setHeight(80),
-                                            width: ScreenUtil().setWidth(380),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      return SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                circles(context, datos[3]),
-                                                circles(context, datos[4]),
-                                                circles(context, datos[5]),
+                                                Container(
+                                                  height: ScreenUtil().setHeight(272),
+                                                  width: ScreenUtil().setWidth(184),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        height: ScreenUtil().setHeight(272),
+                                                        width: ScreenUtil().setWidth(80),
+                                                        child: Column(
+                                                          children: [
+                                                            circles(context, datos[0]),
+                                                            SizedBox(height: ScreenUtil().setHeight(64)),
+                                                            circles(context, datos[1]),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: ScreenUtil().setHeight(272),
+                                                        width: ScreenUtil().setWidth(80),
+                                                        decoration: BoxDecoration(
+                                                            color: kOrangeColor,
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(16),
+                                                              topRight: Radius.circular(16),
+                                                            )),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: ScreenUtil().setWidth(220),
+                                                ),
+                                                Container(
+                                                  height: ScreenUtil().setHeight(272),
+                                                  width: ScreenUtil().setWidth(184),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        height: ScreenUtil().setHeight(272),
+                                                        width: ScreenUtil().setWidth(80),
+                                                        decoration: BoxDecoration(
+                                                            color: kOrangeColor,
+                                                            borderRadius: BorderRadius.only(
+                                                              topLeft: Radius.circular(16),
+                                                              topRight: Radius.circular(16),
+                                                            )),
+                                                      ),
+                                                      Container(
+                                                        height: ScreenUtil().setHeight(272),
+                                                        width: ScreenUtil().setWidth(80),
+                                                        child: Column(
+                                                          children: [
+                                                            circles(context, datos[8]),
+                                                            SizedBox(height: ScreenUtil().setHeight(64)),
+                                                            circles(context, datos[7]),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                        ],
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                circles(context, datos[2]),
+                                                SizedBox(
+                                                  width: ScreenUtil().setWidth(24),
+                                                ),
+                                                Container(
+                                                  height: ScreenUtil().setHeight(100),
+                                                  width: ScreenUtil().setWidth(380),
+                                                  decoration: BoxDecoration(
+                                                      color: kOrangeColor,
+                                                      borderRadius: BorderRadius.only(
+                                                        bottomLeft: Radius.circular(16),
+                                                        bottomRight: Radius.circular(16),
+                                                      )),
+                                                ),
+                                                SizedBox(
+                                                  width: ScreenUtil().setWidth(24),
+                                                ),
+                                                circles(context, datos[6]),
+                                              ],
+                                            ),
+                                            SizedBox(height: ScreenUtil().setHeight(24)),
+                                            Container(
+                                              height: ScreenUtil().setHeight(80),
+                                              width: ScreenUtil().setWidth(380),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  circles(context, datos[3]),
+                                                  circles(context, datos[4]),
+                                                  circles(context, datos[5]),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       );
                                     } else {
                                       return Center(

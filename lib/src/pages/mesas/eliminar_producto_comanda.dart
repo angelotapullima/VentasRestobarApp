@@ -271,6 +271,9 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(320),
+                    ),
                   ],
                 ),
               ),

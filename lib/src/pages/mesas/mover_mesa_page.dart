@@ -470,7 +470,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                               mesasBloc.obtenerDetalleMesa(_controller.idMesaDestinoSelec);
                               Navigator.pop(context);
                             } else {
-                              showToast2('Debe seleccionar la mesa de destino', Colors.black);
+                              showToast2(res.message, Colors.red);
                             }
                           } else {
                             showToast2('Debe seleccionar la mesa de destino', Colors.black);

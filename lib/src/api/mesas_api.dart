@@ -126,4 +126,36 @@ class MesasApi {
       return result;
     }
   }
+
+  Future<ResultApiModel> limpiarMesa(String idMesa) async {
+    final ResultApiModel result = ResultApiModel();
+    try {
+      final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/habilitar_mesa');
+
+      final resp = await http.post(
+        url,
+        body: {
+          'tn': _prefs.token,
+          'id_mesa': idMesa,
+          'estado': '0',
+          'app': 'true',
+        },
+      );
+
+      final decodedData = json.decode(resp.body);
+      result.code = decodedData['result']["code"];
+
+      if (decodedData['result']["code"] == 1) {
+        result.message = 'Ok';
+      } else {
+        result.message = 'Ocurrió un error';
+      }
+
+      return result;
+    } catch (e) {
+      result.code = 2;
+      result.message = 'Ocurrió un error';
+      return result;
+    }
+  }
 }

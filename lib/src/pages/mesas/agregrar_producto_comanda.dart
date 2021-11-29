@@ -127,7 +127,6 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                       ],
                     ),
                     Container(
-                      //padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
                       height: ScreenUtil().setHeight(150),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -356,7 +355,10 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(320),
+                    ),
                   ],
                 ),
               ),

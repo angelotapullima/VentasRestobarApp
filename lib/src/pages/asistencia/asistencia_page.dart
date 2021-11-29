@@ -102,6 +102,7 @@ class AsistenciaPage extends StatelessWidget {
                       SizedBox(
                         width: ScreenUtil().setWidth(230),
                         child: MaterialButton(
+                          height: ScreenUtil().setHeight(32),
                           color: kOrangeTitleTextColor.withOpacity(0.5),
                           textColor: Colors.white,
                           elevation: 0,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:ventas_restobar/src/api/mesas_api.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
+import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
+import 'package:ventas_restobar/src/utils/utils.dart';
 
 class MoverMesaPage extends StatefulWidget {
   const MoverMesaPage({Key key, @required this.mesa}) : super(key: key);
@@ -452,13 +455,28 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                       width: ScreenUtil().setWidth(213),
                       child: MaterialButton(
                         height: ScreenUtil().setHeight(32),
-                        color: kOrangeTitleTextColor.withOpacity(0.5),
+                        color: kOrangeTitleTextColor,
                         textColor: Colors.white,
                         elevation: 0,
                         onPressed: () async {
-                          // _controller.changeCargando(true);
+                          _controller.changeCargando(true);
+                          if (_controller.idMesaDestinoSelec != '') {
+                            final _mesaApi = MesasApi();
+                            final res = await _mesaApi.cambiarMesa(widget.mesa.idMesa, _controller.idMesaDestinoSelec);
+                            if (res.code == 1) {
+                              final _prefs = Preferences();
+                              final mesasBloc = ProviderBloc.mesas(context);
+                              await mesasBloc.updateMesas(_prefs.indexSelect);
+                              mesasBloc.obtenerDetalleMesa(_controller.idMesaDestinoSelec);
+                              Navigator.pop(context);
+                            } else {
+                              showToast2('Debe seleccionar la mesa de destino', Colors.black);
+                            }
+                          } else {
+                            showToast2('Debe seleccionar la mesa de destino', Colors.black);
+                          }
 
-                          // _controller.changeCargando(false);
+                          _controller.changeCargando(false);
                         },
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(

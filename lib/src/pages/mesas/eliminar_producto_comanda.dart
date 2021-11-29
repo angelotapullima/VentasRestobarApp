@@ -230,6 +230,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                     SizedBox(
                       width: ScreenUtil().setWidth(300),
                       child: MaterialButton(
+                        height: ScreenUtil().setHeight(32),
                         color: Colors.red,
                         textColor: Colors.white,
                         elevation: 0,

@@ -3,6 +3,7 @@ import 'package:ventas_restobar/src/database/mesa_database.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
+import 'package:ventas_restobar/src/models/result_api_model.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 import 'dart:convert';
@@ -79,6 +80,47 @@ class MesasApi {
     } catch (e) {
       print('ERROR EXCEPCION: $e');
       return false;
+    }
+  }
+
+  Future<ResultApiModel> cambiarMesa(String idMesaOrigen, String idMesaDestino) async {
+    final ResultApiModel result = ResultApiModel();
+    try {
+      final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesaOrigen);
+
+      if (_listaComandaMesa.length > 0) {
+        final url = Uri.parse('$apiBaseURL/ventas_app/api/Pedido/cambiar_mesa');
+
+        final resp = await http.post(
+          url,
+          body: {
+            'tn': _prefs.token,
+            'id_mesa': idMesaOrigen,
+            'id_mesa_nuevo': idMesaDestino,
+            'id_comanda': _listaComandaMesa[0].idComanda,
+            'app': 'true',
+          },
+        );
+
+        final decodedData = json.decode(resp.body);
+        result.code = decodedData['result']["code"];
+
+        if (decodedData['result']["code"] == 1) {
+          result.message = 'Ok';
+        } else {
+          result.message = 'Ocurrió un error';
+        }
+
+        return result;
+      } else {
+        result.code = 2;
+        result.message = 'Ocurrió un error';
+        return result;
+      }
+    } catch (e) {
+      result.code = 2;
+      result.message = 'Ocurrió un error';
+      return result;
     }
   }
 }

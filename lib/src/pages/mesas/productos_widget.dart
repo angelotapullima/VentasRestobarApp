@@ -92,7 +92,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        height: ScreenUtil().setHeight(50),
+                                                        height: ScreenUtil().setHeight(40),
                                                         child: SvgPicture.asset('assets/svg/fire.svg'),
                                                       ),
                                                       SizedBox(

@@ -30,6 +30,8 @@ class MesasApi {
 
       final decodedData = json.decode(resp.body);
 
+      print(resp.body.toString());
+
       if (decodedData['result']["code"] == 1) {
         await _mesaDatabase.deleteMesas();
         for (var i = 0; i < decodedData['result']["datos"].length; i++) {

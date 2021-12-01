@@ -6,7 +6,6 @@ import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:ventas_restobar/src/utils/constants.dart';
 
 class FamiliasApi {
   final _prefs = Preferences();
@@ -15,7 +14,7 @@ class FamiliasApi {
 
   Future<bool> obtenerFamilias() async {
     try {
-      final url = Uri.parse('$apiBaseURL/api/Pedido/listar_familias_productos');
+      final url = Uri.parse('${_prefs.url}/api/Pedido/listar_familias_productos');
 
       final resp = await http.post(
         url,

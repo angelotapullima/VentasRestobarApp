@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ventas_restobar/src/api/mesas_api.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
+import 'package:ventas_restobar/src/utils/constants.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key key}) : super(key: key);
@@ -18,9 +19,9 @@ class _SplashState extends State<Splash> {
 
       final preferences = Preferences();
 
-      // if (preferences.url == null || preferences.url.isEmpty || preferences.url == '') {
-      //   preferences.url = "$apiBaseURL";
-      // }
+      if (preferences.url == null || preferences.url.isEmpty || preferences.url == '') {
+        preferences.url = "$apiBaseURL";
+      }
 
       if (preferences.token == null || preferences.token.isEmpty) {
         Navigator.pushNamed(context, 'login');

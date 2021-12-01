@@ -1,6 +1,5 @@
 import 'package:ventas_restobar/src/models/result_api_model.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
-import 'package:ventas_restobar/src/utils/constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -10,7 +9,7 @@ class LoginApi {
   Future<ResultApiModel> login(String user, String pass) async {
     final ResultApiModel result = ResultApiModel();
     try {
-      final url = Uri.parse('$apiBaseURL/api/Login/validar_sesion_app');
+      final url = Uri.parse('${_prefs.url}/api/Login/validar_sesion_app');
 
       final resp = await http.post(url, body: {
         'usuario_nickname': '$user',

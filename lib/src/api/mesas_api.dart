@@ -5,7 +5,6 @@ import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
 import 'package:ventas_restobar/src/models/result_api_model.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
-import 'package:ventas_restobar/src/utils/constants.dart';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -17,7 +16,7 @@ class MesasApi {
 
   Future<bool> obtenerMesasPorNegocio() async {
     try {
-      final url = Uri.parse('$apiBaseURL/api/Mesa/listar_mesas');
+      final url = Uri.parse('${_prefs.url}/api/Mesa/listar_mesas');
 
       final resp = await http.post(
         url,
@@ -94,7 +93,7 @@ class MesasApi {
       final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesaOrigen);
 
       if (_listaComandaMesa.length > 0) {
-        final url = Uri.parse('$apiBaseURL/api/Pedido/cambiar_mesa');
+        final url = Uri.parse('${_prefs.url}/api/Pedido/cambiar_mesa');
 
         final resp = await http.post(
           url,
@@ -132,7 +131,7 @@ class MesasApi {
   Future<ResultApiModel> limpiarMesa(String idMesa) async {
     final ResultApiModel result = ResultApiModel();
     try {
-      final url = Uri.parse('$apiBaseURL/api/Pedido/habilitar_mesa');
+      final url = Uri.parse('${_prefs.url}/api/Pedido/habilitar_mesa');
 
       final resp = await http.post(
         url,

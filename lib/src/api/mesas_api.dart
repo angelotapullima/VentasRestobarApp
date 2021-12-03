@@ -33,6 +33,8 @@ class MesasApi {
 
       if (decodedData['result']["code"] == 1) {
         await _mesaDatabase.deleteMesas();
+        await _comandaDatabase.deleteComanda()();
+        await _comandaDatabase.deleteDetalleComanda();
         for (var i = 0; i < decodedData['result']["datos"].length; i++) {
           MesaModel mesa = MesaModel();
           mesa.idMesa = decodedData['result']["datos"][i]['id_mesa'];

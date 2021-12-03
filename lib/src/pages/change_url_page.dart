@@ -91,7 +91,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                       children: [
                         Expanded(
                           child: Text(
-                            'Atualizar url',
+                            'Actualizar url',
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,

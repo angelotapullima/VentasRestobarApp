@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-const apiBaseURL = "https://bufeotec.com/ventas_app";
+
+const apiBaseURL = "http://192.168.1.193/laultimaconchita";   // San juan ;
+//const apiBaseURL = "https://bufeotec.com/ventas_app";
 //const apiBaseURL = "http://192.168.1.193/laultimaconchita"   // San juan ;
 //const apiBaseURL = "http://192.168.1.4/laultimaconchita" ;  // Punchana ;
 //fvrgbnhrtnhtjmyhn

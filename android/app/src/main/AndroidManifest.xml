@@ -2,7 +2,7 @@
     package="com.example.ventas_restobar">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="La última conchita"
+        android:label="Malvida Club"
         android:screenOrientation="landscape"
         android:icon="@mipmap/launcher_icon">
         <activity

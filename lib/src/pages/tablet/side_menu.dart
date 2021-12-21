@@ -69,18 +69,19 @@ class SideMenu extends StatelessWidget {
                           //   )),
                           // ),
                           SizedBox(width: ScreenUtil().setWidth(56)),
-                          Container(
+                          /* Container(
                             child: Center(
-                                child: SideMenuItem(
-                              press: () {
-                                provider.changeToAsistencia();
-                              },
-                              color: Colors.transparent,
-                              title: "Asistencia",
-                              showBorder: (data == EnumIndex.asistencia) ? true : false,
-                              isActive: (data == EnumIndex.asistencia) ? true : false,
-                            )),
-                          ),
+                              child: SideMenuItem(
+                                press: () {
+                                  provider.changeToAsistencia();
+                                },
+                                color: Colors.transparent,
+                                title: "Asistencia",
+                                showBorder: (data == EnumIndex.asistencia) ? true : false,
+                                isActive: (data == EnumIndex.asistencia) ? true : false,
+                              ),
+                            ),
+                          ), */
                           SizedBox(width: kDefaultPadding * 8.4),
                         ],
                       ),
@@ -132,7 +133,7 @@ class SideMenu extends StatelessWidget {
                       //   )),
                       // ),
                       SizedBox(width: ScreenUtil().setWidth(56)),
-                      Container(
+                      /* Container(
                         child: Center(
                             child: SideMenuItem(
                           press: () {
@@ -142,7 +143,7 @@ class SideMenu extends StatelessWidget {
                           title: "Asistencia",
                           isActive: (data == EnumIndex.asistencia) ? true : false,
                         )),
-                      ),
+                      ), */
                       SizedBox(width: kDefaultPadding * 4),
                       Center(
                         child: IconButton(

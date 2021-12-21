@@ -95,7 +95,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,
-                                  fontSize: ScreenUtil().setSp(18),
+                                  fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -115,7 +115,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                       style: TextStyle(
                         color: Color(0XFF585858),
                         fontWeight: FontWeight.w400,
-                        fontSize: ScreenUtil().setSp(16),
+                        fontSize: ScreenUtil().setSp(18),
                         fontStyle: FontStyle.normal,
                       ),
                     ),
@@ -134,7 +134,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                           labelStyle: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
+                                fontSize: ScreenUtil().setSp(16),
                                 letterSpacing: 0.16,
                               ),
                           enabledBorder: OutlineInputBorder(
@@ -153,7 +153,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                         style: Theme.of(context).textTheme.button.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
-                              fontSize: ScreenUtil().setSp(16),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                       ),
                     ),
@@ -189,7 +189,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                           'Actualizar URL',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: Colors.white,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,
                               ),
                         ),

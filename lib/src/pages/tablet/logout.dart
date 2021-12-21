@@ -41,7 +41,7 @@ class Logout extends StatelessWidget {
                 ),
                 Text(
                   'Desea Cerrar Sesión?',
-                  style: TextStyle(fontSize: ScreenUtil().setSp(20)),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(22)),
                 ),
                 SizedBox(
                   height: ScreenUtil().setHeight(40),

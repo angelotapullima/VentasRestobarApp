@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Bienvenido de vuelta',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: kOrangeTitleTextColor,
-                                fontSize: ScreenUtil().setSp(24),
+                                fontSize: ScreenUtil().setSp(26),
                                 fontWeight: FontWeight.w700,
                               ),
                         ),
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintStyle: TextStyle(
                             color: Color(0XFF808080),
                             fontWeight: FontWeight.w400,
-                            fontSize: ScreenUtil().setSp(16),
+                            fontSize: ScreenUtil().setSp(18),
                             fontStyle: FontStyle.normal,
                           ),
                           filled: true,
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Color(0XFF585858),
                           fontWeight: FontWeight.w400,
-                          fontSize: ScreenUtil().setSp(16),
+                          fontSize: ScreenUtil().setSp(18),
                           fontStyle: FontStyle.normal,
                         ),
                       ),
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                           hintStyle: TextStyle(
                             color: Color(0XFF808080),
                             fontWeight: FontWeight.w400,
-                            fontSize: ScreenUtil().setSp(16),
+                            fontSize: ScreenUtil().setSp(18),
                             fontStyle: FontStyle.normal,
                           ),
                           filled: true,
@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Color(0XFF585858),
                           fontWeight: FontWeight.w400,
-                          fontSize: ScreenUtil().setSp(16),
+                          fontSize: ScreenUtil().setSp(18),
                           fontStyle: FontStyle.normal,
                         ),
                       ),
@@ -214,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                           'Ingresar',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: Colors.white,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,
                               ),
                         ),

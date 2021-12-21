@@ -9,14 +9,14 @@ import 'package:ventas_restobar/src/models/productos_familia_model.dart';
 import 'package:ventas_restobar/src/pages/mesas/agregrar_producto_comanda.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
-class ProductoFamilia extends StatefulWidget {
-  const ProductoFamilia({Key key}) : super(key: key);
+class ProductoFamilia2 extends StatefulWidget {
+  const ProductoFamilia2({Key key}) : super(key: key);
 
   @override
-  _ProductoFamiliaState createState() => _ProductoFamiliaState();
+  _ProductoFamilia2State createState() => _ProductoFamilia2State();
 }
 
-class _ProductoFamiliaState extends State<ProductoFamilia> {
+class _ProductoFamilia2State extends State<ProductoFamilia2> {
   final _controller = IndexController();
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                   child: Row(
                                                     children: [
                                                       Container(
-                                                        height: ScreenUtil().setHeight(40),
+                                                        height: ScreenUtil().setHeight(60),
                                                         child: SvgPicture.asset('assets/svg/fire.svg'),
                                                       ),
                                                       SizedBox(
@@ -102,7 +102,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                         '${datos[index].familiaNombre}',
                                                         style: Theme.of(context).textTheme.button.copyWith(
                                                               color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontSize: ScreenUtil().setSp(22),
                                                               fontWeight: FontWeight.w600,
                                                             ),
                                                       )
@@ -118,7 +118,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                   'Sin categorías',
                                   style: Theme.of(context).textTheme.button.copyWith(
                                         color: kTitleTextColor,
-                                        fontSize: ScreenUtil().setSp(16),
+                                        fontSize: ScreenUtil().setSp(20),
                                         fontWeight: FontWeight.w400,
                                       ),
                                 ),
@@ -130,7 +130,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                 'Cargando...',
                                 style: Theme.of(context).textTheme.button.copyWith(
                                       color: kTitleTextColor,
-                                      fontSize: ScreenUtil().setSp(16),
+                                      fontSize: ScreenUtil().setSp(20),
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
@@ -143,7 +143,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                 ),
               ),
               Container(
-                width: ScreenUtil().setWidth(20),
+                width: ScreenUtil().setWidth(10),
               ),
               Container(
                 width: ScreenUtil().setWidth(328),
@@ -154,7 +154,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: ScreenUtil().setHeight(30),
-                    horizontal: ScreenUtil().setWidth(24),
+                    horizontal: ScreenUtil().setWidth(10),
                   ),
                   child: Column(
                     children: [
@@ -181,6 +181,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                               if (snapshot.data.length > 0) {
                                 var datos = snapshot.data;
                                 return ListView.builder(
+                                  padding: EdgeInsets.zero,
                                     itemCount: datos.length,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, index) {
@@ -243,7 +244,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                         '${datos[index].productoNombre}',
                                                         style: Theme.of(context).textTheme.button.copyWith(
                                                               color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontSize: ScreenUtil().setSp(20),
                                                               fontWeight: FontWeight.w400,
                                                             ),
                                                       ),
@@ -252,7 +253,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                                         'S/${datos[index].productoPrecio}',
                                                         style: Theme.of(context).textTheme.button.copyWith(
                                                               color: kTextColor,
-                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontSize: ScreenUtil().setSp(20),
                                                               fontWeight: FontWeight.w600,
                                                             ),
                                                       ),
@@ -313,7 +314,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                     'Sin productos para esta categoría',
                                     style: Theme.of(context).textTheme.button.copyWith(
                                           color: kTitleTextColor,
-                                          fontSize: ScreenUtil().setSp(16),
+                                          fontSize: ScreenUtil().setSp(20),
                                           fontWeight: FontWeight.w400,
                                         ),
                                   ),
@@ -325,7 +326,7 @@ class _ProductoFamiliaState extends State<ProductoFamilia> {
                                   'Cargando...',
                                   style: Theme.of(context).textTheme.button.copyWith(
                                         color: kTitleTextColor,
-                                        fontSize: ScreenUtil().setSp(16),
+                                        fontSize: ScreenUtil().setSp(20),
                                         fontWeight: FontWeight.w400,
                                       ),
                                 ),

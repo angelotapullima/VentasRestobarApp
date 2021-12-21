@@ -163,13 +163,13 @@ class MesasPage extends StatelessWidget {
                     //MOSTRAR LISTADO MESAS
                     (data == EnumIndex.mesas)
                         ? Container(
-                            width: ScreenUtil().setWidth(728),
+                            width: ScreenUtil().setWidth(700),
                             child: Container(
                               margin: EdgeInsets.only(
                                 top: ScreenUtil().setHeight(32),
-                                right: ScreenUtil().setWidth(20),
+                                right: ScreenUtil().setWidth(10),
                                 bottom: ScreenUtil().setHeight(32),
-                                left: ScreenUtil().setWidth(20),
+                                left: ScreenUtil().setWidth(10),
                               ),
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -179,24 +179,24 @@ class MesasPage extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            width: ScreenUtil().setWidth(728),
+                            width: ScreenUtil().setWidth(700),
                             child: Container(
                               margin: EdgeInsets.only(
                                 top: ScreenUtil().setHeight(32),
-                                right: ScreenUtil().setWidth(20),
+                                right: ScreenUtil().setWidth(10),
                                 bottom: ScreenUtil().setHeight(32),
-                                left: ScreenUtil().setWidth(20),
+                                left: ScreenUtil().setWidth(10),
                               ),
-                              child: ProductoFamilia(),
+                              child: ProductoFamilia2(),
                             ),
                           ),
                     //MOSTRAR CARD DETALLE MESA
                     Container(
-                      width: ScreenUtil().setWidth(296),
+                      width: ScreenUtil().setWidth(310),
                       child: Container(
                         margin: EdgeInsets.only(
                           top: ScreenUtil().setHeight(32),
-                          right: ScreenUtil().setWidth(32),
+                          right: ScreenUtil().setWidth(10),
                           bottom: ScreenUtil().setHeight(32),
                         ),
                         decoration: BoxDecoration(

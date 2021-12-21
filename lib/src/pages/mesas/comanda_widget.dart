@@ -85,7 +85,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                     '${datos[0].detalleComanda[index].nombreProducto}',
                                                     style: Theme.of(context).textTheme.button.copyWith(
                                                           color: kTitleTextColor,
-                                                          fontSize: ScreenUtil().setSp(16),
+                                                          fontSize: ScreenUtil().setSp(18),
                                                           fontWeight: FontWeight.w400,
                                                         ),
                                                   ),
@@ -94,7 +94,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   'X ${datos[0].detalleComanda[index].cantidad}',
                                                   style: Theme.of(context).textTheme.button.copyWith(
                                                         color: kTitleTextColor,
-                                                        fontSize: ScreenUtil().setSp(16),
+                                                        fontSize: ScreenUtil().setSp(18),
                                                         fontWeight: FontWeight.w400,
                                                       ),
                                                 ),
@@ -102,7 +102,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   'S/${datos[0].detalleComanda[index].totalDetalle}',
                                                   style: Theme.of(context).textTheme.button.copyWith(
                                                         color: kTextColor,
-                                                        fontSize: ScreenUtil().setSp(14),
+                                                        fontSize: ScreenUtil().setSp(16),
                                                         fontWeight: FontWeight.w400,
                                                       ),
                                                 )
@@ -176,7 +176,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                               'Total',
                                               style: Theme.of(context).textTheme.button.copyWith(
                                                     color: Colors.white,
-                                                    fontSize: ScreenUtil().setSp(16),
+                                                    fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                             ),
@@ -187,7 +187,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                               'S/ ${total.toStringAsFixed(2)}',
                                               style: Theme.of(context).textTheme.button.copyWith(
                                                     color: Colors.white,
-                                                    fontSize: ScreenUtil().setSp(16),
+                                                    fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                             ),
@@ -224,7 +224,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   'Agregar productos',
                                                   style: Theme.of(context).textTheme.button.copyWith(
                                                         color: Colors.white,
-                                                        fontSize: ScreenUtil().setSp(16),
+                                                        fontSize: ScreenUtil().setSp(18),
                                                         fontWeight: FontWeight.w500,
                                                       ),
                                                 ),
@@ -288,7 +288,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                       (_prefs.indexSelect == 1) ? 'Limpiar mesa' : 'Limpiar banca',
                                       style: Theme.of(context).textTheme.button.copyWith(
                                             color: Colors.white,
-                                            fontSize: ScreenUtil().setSp(16),
+                                            fontSize: ScreenUtil().setSp(18),
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -363,7 +363,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                         '${datitos[index].nombreProducto}',
                                                         style: Theme.of(context).textTheme.button.copyWith(
                                                               color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(16),
+                                                              fontSize: ScreenUtil().setSp(18),
                                                               fontWeight: FontWeight.w400,
                                                             ),
                                                       ),
@@ -399,7 +399,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                                 textAlign: TextAlign.center,
                                                                 style: Theme.of(context).textTheme.button.copyWith(
                                                                       color: kTitleTextColor,
-                                                                      fontSize: ScreenUtil().setSp(14),
+                                                                      fontSize: ScreenUtil().setSp(16),
                                                                       fontWeight: FontWeight.w500,
                                                                     ),
                                                               ),
@@ -430,7 +430,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                           'S/${datitos[index].totalDetalle}',
                                                           style: Theme.of(context).textTheme.button.copyWith(
                                                                 color: kTextColor,
-                                                                fontSize: ScreenUtil().setSp(14),
+                                                                fontSize: ScreenUtil().setSp(16),
                                                                 fontWeight: FontWeight.w400,
                                                               ),
                                                         )
@@ -482,7 +482,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                 'Generar comanda',
                                                 style: Theme.of(context).textTheme.button.copyWith(
                                                       color: Colors.white,
-                                                      fontSize: ScreenUtil().setSp(16),
+                                                      fontSize: ScreenUtil().setSp(18),
                                                       fontWeight: FontWeight.w500,
                                                     ),
                                               ),
@@ -521,7 +521,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                           'Agregar productos',
                                                           style: Theme.of(context).textTheme.button.copyWith(
                                                                 color: Colors.white,
-                                                                fontSize: ScreenUtil().setSp(16),
+                                                                fontSize: ScreenUtil().setSp(18),
                                                                 fontWeight: FontWeight.w500,
                                                               ),
                                                         ),
@@ -576,7 +576,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                           (_prefs.indexSelect == 1) ? 'Agregue productos a la mesa' : 'Agregue productos a la banca',
                                           style: Theme.of(context).textTheme.button.copyWith(
                                                 color: kTitleTextColor,
-                                                fontSize: ScreenUtil().setSp(16),
+                                                fontSize: ScreenUtil().setSp(18),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                         )
@@ -619,7 +619,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                               'Agregar productos',
                                               style: Theme.of(context).textTheme.button.copyWith(
                                                     color: Colors.white,
-                                                    fontSize: ScreenUtil().setSp(16),
+                                                    fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                             ),
@@ -637,7 +637,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                 'Cargando...',
                                 style: Theme.of(context).textTheme.button.copyWith(
                                       color: kTitleTextColor,
-                                      fontSize: ScreenUtil().setSp(16),
+                                      fontSize: ScreenUtil().setSp(18),
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
@@ -655,7 +655,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                       'Cargando...',
                       style: Theme.of(context).textTheme.button.copyWith(
                             color: kTitleTextColor,
-                            fontSize: ScreenUtil().setSp(16),
+                            fontSize: ScreenUtil().setSp(18),
                             fontWeight: FontWeight.w400,
                           ),
                     ),

@@ -55,6 +55,10 @@ flutter_icons:
   image_path: "assets/img/logo.png"
   adaptive_icon_background: "assets/img/logo.png"
 
+
+#flutter pub get
+#flutter pub run flutter_launcher_icons:main
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

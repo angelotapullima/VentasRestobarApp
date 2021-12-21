@@ -100,7 +100,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,
-                                  fontSize: ScreenUtil().setSp(18),
+                                  fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -134,7 +134,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                               '${widget.detalleComanda.nombreProducto}',
                               style: Theme.of(context).textTheme.button.copyWith(
                                     color: kTitleTextColor,
-                                    fontSize: ScreenUtil().setSp(16),
+                                    fontSize: ScreenUtil().setSp(18),
                                     fontWeight: FontWeight.w400,
                                   ),
                             ),
@@ -143,7 +143,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             'S/${widget.detalleComanda.totalDetalle}',
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTextColor,
-                                  fontSize: ScreenUtil().setSp(16),
+                                  fontSize: ScreenUtil().setSp(18),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -163,7 +163,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                           labelStyle: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
+                                fontSize: ScreenUtil().setSp(16),
                                 letterSpacing: 0.16,
                               ),
                           enabledBorder: OutlineInputBorder(
@@ -182,7 +182,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         style: Theme.of(context).textTheme.button.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
-                              fontSize: ScreenUtil().setSp(16),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                       ),
                     ),
@@ -201,7 +201,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                           labelStyle: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
+                                fontSize: ScreenUtil().setSp(16),
                                 letterSpacing: 0.16,
                               ),
                           enabledBorder: OutlineInputBorder(
@@ -220,7 +220,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         style: Theme.of(context).textTheme.button.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
-                              fontSize: ScreenUtil().setSp(16),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                       ),
                     ),
@@ -265,7 +265,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                           'Eliminar',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: Colors.white,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,
                               ),
                         ),

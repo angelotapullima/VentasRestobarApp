@@ -111,7 +111,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,
-                                  fontSize: ScreenUtil().setSp(18),
+                                  fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -149,7 +149,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                   '${widget.producto.productoNombre}',
                                   style: Theme.of(context).textTheme.button.copyWith(
                                         color: kTitleTextColor,
-                                        fontSize: ScreenUtil().setSp(16),
+                                        fontSize: ScreenUtil().setSp(18),
                                         fontWeight: FontWeight.w400,
                                       ),
                                 ),
@@ -161,7 +161,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                         'S/${_controller.precioMuestra}',
                                         style: Theme.of(context).textTheme.button.copyWith(
                                               color: kTextColor,
-                                              fontSize: ScreenUtil().setSp(16),
+                                              fontSize: ScreenUtil().setSp(18),
                                               fontWeight: FontWeight.w600,
                                             ),
                                       );
@@ -194,7 +194,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                       '${_controller.cantidad}',
                                       style: Theme.of(context).textTheme.button.copyWith(
                                             color: kTitleTextColor,
-                                            fontSize: ScreenUtil().setSp(18),
+                                            fontSize: ScreenUtil().setSp(20),
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -230,7 +230,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                           labelStyle: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
-                                fontSize: ScreenUtil().setSp(14),
+                                fontSize: ScreenUtil().setSp(16),
                                 letterSpacing: 0.16,
                               ),
                           enabledBorder: OutlineInputBorder(
@@ -249,7 +249,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                         style: Theme.of(context).textTheme.button.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
-                              fontSize: ScreenUtil().setSp(16),
+                              fontSize: ScreenUtil().setSp(18),
                             ),
                       ),
                     ),
@@ -289,7 +289,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                           'Para llevar',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
-                                fontSize: ScreenUtil().setSp(18),
+                                fontSize: ScreenUtil().setSp(20),
                                 fontWeight: FontWeight.w400,
                               ),
                         ),
@@ -348,7 +348,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                               'Guardar',
                               style: Theme.of(context).textTheme.button.copyWith(
                                     color: Colors.white,
-                                    fontSize: ScreenUtil().setSp(16),
+                                    fontSize: ScreenUtil().setSp(18),
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),

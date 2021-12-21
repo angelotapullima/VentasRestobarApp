@@ -98,7 +98,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,
-                                  fontSize: ScreenUtil().setSp(18),
+                                  fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -123,7 +123,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: kTitleTextColor,
-                                fontSize: ScreenUtil().setSp(18),
+                                fontSize: ScreenUtil().setSp(20),
                                 fontWeight: FontWeight.w400,
                               ),
                         ),
@@ -193,7 +193,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                             textAlign: TextAlign.center,
                                             style: Theme.of(context).textTheme.button.copyWith(
                                                   color: Colors.white,
-                                                  fontSize: ScreenUtil().setSp(18),
+                                                  fontSize: ScreenUtil().setSp(20),
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -205,7 +205,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                             textAlign: TextAlign.center,
                                             style: Theme.of(context).textTheme.button.copyWith(
                                                   color: Colors.white,
-                                                  fontSize: ScreenUtil().setSp(16),
+                                                  fontSize: ScreenUtil().setSp(18),
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                           ),
@@ -250,7 +250,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.button.copyWith(
                                       color: kTitleTextColor,
-                                      fontSize: ScreenUtil().setSp(18),
+                                      fontSize: ScreenUtil().setSp(20),
                                       fontWeight: FontWeight.w400,
                                     ),
                               ),
@@ -326,7 +326,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                     textAlign: TextAlign.center,
                                                     style: Theme.of(context).textTheme.button.copyWith(
                                                           color: Colors.white,
-                                                          fontSize: ScreenUtil().setSp(18),
+                                                          fontSize: ScreenUtil().setSp(20),
                                                           fontWeight: FontWeight.w600,
                                                         ),
                                                   ),
@@ -338,7 +338,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                     textAlign: TextAlign.center,
                                                     style: Theme.of(context).textTheme.button.copyWith(
                                                           color: Colors.white,
-                                                          fontSize: ScreenUtil().setSp(16),
+                                                          fontSize: ScreenUtil().setSp(18),
                                                           fontWeight: FontWeight.w500,
                                                         ),
                                                   ),
@@ -383,7 +383,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                         textAlign: TextAlign.center,
                                         style: Theme.of(context).textTheme.button.copyWith(
                                               color: kTitleTextColor,
-                                              fontSize: ScreenUtil().setSp(18),
+                                              fontSize: ScreenUtil().setSp(20),
                                               fontWeight: FontWeight.w400,
                                             ),
                                       ),
@@ -418,7 +418,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                             '${mesas[index].mesaNombre}',
                                                             style: Theme.of(context).textTheme.button.copyWith(
                                                                   color: kTitleTextColor,
-                                                                  fontSize: ScreenUtil().setSp(16),
+                                                                  fontSize: ScreenUtil().setSp(18),
                                                                   fontWeight: FontWeight.w400,
                                                                 ),
                                                           ),
@@ -432,7 +432,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                       'Sin mesas disponibles',
                                                       style: Theme.of(context).textTheme.button.copyWith(
                                                             color: kTitleTextColor,
-                                                            fontSize: ScreenUtil().setSp(16),
+                                                            fontSize: ScreenUtil().setSp(18),
                                                             fontWeight: FontWeight.w400,
                                                           ),
                                                     ),
@@ -487,7 +487,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                           'Mover',
                           style: Theme.of(context).textTheme.button.copyWith(
                                 color: Colors.white,
-                                fontSize: ScreenUtil().setSp(16),
+                                fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,
                               ),
                         ),

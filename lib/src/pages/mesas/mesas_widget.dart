@@ -291,7 +291,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                                                     style: TextStyle(
                                                                         color: Colors.white,
                                                                         fontWeight: FontWeight.w500,
-                                                                        fontSize: ScreenUtil().setSp(16)),
+                                                                        fontSize: ScreenUtil().setSp(18)),
                                                                   ),
                                                                 ),
                                                                 Spacer(),
@@ -539,7 +539,7 @@ class _MesasWidgetState extends State<MesasWidget> {
             Text(
               mesa.mesaNombre,
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(18),
+                fontSize: ScreenUtil().setSp(20),
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
@@ -547,7 +547,7 @@ class _MesasWidgetState extends State<MesasWidget> {
             Text(
               texto,
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(11),
+                fontSize: ScreenUtil().setSp(16),
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),

@@ -49,7 +49,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                             '${mesa[0].mesaNombre}',
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: Colors.transparent,
-                                  fontSize: ScreenUtil().setSp(20),
+                                  fontSize: ScreenUtil().setSp(22),
                                   fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
                                   decorationColor: kOrangeColor,
@@ -63,7 +63,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                             '${mesa[0].mesaNombre}',
                             style: Theme.of(context).textTheme.button.copyWith(
                                   color: kTitleTextColor,
-                                  fontSize: ScreenUtil().setSp(20),
+                                  fontSize: ScreenUtil().setSp(22),
                                   fontWeight: FontWeight.w600,
                                 ),
                           ),
@@ -105,7 +105,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                               'Mover mesa',
                               style: Theme.of(context).textTheme.button.copyWith(
                                     color: kOrangeColor,
-                                    fontSize: ScreenUtil().setSp(10),
+                                    fontSize: ScreenUtil().setSp(12),
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -146,7 +146,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.button.copyWith(
                         color: kTitleTextColor,
-                        fontSize: ScreenUtil().setSp(16),
+                        fontSize: ScreenUtil().setSp(18),
                         fontWeight: FontWeight.w500,
                       ),
                 ),

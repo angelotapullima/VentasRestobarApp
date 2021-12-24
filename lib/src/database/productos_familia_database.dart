@@ -20,7 +20,7 @@ class ProductosFamiliaDatabase {
 
   Future<List<ProductosFamiliaModel>> obtenerProductosXIdFamilia(String idFamilia) async {
     final db = await dbprovider.database;
-    final res = await db.rawQuery("SELECT * FROM ProductosFamilia WHERE idFamilia='$idFamilia'");
+    final res = await db.rawQuery("SELECT * FROM ProductosFamilia WHERE idFamilia='$idFamilia' and productoEstado ='1' ");
 
     List<ProductosFamiliaModel> list = res.isNotEmpty ? res.map((c) => ProductosFamiliaModel.fromJson(c)).toList() : [];
     return list;

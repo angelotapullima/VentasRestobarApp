@@ -247,7 +247,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                                           width: responsive.wp(.5),
                                                         ),
                                                         Container(
-                                                          height: constraints.maxHeight * 0.6,
+                                                          height: constraints.maxHeight * 0.7,
                                                           width: constraints.maxWidth * 0.75 - responsive.wp(2),
                                                           decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(5),

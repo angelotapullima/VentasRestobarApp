@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 
 //const apiBaseURL = "http://192.168.1.193/laultimaconchita";   // Conchita San juan ;
-//const apiBaseURL = "https://bufeotec.com/ventas_app/";   // Net de bufeo ;
+const apiBaseURL = "https://bufeotec.com/ventas_app/";   // Net de bufeo ;
 //const apiBaseURL = "http://192.168.1.4/laultimaconchita" ;  // Conchita Punchana ;
-const apiBaseURL = "http://192.168.0.103/malvida_club" ;  // Conchita Punchana ;
+//const apiBaseURL = "http://192.168.0.103/malvida_club" ;  // Malvida ;
 
 
 const kPrimaryColor = Color(0xFFFFFFFF);

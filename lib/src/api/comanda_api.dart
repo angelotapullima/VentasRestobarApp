@@ -22,7 +22,7 @@ class ComandaApi {
         for (var i = 0; i < _listaDetalleTemporal.length; i++) {
           contenido +=
               '${_listaDetalleTemporal[i].idProducto}-.-.${_listaDetalleTemporal[i].nombreProducto}-.-.${_listaDetalleTemporal[i].subtotal}-.-.${_listaDetalleTemporal[i].cantidad}-.-.${_listaDetalleTemporal[i].despacho}-.-.${_listaDetalleTemporal[i].observaciones}-.-.${_listaDetalleTemporal[i].totalDetalle}/./.';
-          total = total + double.parse(_listaDetalleTemporal[i].totalDetalle);
+          total = total + double.parse(_listaDetalleTemporal[i].totalDetalle.toString());
         }
 
         final url = Uri.parse('${_preferences.url}/api/Pedido/guardar_comanda');
@@ -142,7 +142,7 @@ class ComandaApi {
       print(decodedData);
       if (decodedData['result']["code"] == 1) {
         final _comandaDatabase = ComandaDatabase();
-        await _comandaDatabase.deleteDetalleComandaPorIdDetalle(detalle.idDetalle);
+        await _comandaDatabase.deleteDetalleComandaPorIdDetalle(detalle.idDetalle.toString());
         respuesta.code = decodedData['result']["code"];
         respuesta.message = 'Ok';
       } else {

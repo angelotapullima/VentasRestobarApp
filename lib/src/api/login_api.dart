@@ -24,16 +24,16 @@ class LoginApi {
 
       if (decodedData["result"]["code"] == 1) {
         var data = decodedData["data"];
-        _prefs.idUsuario = data["c_u"];
-        _prefs.token = data["tn"];
-        _prefs.nombresCompletos = '${data["p_n"]} ${data["p_p"]} ${data["p_m"]}';
-        _prefs.nombres = data["p_n"];
+        _prefs.idUsuarios = data["c_u"];
+        _prefs.tokens = data["tn"];
+        _prefs.nombresCompletoss= '${data["p_n"]} ${data["p_p"]} ${data["p_m"]}';
+        _prefs.nombress = data["p_n"];
         //_prefs.codigoUsuario = data["c_p"];
-        _prefs.apellidoPaterno = data["p_p"];
-        _prefs.apellidoMaterno = data["p_m"];
-        _prefs.tiendaId = data["i_d"];
-        _prefs.negocioNombre = data["n_n"];
-        _prefs.negocioImagen = data["n_f"];
+        _prefs.apellidoPaternos = data["p_p"];
+        _prefs.apellidoMaternos = data["p_m"];
+        _prefs.tiendaIds = data["i_d"];
+        _prefs.negocioNombres = data["n_n"];
+        _prefs.negocioImagens = data["n_f"];
       }
 
       return result;

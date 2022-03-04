@@ -4,13 +4,13 @@ import 'package:flutter_svg/svg.dart';
 
 class ProductoImage extends StatelessWidget {
   const ProductoImage({
-    Key key,
-    @required this.hmax,
-    @required this.wmax,
-    @required this.wmin,
-    @required this.hmin,
-    @required this.himage,
-    @required this.image,
+    Key? key,
+    required this.hmax,
+    required this.wmax,
+    required this.wmin,
+    required this.hmin,
+    required this.himage,
+    required this.image,
   }) : super(key: key);
 
   final double hmax, wmax, hmin, wmin, himage;

@@ -19,7 +19,7 @@ import 'package:ventas_restobar/src/widgets/producto_image.dart';
 class ComandaWidget extends StatefulWidget {
   final String idMesa;
   final String estadoAtencion;
-  const ComandaWidget({Key key, @required this.idMesa, @required this.estadoAtencion}) : super(key: key);
+  const ComandaWidget({Key? key, required this.idMesa, required this.estadoAtencion}) : super(key: key);
 
   @override
   _ComandaWidgetState createState() => _ComandaWidgetState();
@@ -34,20 +34,20 @@ class _ComandaWidgetState extends State<ComandaWidget> {
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     return ValueListenableBuilder(
       valueListenable: provider.vista,
-      builder: (BuildContext context, EnumIndex data, Widget child) {
+      builder: (BuildContext context, EnumIndex data, Widget? child) {
         return StreamBuilder(
             stream: comandaBloc.comandaPorMesaStream,
             builder: (context, AsyncSnapshot<List<ComandaModel>> snapshot) {
               if (snapshot.hasData) {
-                if (snapshot.data.length > 0) {
+                if (snapshot.data!.length > 0) {
                   double total = 0.00;
                   var datos = snapshot.data;
-                  _prefs.idEnviarEnComanda = datos[0].idComanda;
-                  _prefs.esComanda = true;
-                  for (var i = 0; i < datos[0].detalleComanda.length; i++) {
-                    total = total + double.parse(datos[0].detalleComanda[i].totalDetalle);
+                  _prefs.idEnviarEnComandas = datos![0].idComanda.toString();
+                  _prefs.esComandas = true;
+                  for (var i = 0; i < datos[0].detalleComanda!.length; i++) {
+                    total = total + double.parse(datos[0].detalleComanda![i].totalDetalle.toString());
                   }
-                  return (datos[0].detalleComanda.length > 0)
+                  return (datos[0].detalleComanda!.length > 0)
                       ? Expanded(
                           child: Stack(
                             children: [
@@ -58,13 +58,13 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                   bottom: ScreenUtil().setHeight(120),
                                 ),
                                 child: ListView.builder(
-                                  itemCount: datos[0].detalleComanda.length,
+                                  itemCount: datos[0].detalleComanda!.length,
                                   scrollDirection: Axis.vertical,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       child: Slidable(
-                                        actionPane: SlidableDrawerActionPane(),
-                                        actionExtentRatio: 0.25,
+                                        // actionPane: SlidableDrawerActionPane(),
+                                        // actionExtentRatio: 0.25,
                                         child: Padding(
                                           padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
                                           child: Container(
@@ -77,13 +77,13 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   wmax: 40,
                                                   hmin: 30,
                                                   wmin: 30,
-                                                  image: (datos[0].detalleComanda[index].llevar == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
+                                                  image: (datos[0].detalleComanda![index].llevar == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                                 ),
                                                 Container(
                                                   width: ScreenUtil().setWidth(105),
                                                   child: Text(
-                                                    '${datos[0].detalleComanda[index].nombreProducto}',
-                                                    style: Theme.of(context).textTheme.button.copyWith(
+                                                    '${datos[0].detalleComanda![index].nombreProducto}',
+                                                    style: Theme.of(context).textTheme.button!.copyWith(
                                                           color: kTitleTextColor,
                                                           fontSize: ScreenUtil().setSp(18),
                                                           fontWeight: FontWeight.w400,
@@ -91,16 +91,16 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  'X ${datos[0].detalleComanda[index].cantidad}',
-                                                  style: Theme.of(context).textTheme.button.copyWith(
+                                                  'X ${datos[0].detalleComanda![index].cantidad}',
+                                                  style: Theme.of(context).textTheme.button!.copyWith(
                                                         color: kTitleTextColor,
                                                         fontSize: ScreenUtil().setSp(18),
                                                         fontWeight: FontWeight.w400,
                                                       ),
                                                 ),
                                                 Text(
-                                                  'S/${datos[0].detalleComanda[index].totalDetalle}',
-                                                  style: Theme.of(context).textTheme.button.copyWith(
+                                                  'S/${datos[0].detalleComanda![index].totalDetalle}',
+                                                  style: Theme.of(context).textTheme.button!.copyWith(
                                                         color: kTextColor,
                                                         fontSize: ScreenUtil().setSp(16),
                                                         fontWeight: FontWeight.w400,
@@ -110,41 +110,41 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                             ),
                                           ),
                                         ),
-                                        actions: <Widget>[
-                                          IconSlideAction(
-                                            caption: 'Eliminar',
-                                            color: Colors.red,
-                                            icon: Icons.delete_outline,
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                PageRouteBuilder(
-                                                  opaque: false,
-                                                  pageBuilder: (context, animation, secondaryAnimation) {
-                                                    return EliminarProductoComanda(
-                                                      detalleComanda: datos[0].detalleComanda[index],
-                                                    );
-                                                  },
-                                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                                    var begin = Offset(0.0, 1.0);
-                                                    var end = Offset.zero;
-                                                    var curve = Curves.ease;
+                                        // actions: [
+                                        //   IconSlideAction(
+                                        //     caption: 'Eliminar',
+                                        //     color: Colors.red,
+                                        //     icon: Icons.delete_outline,
+                                        //     onTap: () {
+                                        //       Navigator.push(
+                                        //         context,
+                                        //         PageRouteBuilder(
+                                        //           opaque: false,
+                                        //           pageBuilder: (context, animation, secondaryAnimation) {
+                                        //             return EliminarProductoComanda(
+                                        //               detalleComanda: datos[0].detalleComanda[index],
+                                        //             );
+                                        //           },
+                                        //           transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                        //             var begin = Offset(0.0, 1.0);
+                                        //             var end = Offset.zero;
+                                        //             var curve = Curves.ease;
 
-                                                    var tween = Tween(begin: begin, end: end).chain(
-                                                      CurveTween(curve: curve),
-                                                    );
+                                        //             var tween = Tween(begin: begin, end: end).chain(
+                                        //               CurveTween(curve: curve),
+                                        //             );
 
-                                                    return SlideTransition(
-                                                      position: animation.drive(tween),
-                                                      child: child,
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                              //EliminarProductoTablet
-                                            },
-                                          ),
-                                        ],
+                                        //             return SlideTransition(
+                                        //               position: animation.drive(tween),
+                                        //               child: child,
+                                        //             );
+                                        //           },
+                                        //         ),
+                                        //       );
+                                        //       //EliminarProductoTablet
+                                        //     },
+                                        //   ),
+                                        // ],
                                       ),
                                     );
                                   },
@@ -174,7 +174,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                           children: [
                                             Text(
                                               'Total',
-                                              style: Theme.of(context).textTheme.button.copyWith(
+                                              style: Theme.of(context).textTheme.button!.copyWith(
                                                     color: Colors.white,
                                                     fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w400,
@@ -185,7 +185,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                             ),
                                             Text(
                                               'S/ ${total.toStringAsFixed(2)}',
-                                              style: Theme.of(context).textTheme.button.copyWith(
+                                              style: Theme.of(context).textTheme.button!.copyWith(
                                                     color: Colors.white,
                                                     fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w600,
@@ -222,7 +222,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                 ),
                                                 Text(
                                                   'Agregar productos',
-                                                  style: Theme.of(context).textTheme.button.copyWith(
+                                                  style: Theme.of(context).textTheme.button!.copyWith(
                                                         color: Colors.white,
                                                         fontSize: ScreenUtil().setSp(18),
                                                         fontWeight: FontWeight.w500,
@@ -264,7 +264,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                     await mesasBloc.updateMesas(_prefs.indexSelect);
                                     mesasBloc.limpiarMesa();
                                   } else {
-                                    showToast2(res.message, Colors.red);
+                                    showToast2(res.message.toString(), Colors.red);
                                   }
                                   _controller.changeCargando(false);
                                 },
@@ -286,7 +286,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                     ),
                                     Text(
                                       (_prefs.indexSelect == 1) ? 'Limpiar mesa' : 'Limpiar banca',
-                                      style: Theme.of(context).textTheme.button.copyWith(
+                                      style: Theme.of(context).textTheme.button!.copyWith(
                                             color: Colors.white,
                                             fontSize: ScreenUtil().setSp(18),
                                             fontWeight: FontWeight.w500,
@@ -318,15 +318,15 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                       ),
                     );
                   } else {
-                    _prefs.idEnviarEnComanda = widget.idMesa;
-                    _prefs.esComanda = false;
+                    _prefs.idEnviarEnComandas = widget.idMesa;
+                    _prefs.esComandas = false;
                     comandaBloc.obtenerComandaTemporal(widget.idMesa);
                     return Expanded(
                       child: StreamBuilder(
                         stream: comandaBloc.comandaTemporalStream,
                         builder: (context, AsyncSnapshot<List<DetalleComandaTemporalModel>> snapshot2) {
                           if (snapshot2.hasData) {
-                            if (snapshot2.data.length > 0) {
+                            if (snapshot2.data!.length > 0) {
                               var datitos = snapshot2.data;
                               return Padding(
                                 padding: EdgeInsets.symmetric(
@@ -339,7 +339,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                         bottom: ScreenUtil().setHeight(90),
                                       ),
                                       child: ListView.builder(
-                                        itemCount: datitos.length,
+                                        itemCount: datitos!.length,
                                         scrollDirection: Axis.vertical,
                                         itemBuilder: (context, index) {
                                           return InkWell(
@@ -361,7 +361,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                       width: ScreenUtil().setWidth(80),
                                                       child: Text(
                                                         '${datitos[index].nombreProducto}',
-                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                        style: Theme.of(context).textTheme.button!.copyWith(
                                                               color: kTitleTextColor,
                                                               fontSize: ScreenUtil().setSp(18),
                                                               fontWeight: FontWeight.w400,
@@ -397,7 +397,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                               child: Text(
                                                                 '${datitos[index].cantidad}',
                                                                 textAlign: TextAlign.center,
-                                                                style: Theme.of(context).textTheme.button.copyWith(
+                                                                style: Theme.of(context).textTheme.button!.copyWith(
                                                                       color: kTitleTextColor,
                                                                       fontSize: ScreenUtil().setSp(16),
                                                                       fontWeight: FontWeight.w500,
@@ -428,7 +428,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                         ),
                                                         Text(
                                                           'S/${datitos[index].totalDetalle}',
-                                                          style: Theme.of(context).textTheme.button.copyWith(
+                                                          style: Theme.of(context).textTheme.button!.copyWith(
                                                                 color: kTextColor,
                                                                 fontSize: ScreenUtil().setSp(16),
                                                                 fontWeight: FontWeight.w400,
@@ -469,7 +469,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   await mesasBloc.updateMesas(_prefs.indexSelect);
                                                   comandaBloc.obtenerComandaPorMesa(widget.idMesa);
                                                 } else {
-                                                  showToast2(res.message, Colors.red);
+                                                  showToast2(res.message.toString(), Colors.red);
                                                 }
                                                 _controller.changeCargando(false);
                                               },
@@ -480,7 +480,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                               ),
                                               child: Text(
                                                 'Generar comanda',
-                                                style: Theme.of(context).textTheme.button.copyWith(
+                                                style: Theme.of(context).textTheme.button!.copyWith(
                                                       color: Colors.white,
                                                       fontSize: ScreenUtil().setSp(18),
                                                       fontWeight: FontWeight.w500,
@@ -519,7 +519,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                         ),
                                                         Text(
                                                           'Agregar productos',
-                                                          style: Theme.of(context).textTheme.button.copyWith(
+                                                          style: Theme.of(context).textTheme.button!.copyWith(
                                                                 color: Colors.white,
                                                                 fontSize: ScreenUtil().setSp(18),
                                                                 fontWeight: FontWeight.w500,
@@ -574,7 +574,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                         ),
                                         Text(
                                           (_prefs.indexSelect == 1) ? 'Agregue productos a la mesa' : 'Agregue productos a la banca',
-                                          style: Theme.of(context).textTheme.button.copyWith(
+                                          style: Theme.of(context).textTheme.button!.copyWith(
                                                 color: kTitleTextColor,
                                                 fontSize: ScreenUtil().setSp(18),
                                                 fontWeight: FontWeight.w500,
@@ -617,7 +617,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                             ),
                                             Text(
                                               'Agregar productos',
-                                              style: Theme.of(context).textTheme.button.copyWith(
+                                              style: Theme.of(context).textTheme.button!.copyWith(
                                                     color: Colors.white,
                                                     fontSize: ScreenUtil().setSp(18),
                                                     fontWeight: FontWeight.w500,
@@ -635,7 +635,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                             return Center(
                               child: Text(
                                 'Cargando...',
-                                style: Theme.of(context).textTheme.button.copyWith(
+                                style: Theme.of(context).textTheme.button!.copyWith(
                                       color: kTitleTextColor,
                                       fontSize: ScreenUtil().setSp(18),
                                       fontWeight: FontWeight.w400,
@@ -653,7 +653,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                   child: Center(
                     child: Text(
                       'Cargando...',
-                      style: Theme.of(context).textTheme.button.copyWith(
+                      style: Theme.of(context).textTheme.button!.copyWith(
                             color: kTitleTextColor,
                             fontSize: ScreenUtil().setSp(18),
                             fontWeight: FontWeight.w400,

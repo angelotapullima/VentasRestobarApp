@@ -8,14 +8,14 @@ import 'package:ventas_restobar/src/pages/mesas/mesas_widget.dart';
 import 'package:ventas_restobar/src/pages/mesas/productos_widget.dart';
 
 class MesasPage extends StatelessWidget {
-  const MesasPage({Key key}) : super(key: key);
+  const MesasPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     return ValueListenableBuilder(
         valueListenable: provider.vista,
-        builder: (BuildContext context, EnumIndex data, Widget child) {
+        builder: (BuildContext context, EnumIndex data, Widget? child) {
           return Container(
             decoration: BoxDecoration(
               color: Color(0XFFE9EEF6),

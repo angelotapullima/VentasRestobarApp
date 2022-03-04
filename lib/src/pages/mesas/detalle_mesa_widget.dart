@@ -11,7 +11,7 @@ import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class DetalleMesa extends StatefulWidget {
-  const DetalleMesa({Key key}) : super(key: key);
+  const DetalleMesa({Key? key}) : super(key: key);
 
   @override
   _DetalleMesaState createState() => _DetalleMesaState();
@@ -26,9 +26,9 @@ class _DetalleMesaState extends State<DetalleMesa> {
     return StreamBuilder(
       stream: detalleMesaBloc.mesDetalleStream,
       builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
-        if (snapshot.hasData && snapshot.data.length > 0) {
+        if (snapshot.hasData && snapshot.data!.length > 0) {
           var mesa = snapshot.data;
-          comandaBloc.obtenerComandaPorMesa(mesa[0].idMesa);
+          comandaBloc.obtenerComandaPorMesa(mesa![0].idMesa.toString());
           return Column(
             children: [
               SizedBox(
@@ -47,7 +47,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             '${mesa[0].mesaNombre}',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: Colors.transparent,
                                   fontSize: ScreenUtil().setSp(22),
                                   fontWeight: FontWeight.w600,
@@ -61,7 +61,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                           alignment: Alignment.topLeft,
                           child: Text(
                             '${mesa[0].mesaNombre}',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(22),
                                   fontWeight: FontWeight.w600,
@@ -103,7 +103,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                             },
                             child: Text(
                               'Mover mesa',
-                              style: Theme.of(context).textTheme.button.copyWith(
+                              style: Theme.of(context).textTheme.button!.copyWith(
                                     color: kOrangeColor,
                                     fontSize: ScreenUtil().setSp(12),
                                     fontWeight: FontWeight.w600,
@@ -129,8 +129,8 @@ class _DetalleMesaState extends State<DetalleMesa> {
                 height: ScreenUtil().setHeight(16),
               ),
               ComandaWidget(
-                idMesa: mesa[0].idMesa,
-                estadoAtencion: mesa[0].mesaEstadoAtencion,
+                idMesa: mesa[0].idMesa.toString(),
+                estadoAtencion: mesa[0].mesaEstadoAtencion.toString(),
               ),
             ],
           );
@@ -144,7 +144,7 @@ class _DetalleMesaState extends State<DetalleMesa> {
                 child: Text(
                   (_prefs.indexSelect == 1) ? 'Toque sobre una mesa para ver los detalles' : 'Toque sobre una banca para ver los detalles',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.button.copyWith(
+                  style: Theme.of(context).textTheme.button!.copyWith(
                         color: kTitleTextColor,
                         fontSize: ScreenUtil().setSp(18),
                         fontWeight: FontWeight.w500,

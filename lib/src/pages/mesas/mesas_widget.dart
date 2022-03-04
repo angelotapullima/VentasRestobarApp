@@ -11,7 +11,7 @@ import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/responsive.dart';
 
 class MesasWidget extends StatefulWidget {
-  const MesasWidget({Key key}) : super(key: key);
+  const MesasWidget({Key? key}) : super(key: key);
 
   @override
   _MesasWidgetState createState() => _MesasWidgetState();
@@ -39,13 +39,13 @@ class _MesasWidgetState extends State<MesasWidget> {
     if (cargaInicial == 0) {
       mesasBloc.obtenerMesasNegocio(1);
       cargaInicial++;
-      _prefs.indexSelect = 1;
+      _prefs.indexSelects = 1;
     }
     final responsive = Responsive.of(context);
     final provider = Provider.of<IndexMesasBlocListener>(context, listen: false);
     return ValueListenableBuilder(
         valueListenable: provider.vista,
-        builder: (BuildContext context, EnumIndex data, Widget child) {
+        builder: (BuildContext context, EnumIndex data, Widget? child) {
           return Padding(
             padding: EdgeInsets.symmetric(
               vertical: ScreenUtil().setHeight(30),
@@ -59,8 +59,8 @@ class _MesasWidgetState extends State<MesasWidget> {
                     PopupMenuButton(
                       padding: EdgeInsets.all(6),
                       onSelected: (value) {
-                        mesasBloc.obtenerMesasNegocio(value);
-                        _prefs.indexSelect = value;
+                        mesasBloc.obtenerMesasNegocio(value as int);
+                        _prefs.indexSelects = value;
                         _controller.changeSelect(value);
                         if (value == 1) {
                           _controller.changeValue('Salón principal');
@@ -75,7 +75,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                           padding: EdgeInsets.all(8),
                           child: Text(
                             'Salón principal',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(24),
                                   fontWeight: FontWeight.w600,
@@ -87,7 +87,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                           padding: EdgeInsets.all(8),
                           child: Text(
                             'Barra',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(24),
                                   fontWeight: FontWeight.w600,
@@ -108,7 +108,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                 builder: (_, t) {
                                   return Text(
                                     _controller.value,
-                                    style: Theme.of(context).textTheme.button.copyWith(
+                                    style: Theme.of(context).textTheme.button!.copyWith(
                                           color: kTitleTextColor,
                                           fontSize: ScreenUtil().setSp(24),
                                           fontWeight: FontWeight.w600,
@@ -165,7 +165,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                 stream: mesasBloc.mesasSalonStream,
                                 builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
                                   if (snapshot.hasData) {
-                                    if (snapshot.data.length > 0) {
+                                    if (snapshot.data!.length > 0) {
                                       var datos = snapshot.data;
                                       return SmartRefresher(
                                         controller: _refreshController,
@@ -182,7 +182,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                               mainAxisSpacing: responsive.hp(0),
                                               crossAxisSpacing: responsive.wp(1),
                                             ),
-                                            itemCount: datos.length,
+                                            itemCount: datos!.length,
                                             scrollDirection: Axis.vertical,
                                             itemBuilder: (BuildContext context, int index) {
                                               return LayoutBuilder(builder: (context, constraints) {
@@ -209,8 +209,8 @@ class _MesasWidgetState extends State<MesasWidget> {
                                                 return InkWell(
                                                   onTap: () {
                                                     print('Tap');
-                                                    mesasBloc.obtenerDetalleMesa(datos[index].idMesa);
-                                                    _prefs.idMesa = datos[index].idMesa;
+                                                    mesasBloc.obtenerDetalleMesa(datos[index].idMesa.toString());
+                                                    _prefs.idMesas = datos[index].idMesa.toString();
                                                   },
                                                   child: Container(
                                                     width: constraints.maxWidth,
@@ -352,7 +352,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                 stream: mesasBloc.mesasBarraStream,
                                 builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
                                   if (snapshot.hasData) {
-                                    if (snapshot.data.length > 0) {
+                                    if (snapshot.data!.length > 0) {
                                       var datos = snapshot.data;
                                       return SmartRefresher(
                                         controller: _refreshController,
@@ -376,7 +376,7 @@ class _MesasWidgetState extends State<MesasWidget> {
                                                           width: ScreenUtil().setWidth(80),
                                                           child: Column(
                                                             children: [
-                                                              circles(context, datos[0]),
+                                                              circles(context, datos![0]),
                                                               SizedBox(height: ScreenUtil().setHeight(64)),
                                                               circles(context, datos[1]),
                                                             ],
@@ -515,8 +515,8 @@ class _MesasWidgetState extends State<MesasWidget> {
         final _prefs = Preferences();
         final mesasBloc = ProviderBloc.mesas(context);
         print('Tap');
-        mesasBloc.obtenerDetalleMesa(mesa.idMesa);
-        _prefs.idMesa = mesa.idMesa;
+        mesasBloc.obtenerDetalleMesa(mesa.idMesa.toString());
+        _prefs.idMesas = mesa.idMesa.toString();
       },
       child: Container(
         width: ScreenUtil().setWidth(80),
@@ -537,7 +537,7 @@ class _MesasWidgetState extends State<MesasWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              mesa.mesaNombre,
+              '${mesa.mesaNombre}',
               style: TextStyle(
                 fontSize: ScreenUtil().setSp(20),
                 color: Colors.white,

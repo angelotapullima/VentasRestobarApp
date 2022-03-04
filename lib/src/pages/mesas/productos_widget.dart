@@ -10,7 +10,7 @@ import 'package:ventas_restobar/src/pages/mesas/agregrar_producto_comanda.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class ProductoFamilia2 extends StatefulWidget {
-  const ProductoFamilia2({Key key}) : super(key: key);
+  const ProductoFamilia2({Key? key}) : super(key: key);
 
   @override
   _ProductoFamilia2State createState() => _ProductoFamilia2State();
@@ -26,7 +26,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
     final productosFamiliaBloc = ProviderBloc.productos(context);
     return ValueListenableBuilder(
         valueListenable: provider.vista,
-        builder: (BuildContext context, EnumIndex data, Widget child) {
+        builder: (BuildContext context, EnumIndex data, Widget? child) {
           return Row(
             children: [
               Container(
@@ -47,7 +47,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                         ),
                         Text(
                           'Categorías',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontSize: ScreenUtil().setSp(24),
                                 fontWeight: FontWeight.w600,
@@ -60,23 +60,23 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                         stream: familiasBloc.familiasStream,
                         builder: (context, AsyncSnapshot<List<FamiliasModel>> snapshot) {
                           if (snapshot.hasData) {
-                            if (snapshot.data.length > 0) {
+                            if (snapshot.data!.length > 0) {
                               var datos = snapshot.data;
                               if (_controller.index == 0) {
-                                _controller.changeCategoria(datos[0].familiaNombre);
-                                productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[0].idFamilia);
+                                _controller.changeCategoria(datos![0].familiaNombre.toString());
+                                productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[0].idFamilia.toString());
                               }
 
                               return ListView.builder(
                                   padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(24)),
-                                  itemCount: datos.length,
+                                  itemCount: datos!.length,
                                   scrollDirection: Axis.vertical,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
-                                        productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[index].idFamilia);
+                                        productosFamiliaBloc.obtenerProductosPorIdFamilia(datos[index].idFamilia.toString());
                                         _controller.channgeIndex(index);
-                                        _controller.changeCategoria(datos[index].familiaNombre);
+                                        _controller.changeCategoria(datos[index].familiaNombre.toString());
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
@@ -100,7 +100,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                                       ),
                                                       Text(
                                                         '${datos[index].familiaNombre}',
-                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                        style: Theme.of(context).textTheme.button!.copyWith(
                                                               color: kTitleTextColor,
                                                               fontSize: ScreenUtil().setSp(22),
                                                               fontWeight: FontWeight.w600,
@@ -116,7 +116,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                               return Center(
                                 child: Text(
                                   'Sin categorías',
-                                  style: Theme.of(context).textTheme.button.copyWith(
+                                  style: Theme.of(context).textTheme.button!.copyWith(
                                         color: kTitleTextColor,
                                         fontSize: ScreenUtil().setSp(20),
                                         fontWeight: FontWeight.w400,
@@ -128,7 +128,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                             return Center(
                               child: Text(
                                 'Cargando...',
-                                style: Theme.of(context).textTheme.button.copyWith(
+                                style: Theme.of(context).textTheme.button!.copyWith(
                                       color: kTitleTextColor,
                                       fontSize: ScreenUtil().setSp(20),
                                       fontWeight: FontWeight.w400,
@@ -162,7 +162,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                         children: [
                           Text(
                             'Productos',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(24),
                                   fontWeight: FontWeight.w600,
@@ -178,11 +178,11 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                           stream: productosFamiliaBloc.productosFamiliaStream,
                           builder: (context, AsyncSnapshot<List<ProductosFamiliaModel>> snapshot) {
                             if (snapshot.hasData) {
-                              if (snapshot.data.length > 0) {
+                              if (snapshot.data!.length > 0) {
                                 var datos = snapshot.data;
                                 return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                    itemCount: datos.length,
+                                    padding: EdgeInsets.zero,
+                                    itemCount: datos!.length,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, index) {
                                       return InkWell(
@@ -242,7 +242,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                                       Spacer(),
                                                       Text(
                                                         '${datos[index].productoNombre}',
-                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                        style: Theme.of(context).textTheme.button!.copyWith(
                                                               color: kTitleTextColor,
                                                               fontSize: ScreenUtil().setSp(20),
                                                               fontWeight: FontWeight.w400,
@@ -251,7 +251,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                                       Spacer(),
                                                       Text(
                                                         'S/${datos[index].productoPrecio}',
-                                                        style: Theme.of(context).textTheme.button.copyWith(
+                                                        style: Theme.of(context).textTheme.button!.copyWith(
                                                               color: kTextColor,
                                                               fontSize: ScreenUtil().setSp(20),
                                                               fontWeight: FontWeight.w600,
@@ -312,7 +312,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                 return Center(
                                   child: Text(
                                     'Sin productos para esta categoría',
-                                    style: Theme.of(context).textTheme.button.copyWith(
+                                    style: Theme.of(context).textTheme.button!.copyWith(
                                           color: kTitleTextColor,
                                           fontSize: ScreenUtil().setSp(20),
                                           fontWeight: FontWeight.w400,
@@ -324,7 +324,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                               return Center(
                                 child: Text(
                                   'Cargando...',
-                                  style: Theme.of(context).textTheme.button.copyWith(
+                                  style: Theme.of(context).textTheme.button!.copyWith(
                                         color: kTitleTextColor,
                                         fontSize: ScreenUtil().setSp(20),
                                         fontWeight: FontWeight.w400,

@@ -6,7 +6,7 @@ import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/utils.dart';
 
 class ChangeUrlPage extends StatefulWidget {
-  const ChangeUrlPage({Key key}) : super(key: key);
+  const ChangeUrlPage({Key? key}) : super(key: key);
 
   @override
   _ChangeUrlPageState createState() => _ChangeUrlPageState();
@@ -93,7 +93,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                           child: Text(
                             'Actualizar url',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
@@ -131,7 +131,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                         maxLines: 1,
                         decoration: InputDecoration(
                           labelText: 'Nueva url',
-                          labelStyle: Theme.of(context).textTheme.button.copyWith(
+                          labelStyle: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: ScreenUtil().setSp(16),
@@ -150,7 +150,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                             borderSide: BorderSide(color: kOrangeTitleTextColor, width: ScreenUtil().setWidth(2)),
                           ),
                         ),
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
                               fontSize: ScreenUtil().setSp(18),
@@ -170,7 +170,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                         onPressed: () async {
                           _controller.changeCargando(true);
                           if (_urlController.text.length > 0) {
-                            _preferences.url = _urlController.text;
+                            _preferences.urls = _urlController.text;
                             showToast2('Url actualizado', Colors.black);
 
                             Navigator.pop(context);
@@ -187,7 +187,7 @@ class _ChangeUrlPageState extends State<ChangeUrlPage> {
                         ),
                         child: Text(
                           'Actualizar URL',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Colors.white,
                                 fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,

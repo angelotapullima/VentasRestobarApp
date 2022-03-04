@@ -11,7 +11,7 @@ import 'package:ventas_restobar/src/utils/utils.dart';
 import 'package:ventas_restobar/src/widgets/producto_image.dart';
 
 class AgregarProductoComanda extends StatefulWidget {
-  const AgregarProductoComanda({Key key, @required this.producto, @required this.nombreCategoria}) : super(key: key);
+  const AgregarProductoComanda({Key? key, required this.producto, required this.nombreCategoria}) : super(key: key);
   final ProductosFamiliaModel producto;
   final String nombreCategoria;
 
@@ -24,8 +24,8 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
   final TextEditingController _observacionController = TextEditingController();
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _controller.changeCantidadPrecio(0, widget.producto.productoPrecio);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _controller.changeCantidadPrecio(0, widget.producto.productoPrecio.toString());
     });
 
     super.initState();
@@ -109,7 +109,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                           child: Text(
                             '${widget.nombreCategoria}',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
@@ -147,7 +147,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                 Spacer(),
                                 Text(
                                   '${widget.producto.productoNombre}',
-                                  style: Theme.of(context).textTheme.button.copyWith(
+                                  style: Theme.of(context).textTheme.button!.copyWith(
                                         color: kTitleTextColor,
                                         fontSize: ScreenUtil().setSp(18),
                                         fontWeight: FontWeight.w400,
@@ -159,7 +159,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                     builder: (_, p) {
                                       return Text(
                                         'S/${_controller.precioMuestra}',
-                                        style: Theme.of(context).textTheme.button.copyWith(
+                                        style: Theme.of(context).textTheme.button!.copyWith(
                                               color: kTextColor,
                                               fontSize: ScreenUtil().setSp(18),
                                               fontWeight: FontWeight.w600,
@@ -179,7 +179,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      _controller.changeCantidadPrecio(-1, widget.producto.productoPrecio);
+                                      _controller.changeCantidadPrecio(-1, widget.producto.productoPrecio.toString());
                                     },
                                     child: Container(
                                       height: ScreenUtil().setHeight(40),
@@ -192,7 +192,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                     ),
                                     child: Text(
                                       '${_controller.cantidad}',
-                                      style: Theme.of(context).textTheme.button.copyWith(
+                                      style: Theme.of(context).textTheme.button!.copyWith(
                                             color: kTitleTextColor,
                                             fontSize: ScreenUtil().setSp(20),
                                             fontWeight: FontWeight.w500,
@@ -201,7 +201,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _controller.changeCantidadPrecio(1, widget.producto.productoPrecio);
+                                      _controller.changeCantidadPrecio(1, widget.producto.productoPrecio.toString());
                                     },
                                     child: Container(
                                       height: ScreenUtil().setHeight(40),
@@ -227,7 +227,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                         maxLines: 4,
                         decoration: InputDecoration(
                           labelText: 'Observaciones',
-                          labelStyle: Theme.of(context).textTheme.button.copyWith(
+                          labelStyle: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: ScreenUtil().setSp(16),
@@ -246,7 +246,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                             borderSide: BorderSide(color: kOrangeTitleTextColor, width: ScreenUtil().setWidth(2)),
                           ),
                         ),
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
                               fontSize: ScreenUtil().setSp(18),
@@ -287,7 +287,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                         ),
                         Text(
                           'Para llevar',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontSize: ScreenUtil().setSp(20),
                                 fontWeight: FontWeight.w400,
@@ -323,7 +323,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                   comandaBloc.obtenerComandaPorMesa(_preferences.idMesa);
                                   Navigator.pop(context);
                                 } else {
-                                  showToast2(res.message, Colors.red);
+                                  showToast2(res.message.toString(), Colors.red);
                                 }
                               } else {
                                 final temporal = ComandaTemporalApi();
@@ -334,7 +334,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                                   comandaBloc.obtenerComandaTemporal(_preferences.idEnviarEnComanda);
                                   Navigator.pop(context);
                                 } else {
-                                  showToast2(res.message, Colors.red);
+                                  showToast2(res.message.toString(), Colors.red);
                                 }
                               }
                               _controller.changeCargando(false);
@@ -346,7 +346,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                             ),
                             child: Text(
                               'Guardar',
-                              style: Theme.of(context).textTheme.button.copyWith(
+                              style: Theme.of(context).textTheme.button!.copyWith(
                                     color: Colors.white,
                                     fontSize: ScreenUtil().setSp(18),
                                     fontWeight: FontWeight.w500,

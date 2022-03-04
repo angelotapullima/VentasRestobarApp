@@ -18,6 +18,6 @@ class FamiliasBloc {
   }
 
   void dispose() {
-    _familiasController?.close();
+    _familiasController.close();
   }
 }

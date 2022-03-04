@@ -11,7 +11,7 @@ import 'package:ventas_restobar/src/widgets/side_menu_item.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class SideMenu extends StatelessWidget {
       child: SafeArea(
         child: ValueListenableBuilder(
           valueListenable: provider.page,
-          builder: (BuildContext context, EnumIndex data, Widget child) {
+          builder: (BuildContext context, EnumIndex data, Widget? child) {
             return Stack(
               children: [
                 Container(
@@ -102,7 +102,7 @@ class SideMenu extends StatelessWidget {
                       Text(
                         _prefs.nombres,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               fontSize: ScreenUtil().setSp(20),
                               fontWeight: FontWeight.bold,
                               color: kTitleTextColor,

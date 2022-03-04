@@ -5,7 +5,7 @@ import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/utils.dart';
 
 class AsistenciaPage extends StatelessWidget {
-  const AsistenciaPage({Key key}) : super(key: key);
+  const AsistenciaPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class AsistenciaPage extends StatelessWidget {
                           children: [
                             Text(
                               'Fecha:  ${obtenerFechaActualApi()}',
-                              style: Theme.of(context).textTheme.button.copyWith(
+                              style: Theme.of(context).textTheme.button!.copyWith(
                                     color: kTitleTextColor,
                                     fontSize: ScreenUtil().setSp(16),
                                     fontWeight: FontWeight.w500,
@@ -87,7 +87,7 @@ class AsistenciaPage extends StatelessWidget {
                             ),
                             Text(
                               'Hora:  ${obtenerHoraActualApi()}',
-                              style: Theme.of(context).textTheme.button.copyWith(
+                              style: Theme.of(context).textTheme.button!.copyWith(
                                     color: kTitleTextColor,
                                     fontSize: ScreenUtil().setSp(16),
                                     fontWeight: FontWeight.w500,
@@ -118,7 +118,7 @@ class AsistenciaPage extends StatelessWidget {
                           ),
                           child: Text(
                             'Marcar asistencia',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: Colors.white,
                                   fontSize: ScreenUtil().setSp(16),
                                   fontWeight: FontWeight.w500,
@@ -136,7 +136,7 @@ class AsistenciaPage extends StatelessWidget {
                     children: [
                       Text(
                         'Fecha',
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontSize: ScreenUtil().setSp(18),
                               fontWeight: FontWeight.w500,
@@ -144,7 +144,7 @@ class AsistenciaPage extends StatelessWidget {
                       ),
                       Text(
                         'Estado',
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontSize: ScreenUtil().setSp(18),
                               fontWeight: FontWeight.w500,
@@ -152,7 +152,7 @@ class AsistenciaPage extends StatelessWidget {
                       ),
                       Text(
                         'Hora',
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontSize: ScreenUtil().setSp(18),
                               fontWeight: FontWeight.w500,
@@ -160,7 +160,7 @@ class AsistenciaPage extends StatelessWidget {
                       ),
                       Text(
                         'Observaciones',
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontSize: ScreenUtil().setSp(18),
                               fontWeight: FontWeight.w500,

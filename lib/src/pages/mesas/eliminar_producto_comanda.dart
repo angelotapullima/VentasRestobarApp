@@ -10,7 +10,7 @@ import 'package:ventas_restobar/src/utils/utils.dart';
 import 'package:ventas_restobar/src/widgets/producto_image.dart';
 
 class EliminarProductoComanda extends StatefulWidget {
-  const EliminarProductoComanda({Key key, @required this.detalleComanda}) : super(key: key);
+  const EliminarProductoComanda({Key? key, required this.detalleComanda}) : super(key: key);
   final DetalleComandaModel detalleComanda;
 
   @override
@@ -98,7 +98,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                           child: Text(
                             'Eliminar producto',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
@@ -132,7 +132,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             width: ScreenUtil().setWidth(130),
                             child: Text(
                               '${widget.detalleComanda.nombreProducto}',
-                              style: Theme.of(context).textTheme.button.copyWith(
+                              style: Theme.of(context).textTheme.button!.copyWith(
                                     color: kTitleTextColor,
                                     fontSize: ScreenUtil().setSp(18),
                                     fontWeight: FontWeight.w400,
@@ -141,7 +141,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                           ),
                           Text(
                             'S/${widget.detalleComanda.totalDetalle}',
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTextColor,
                                   fontSize: ScreenUtil().setSp(18),
                                   fontWeight: FontWeight.w600,
@@ -160,7 +160,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Ingrese contraseña',
-                          labelStyle: Theme.of(context).textTheme.button.copyWith(
+                          labelStyle: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: ScreenUtil().setSp(16),
@@ -179,7 +179,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             borderSide: BorderSide(color: kOrangeTitleTextColor, width: ScreenUtil().setWidth(2)),
                           ),
                         ),
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
                               fontSize: ScreenUtil().setSp(18),
@@ -198,7 +198,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         maxLines: 1,
                         decoration: InputDecoration(
                           labelText: 'Motivo',
-                          labelStyle: Theme.of(context).textTheme.button.copyWith(
+                          labelStyle: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: ScreenUtil().setSp(16),
@@ -217,7 +217,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             borderSide: BorderSide(color: kOrangeTitleTextColor, width: ScreenUtil().setWidth(2)),
                           ),
                         ),
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               color: kTitleTextColor,
                               fontWeight: FontWeight.w400,
                               fontSize: ScreenUtil().setSp(18),
@@ -248,7 +248,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                               comandaBloc.obtenerComandaPorMesa(_prefs.idMesa);
                               Navigator.pop(context);
                             } else {
-                              showToast2(res.message, Colors.black);
+                              showToast2(res.message.toString(), Colors.black);
                             }
                           } else {
                             showToast2('Ingrese contraseña', Colors.black);
@@ -263,7 +263,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         ),
                         child: Text(
                           'Eliminar',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Colors.white,
                                 fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,

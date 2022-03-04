@@ -9,7 +9,7 @@ import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/utils.dart';
 
 class MoverMesaPage extends StatefulWidget {
-  const MoverMesaPage({Key key, @required this.mesa}) : super(key: key);
+  const MoverMesaPage({Key? key, required this.mesa}) : super(key: key);
   final MesaModel mesa;
 
   @override
@@ -96,7 +96,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                           child: Text(
                             'Mover mesa',
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.button.copyWith(
+                            style: Theme.of(context).textTheme.button!.copyWith(
                                   color: kTitleTextColor,
                                   fontSize: ScreenUtil().setSp(20),
                                   fontWeight: FontWeight.w600,
@@ -121,7 +121,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                         Text(
                           'Seleccionar mesa:',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: kTitleTextColor,
                                 fontSize: ScreenUtil().setSp(20),
                                 fontWeight: FontWeight.w400,
@@ -191,7 +191,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                           Text(
                                             '${widget.mesa.mesaNombre}',
                                             textAlign: TextAlign.center,
-                                            style: Theme.of(context).textTheme.button.copyWith(
+                                            style: Theme.of(context).textTheme.button!.copyWith(
                                                   color: Colors.white,
                                                   fontSize: ScreenUtil().setSp(20),
                                                   fontWeight: FontWeight.w600,
@@ -203,7 +203,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                           Text(
                                             'Ocupado',
                                             textAlign: TextAlign.center,
-                                            style: Theme.of(context).textTheme.button.copyWith(
+                                            style: Theme.of(context).textTheme.button!.copyWith(
                                                   color: Colors.white,
                                                   fontSize: ScreenUtil().setSp(18),
                                                   fontWeight: FontWeight.w500,
@@ -248,7 +248,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                               Text(
                                 'Mesa de origen',
                                 textAlign: TextAlign.center,
-                                style: Theme.of(context).textTheme.button.copyWith(
+                                style: Theme.of(context).textTheme.button!.copyWith(
                                       color: kTitleTextColor,
                                       fontSize: ScreenUtil().setSp(20),
                                       fontWeight: FontWeight.w400,
@@ -324,7 +324,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                   Text(
                                                     (_controller.idMesaDestinoSelec != '') ? '${_controller.mesaDestinoNombre}' : '',
                                                     textAlign: TextAlign.center,
-                                                    style: Theme.of(context).textTheme.button.copyWith(
+                                                    style: Theme.of(context).textTheme.button!.copyWith(
                                                           color: Colors.white,
                                                           fontSize: ScreenUtil().setSp(20),
                                                           fontWeight: FontWeight.w600,
@@ -336,7 +336,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                   Text(
                                                     (_controller.idMesaDestinoSelec != '') ? 'Disponible' : '',
                                                     textAlign: TextAlign.center,
-                                                    style: Theme.of(context).textTheme.button.copyWith(
+                                                    style: Theme.of(context).textTheme.button!.copyWith(
                                                           color: Colors.white,
                                                           fontSize: ScreenUtil().setSp(18),
                                                           fontWeight: FontWeight.w500,
@@ -381,7 +381,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                       Text(
                                         'Mesa de destino',
                                         textAlign: TextAlign.center,
-                                        style: Theme.of(context).textTheme.button.copyWith(
+                                        style: Theme.of(context).textTheme.button!.copyWith(
                                               color: kTitleTextColor,
                                               fontSize: ScreenUtil().setSp(20),
                                               fontWeight: FontWeight.w400,
@@ -401,22 +401,23 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                           child: StreamBuilder(
                                               stream: mesasBloc.mesasStream,
                                               builder: (context, AsyncSnapshot<List<MesaModel>> snapshot) {
-                                                if (snapshot.hasData && snapshot.data.length > 0) {
+                                                if (snapshot.hasData && snapshot.data!.length > 0) {
                                                   var mesas = snapshot.data;
                                                   return ListView.builder(
                                                     padding: EdgeInsets.all(0),
                                                     shrinkWrap: true,
-                                                    itemCount: mesas.length,
+                                                    itemCount: mesas!.length,
                                                     itemBuilder: (_, index) {
                                                       return InkWell(
                                                         onTap: () {
                                                           _controller.changeSelect(false);
-                                                          _controller.changeDataMesa(mesas[index].idMesa, mesas[index].mesaNombre);
+                                                          _controller.changeDataMesa(
+                                                              mesas[index].idMesa.toString(), mesas[index].mesaNombre.toString());
                                                         },
                                                         child: Card(
                                                           child: Text(
                                                             '${mesas[index].mesaNombre}',
-                                                            style: Theme.of(context).textTheme.button.copyWith(
+                                                            style: Theme.of(context).textTheme.button!.copyWith(
                                                                   color: kTitleTextColor,
                                                                   fontSize: ScreenUtil().setSp(18),
                                                                   fontWeight: FontWeight.w400,
@@ -430,7 +431,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                                                   return Center(
                                                     child: Text(
                                                       'Sin mesas disponibles',
-                                                      style: Theme.of(context).textTheme.button.copyWith(
+                                                      style: Theme.of(context).textTheme.button!.copyWith(
                                                             color: kTitleTextColor,
                                                             fontSize: ScreenUtil().setSp(18),
                                                             fontWeight: FontWeight.w400,
@@ -462,7 +463,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                           _controller.changeCargando(true);
                           if (_controller.idMesaDestinoSelec != '') {
                             final _mesaApi = MesasApi();
-                            final res = await _mesaApi.cambiarMesa(widget.mesa.idMesa, _controller.idMesaDestinoSelec);
+                            final res = await _mesaApi.cambiarMesa(widget.mesa.idMesa.toString(), _controller.idMesaDestinoSelec);
                             if (res.code == 1) {
                               final _prefs = Preferences();
                               final mesasBloc = ProviderBloc.mesas(context);
@@ -470,7 +471,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                               mesasBloc.obtenerDetalleMesa(_controller.idMesaDestinoSelec);
                               Navigator.pop(context);
                             } else {
-                              showToast2(res.message, Colors.red);
+                              showToast2(res.message.toString(), Colors.red);
                             }
                           } else {
                             showToast2('Debe seleccionar la mesa de destino', Colors.black);
@@ -485,7 +486,7 @@ class _MoverMesaPageState extends State<MoverMesaPage> {
                         ),
                         child: Text(
                           'Mover',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Colors.white,
                                 fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,

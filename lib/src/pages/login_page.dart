@@ -8,7 +8,7 @@ import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/utils.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           'Bienvenido de vuelta',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: kOrangeTitleTextColor,
                                 fontSize: ScreenUtil().setSp(26),
                                 fontWeight: FontWeight.w700,
@@ -198,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                               await mesaApi.obtenerMesasPorNegocio();
                               Navigator.pushReplacementNamed(context, 'home');
                             } else {
-                              showToast2(res.message, Colors.black);
+                              showToast2(res.message.toString(), Colors.black);
                             }
                           } else {
                             showToast2('Complete todos los campos', Colors.black);
@@ -212,7 +212,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Text(
                           'Ingresar',
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Colors.white,
                                 fontSize: ScreenUtil().setSp(18),
                                 fontWeight: FontWeight.w500,

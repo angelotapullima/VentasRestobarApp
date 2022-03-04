@@ -8,7 +8,7 @@ import 'package:ventas_restobar/src/pages/tablet/side_menu.dart';
 import 'package:ventas_restobar/src/utils/responsive_builder.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xfff7f7f7),
       body: WillPopScope(
-        onWillPop: (){
+        onWillPop: () async {
+          bool? value = false;
 
           print('back');
-          return null;
+          return value;
         },
         child: Stack(
           children: [
@@ -62,21 +63,21 @@ class HomePage extends StatelessWidget {
             //                 preferences.tiendaId = '';
             //                 preferences.llamadaLocacion = '';
             //                 preferences.token = '';
-      
+
             //                 final carritoDatabase = CarritoDatabase();
             //                 final familiasDatabase = FamiliasDatabase();
             //                 final locacionDatabase = LocacionDatabase();
             //                 final mesasDatabase = MesasDatabase();
             //                 final pedidosUserDatabase = PedidosUserDatabase();
             //                 final productosDatabase = ProductosDatabase();
-      
+
             //                 await carritoDatabase.eliminarTablaCarritoMesa();
             //                 await familiasDatabase.eliminarTablaFamilias();
             //                 await locacionDatabase.eliminarTablaLocacion();
             //                 await mesasDatabase.eliminarTablaMesas();
             //                 await pedidosUserDatabase.eliminarTablaPedidoUser();
             //                 await productosDatabase.eliminarTablaProductos();
-      
+
             //                 Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => true);
             //               },
             //               child: Text('Iniciar Sesión'),
@@ -118,21 +119,21 @@ class HomePage extends StatelessWidget {
             //                 preferences.nombresCompletos = '';
             //                 preferences.tiendaId = '';
             //                 preferences.token = '';
-      
+
             //                 final carritoDatabase = CarritoDatabase();
             //                 final familiasDatabase = FamiliasDatabase();
             //                 final locacionDatabase = LocacionDatabase();
             //                 final mesasDatabase = MesasDatabase();
             //                 final pedidosUserDatabase = PedidosUserDatabase();
             //                 final productosDatabase = ProductosDatabase();
-      
+
             //                 await carritoDatabase.eliminarTablaCarritoMesa();
             //                 await familiasDatabase.eliminarTablaFamilias();
             //                 await locacionDatabase.eliminarTablaLocacion();
             //                 await mesasDatabase.eliminarTablaMesas();
             //                 await pedidosUserDatabase.eliminarTablaPedidoUser();
             //                 await productosDatabase.eliminarTablaProductos();
-      
+
             //                 Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => true);
             //               },
             //               child: Text('Iniciar Sesión'),
@@ -156,7 +157,7 @@ class HomePage extends StatelessWidget {
 
 class VistaTablet extends StatelessWidget {
   const VistaTablet({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -169,7 +170,7 @@ class VistaTablet extends StatelessWidget {
     return SafeArea(
       child: ValueListenableBuilder(
         valueListenable: provider.page,
-        builder: (BuildContext context, EnumIndex data, Widget child) {
+        builder: (BuildContext context, EnumIndex data, Widget? child) {
           return Column(
             children: [
               Container(

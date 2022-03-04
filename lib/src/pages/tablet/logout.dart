@@ -6,7 +6,7 @@ import 'package:ventas_restobar/src/database/productos_familia_database.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 
 class Logout extends StatelessWidget {
-  const Logout({Key key}) : super(key: key);
+  const Logout({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,17 +67,17 @@ class Logout extends StatelessWidget {
                       width: ScreenUtil().setWidth(150),
                       child: MaterialButton(
                         onPressed: () async {
-                          preferences.apellidoMaterno = '';
-                          preferences.apellidoPaterno = '';
-                          preferences.codigoUsuario = '';
-                          preferences.idUsuario = '';
-                          preferences.locacionId = '';
-                          preferences.nombres = '';
-                          preferences.llamadaLocacion = '';
-                          preferences.nombresCompletos = '';
-                          preferences.tiendaId = '';
-                          preferences.token = '';
-                          preferences.locacionId = '';
+                          preferences.apellidoMaternos = '';
+                          preferences.apellidoPaternos = '';
+                          preferences.codigoUsuarioss = '';
+                          preferences.idUsuarios = '';
+                          preferences.locacionIds = '';
+                          preferences.nombress = '';
+                          preferences.llamadaLocacions = '';
+                          preferences.nombresCompletoss = '';
+                          preferences.tiendaIds = '';
+                          preferences.tokens = '';
+                          preferences.locacionIds = '';
 
                           //final carritoDatabase = CarritoDatabase();
                           final familiasDatabase = FamiliaDatabase();

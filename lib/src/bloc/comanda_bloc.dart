@@ -33,7 +33,7 @@ class ComandaBloc {
       comanda.fecha = _listaComandaMesa[0].fecha;
       comanda.estado = _listaComandaMesa[0].estado;
       final List<DetalleComandaModel> listaDetalle = [];
-      final _listaDetalleComanda = await _comandaDatabase.obtenerDetalleComandaPorIdComanda(_listaComandaMesa[0].idComanda);
+      final _listaDetalleComanda = await _comandaDatabase.obtenerDetalleComandaPorIdComanda(_listaComandaMesa[0].idComanda.toString());
       for (var i = 0; i < _listaDetalleComanda.length; i++) {
         listaDetalle.add(_listaDetalleComanda[i]);
       }

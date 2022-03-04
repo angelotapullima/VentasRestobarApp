@@ -4,7 +4,7 @@ import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class Splash extends StatefulWidget {
-  const Splash({Key key}) : super(key: key);
+  const Splash({Key? key}) : super(key: key);
 
   @override
   _SplashState createState() => _SplashState();
@@ -13,14 +13,14 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
       // /* final tiendadBloc = ProviderBloc.tiendas(context);
       // tiendadBloc.obtenerTiendas(); */
 
       final preferences = Preferences();
 
       if (preferences.url == null || preferences.url.isEmpty || preferences.url == '') {
-        preferences.url = "$apiBaseURL";
+        preferences.urls = "$apiBaseURL";
       }
 
       if (preferences.token == null || preferences.token.isEmpty) {

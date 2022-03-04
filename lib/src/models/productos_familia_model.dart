@@ -1,12 +1,12 @@
 class ProductosFamiliaModel {
-  String idProducto;
-  String idFamilia;
-  String idReceta;
-  String productoNombre;
-  String productoDescripcion;
-  String productoFoto;
-  String productoPrecio;
-  String productoEstado;
+  String? idProducto;
+  String? idFamilia;
+  String? idReceta;
+  String? productoNombre;
+  String? productoDescripcion;
+  String? productoFoto;
+  String? productoPrecio;
+  String? productoEstado;
 
   ProductosFamiliaModel({
     this.idProducto,
@@ -19,7 +19,7 @@ class ProductosFamiliaModel {
     this.productoEstado,
   });
 
-  factory ProductosFamiliaModel.fromJson(Map<String, dynamic> json) => ProductosFamiliaModel(
+  factory ProductosFamiliaModel.fromJson(Map<String?, dynamic> json) => ProductosFamiliaModel(
         idProducto: json["idProducto"],
         idFamilia: json["idFamilia"],
         idReceta: json["idReceta"],

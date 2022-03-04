@@ -1,10 +1,10 @@
 class MesaModel {
-  String idMesa;
-  String idNegocio;
-  String mesaNombre;
-  String mesaEstado;
-  String mesaCapacidad;
-  String mesaEstadoAtencion;
+  String? idMesa;
+  String? idNegocio;
+  String? mesaNombre;
+  String? mesaEstado;
+  String? mesaCapacidad;
+  String? mesaEstadoAtencion;
 
   MesaModel({
     this.idMesa,
@@ -15,7 +15,7 @@ class MesaModel {
     this.mesaEstadoAtencion,
   });
 
-  factory MesaModel.fromJson(Map<String, dynamic> json) => MesaModel(
+  factory MesaModel.fromJson(Map<String?, dynamic> json) => MesaModel(
         idMesa: json["idMesa"],
         idNegocio: json["idNegocio"],
         mesaNombre: json["mesaNombre"],

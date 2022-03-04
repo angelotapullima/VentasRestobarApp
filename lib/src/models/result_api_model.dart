@@ -1,6 +1,6 @@
 class ResultApiModel {
-  int code;
-  String message;
+  int? code;
+  String? message;
 
   ResultApiModel({
     this.code,

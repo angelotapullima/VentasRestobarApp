@@ -1,15 +1,15 @@
 class DetalleComandaTemporalModel {
-  int id;
-  String idMesa;
-  String idProducto;
-  String nombreProducto;
-  String fotoProducto;
-  String cantidad;
-  String subtotal;
-  String totalDetalle;
-  String observaciones;
-  String estado;
-  String despacho;
+  int? id;
+  String? idMesa;
+  String? idProducto;
+  String? nombreProducto;
+  String? fotoProducto;
+  String? cantidad;
+  String? subtotal;
+  String? totalDetalle;
+  String? observaciones;
+  String? estado;
+  String? despacho;
 
   DetalleComandaTemporalModel({
     this.id,
@@ -25,7 +25,7 @@ class DetalleComandaTemporalModel {
     this.despacho,
   });
 
-  factory DetalleComandaTemporalModel.fromJson(Map<String, dynamic> json) => DetalleComandaTemporalModel(
+  factory DetalleComandaTemporalModel.fromJson(Map<String?, dynamic> json) => DetalleComandaTemporalModel(
         id: json["id"],
         idMesa: json["idMesa"],
         idProducto: json["idProducto"],

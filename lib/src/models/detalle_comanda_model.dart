@@ -1,15 +1,15 @@
 class DetalleComandaModel {
-  String idDetalle;
-  String idComanda;
-  String idProducto;
-  String nombreProducto;
-  String fotoProducto;
-  String cantidad;
-  String subtotal;
-  String totalDetalle;
-  String observaciones;
-  String estado;
-  String llevar;
+  String? idDetalle;
+  String? idComanda;
+  String? idProducto;
+  String? nombreProducto;
+  String? fotoProducto;
+  String? cantidad;
+  String? subtotal;
+  String? totalDetalle;
+  String? observaciones;
+  String? estado;
+  String? llevar;
 
   DetalleComandaModel({
     this.idDetalle,

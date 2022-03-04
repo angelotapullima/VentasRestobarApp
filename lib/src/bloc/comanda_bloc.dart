@@ -16,7 +16,7 @@ class ComandaBloc {
   Stream<List<DetalleComandaTemporalModel>> get comandaTemporalStream => _comandaTemporalController.stream;
 
   void obtenerComandaPorMesa(String idMesa) async {
-    _comandaPorMesaController.sink.add(null);
+    _comandaPorMesaController.sink.add([]);
     _comandaPorMesaController.sink.add(await _obtenerComandaMesas(idMesa));
   }
 
@@ -44,12 +44,12 @@ class ComandaBloc {
   }
 
   void obtenerComandaTemporal(String idMesa) async {
-    _comandaTemporalController.sink.add(null);
+    _comandaTemporalController.sink.add([]);
     _comandaTemporalController.sink.add(await _comandaTemporalDatabase.obtenerDetalleComandaPorIdMesa(idMesa));
   }
 
   void dispose() {
-    _comandaPorMesaController?.close();
-    _comandaTemporalController?.close();
+    _comandaPorMesaController.close();
+    _comandaTemporalController.close();
   }
 }

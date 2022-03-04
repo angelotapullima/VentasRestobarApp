@@ -27,12 +27,12 @@ class MesasBloc {
 
   void obtenerMesasNegocio(int lugar) async {
     if (lugar == 1) {
-      _mesasNegocioBarraController.sink.add(null);
+      _mesasNegocioBarraController.sink.add([]);
       _mesasNegocioSalonController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
       await _mesasApi.obtenerMesasPorNegocio();
       _mesasNegocioSalonController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioSalon(_prefs.tiendaId));
     } else {
-      _mesasNegocioSalonController.sink.add(null);
+      _mesasNegocioSalonController.sink.add([]);
       _mesasNegocioBarraController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
       await _mesasApi.obtenerMesasPorNegocio();
       _mesasNegocioBarraController.sink.add(await _mesasDatabase.obtenerMesasPorNegocioBarra(_prefs.tiendaId));
@@ -57,7 +57,7 @@ class MesasBloc {
   }
 
   void limpiarMesa() async {
-    _mesaDetalleController.sink.add(null);
+    _mesaDetalleController.sink.add([]);
   }
 
   void obtenerMesasDisponibles() async {
@@ -65,10 +65,10 @@ class MesasBloc {
   }
 
   dispose() {
-    _mesasNegocioController?.close();
-    _mesasNegocioSalonController?.close();
-    _mesaDetalleController?.close();
-    _mesasNegocioBarraController?.close();
+    _mesasNegocioController.close();
+    _mesasNegocioSalonController.close();
+    _mesaDetalleController.close();
+    _mesasNegocioBarraController.close();
     //_vistaSelect?.close();
   }
 }

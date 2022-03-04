@@ -1,13 +1,13 @@
 import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
 
 class ComandaModel {
-  String idComanda;
-  String idMesa;
-  String total;
-  String fecha;
-  String estado;
+  String? idComanda;
+  String? idMesa;
+  String? total;
+  String? fecha;
+  String? estado;
 
-  List<DetalleComandaModel> detalleComanda;
+  List<DetalleComandaModel>? detalleComanda;
 
   ComandaModel({
     this.idComanda,

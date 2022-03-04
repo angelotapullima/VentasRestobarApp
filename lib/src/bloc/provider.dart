@@ -6,39 +6,29 @@ import 'package:ventas_restobar/src/bloc/productos_familia_bloc.dart';
 
 //singleton para obtner una unica instancia del Bloc
 class ProviderBloc extends InheritedWidget {
-  static ProviderBloc _instancia;
-
-  factory ProviderBloc({Key key, Widget child}) {
-    if (_instancia == null) {
-      _instancia = new ProviderBloc._internal(key: key, child: child);
-    }
-
-    return _instancia;
-  }
-
   final mesasBloc = MesasBloc();
   final familiasBloc = FamiliasBloc();
   final productosBloc = ProductosFamiliaBloc();
   final comandaBloc = ComandaBloc();
 
-  ProviderBloc._internal({Key key, Widget child}) : super(key: key, child: child);
+  ProviderBloc({required Widget child}) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
   static MesasBloc mesas(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>().mesasBloc;
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()!.mesasBloc;
   }
 
   static FamiliasBloc familias(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>().familiasBloc;
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()!.familiasBloc;
   }
 
   static ProductosFamiliaBloc productos(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>().productosBloc;
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()!.productosBloc;
   }
 
   static ComandaBloc comanda(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>().comandaBloc;
+    return context.dependOnInheritedWidgetOfExactType<ProviderBloc>()!.comandaBloc;
   }
 }

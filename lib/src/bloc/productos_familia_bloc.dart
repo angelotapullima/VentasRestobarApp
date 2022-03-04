@@ -10,11 +10,11 @@ class ProductosFamiliaBloc {
   Stream<List<ProductosFamiliaModel>> get productosFamiliaStream => _productoFamiliaController.stream;
 
   void obtenerProductosPorIdFamilia(String idFamilia) async {
-    _productoFamiliaController.sink.add(null);
+    _productoFamiliaController.sink.add([]);
     _productoFamiliaController.sink.add(await _productosDatabase.obtenerProductosXIdFamilia(idFamilia));
   }
 
   void dispose() {
-    _productoFamiliaController?.close();
+    _productoFamiliaController.close();
   }
 }

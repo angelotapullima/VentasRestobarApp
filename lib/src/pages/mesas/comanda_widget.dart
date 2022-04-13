@@ -10,7 +10,6 @@ import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_temporal_model.dart';
-import 'package:ventas_restobar/src/pages/mesas/eliminar_producto_comanda.dart';
 import 'package:ventas_restobar/src/preferences/preferences.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 import 'package:ventas_restobar/src/utils/utils.dart';

@@ -21,6 +21,7 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
   final TextEditingController _passwdController = TextEditingController();
   final TextEditingController _motivoController = TextEditingController();
   final _controller = Controller();
+  final _prefs = Preferences();
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -29,6 +30,8 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
         children: [
           InkWell(
             onTap: () {
+              final comandaBloc = ProviderBloc.comanda(context);
+              comandaBloc.obtenerComandaPorMesa(_prefs.idMesa);
               Navigator.pop(context);
             },
             child: Container(
@@ -107,6 +110,8 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                         ),
                         IconButton(
                           onPressed: () {
+                            final comandaBloc = ProviderBloc.comanda(context);
+                            comandaBloc.obtenerComandaPorMesa(_prefs.idMesa);
                             Navigator.pop(context);
                           },
                           icon: Icon(Icons.close),
@@ -241,7 +246,6 @@ class _EliminarProductoComandaState extends State<EliminarProductoComanda> {
                             final res =
                                 await _comandaApi.eliminarProductoAComanda(widget.detalleComanda, _passwdController.text, _motivoController.text);
                             if (res.code == 1) {
-                              final _prefs = Preferences();
                               final mesasBloc = ProviderBloc.mesas(context);
                               await mesasBloc.updateMesas(_prefs.indexSelect);
                               final comandaBloc = ProviderBloc.comanda(context);

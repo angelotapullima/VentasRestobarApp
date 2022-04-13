@@ -63,8 +63,10 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       child: Slidable(
+                                        key: UniqueKey(),
                                         // actionPane: SlidableDrawerActionPane(),
                                         // actionExtentRatio: 0.25,
+
                                         child: Padding(
                                           padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
                                           child: Container(
@@ -109,6 +111,45 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                               ],
                                             ),
                                           ),
+                                        ),
+                                        startActionPane: ActionPane(
+                                          motion: const ScrollMotion(),
+                                          dismissible: DismissiblePane(onDismissed: () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                opaque: false,
+                                                pageBuilder: (context, animation, secondaryAnimation) {
+                                                  return EliminarProductoComanda(
+                                                    detalleComanda: datos[0].detalleComanda![index],
+                                                  );
+                                                },
+                                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                                  var begin = Offset(0.0, 1.0);
+                                                  var end = Offset.zero;
+                                                  var curve = Curves.ease;
+
+                                                  var tween = Tween(begin: begin, end: end).chain(
+                                                    CurveTween(curve: curve),
+                                                  );
+
+                                                  return SlideTransition(
+                                                    position: animation.drive(tween),
+                                                    child: child,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          }),
+                                          children: [
+                                            SlidableAction(
+                                              onPressed: delete,
+                                              backgroundColor: Colors.red,
+                                              foregroundColor: Colors.white,
+                                              icon: Icons.delete_outline,
+                                              label: 'Eliminar',
+                                            ),
+                                          ],
                                         ),
                                         // actions: [
                                         //   IconSlideAction(
@@ -666,6 +707,8 @@ class _ComandaWidgetState extends State<ComandaWidget> {
       },
     );
   }
+
+  void delete(BuildContext context) {}
 }
 
 class Controller extends ChangeNotifier {

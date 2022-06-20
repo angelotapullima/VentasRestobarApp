@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Container(
                       height: ScreenUtil().setHeight(200),
-                      child: Image.asset('assets/img/logo.png'),
+                      child: Image.asset('assets/img/fizca_logo.png'),
                     ),
                     SizedBox(
                       height: ScreenUtil().setHeight(32),
@@ -189,6 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                         textColor: Colors.white,
                         elevation: 0,
                         onPressed: () async {
+                          FocusScope.of(context).unfocus();
                           _controller.changeCargando(true);
                           if (_controller.boton) {
                             final _loginApi = LoginApi();

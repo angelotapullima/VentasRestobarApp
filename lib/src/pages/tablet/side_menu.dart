@@ -96,7 +96,7 @@ class SideMenu extends StatelessWidget {
                       SizedBox(width: kDefaultPadding),
                       Container(
                         height: ScreenUtil().setHeight(40),
-                        child: Image.asset('assets/img/logo.png'),
+                        child: Image.asset('assets/img/fizca_logo.png'),
                       ),
                       SizedBox(width: ScreenUtil().setWidth(21)),
                       Text(

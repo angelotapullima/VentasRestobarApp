@@ -98,13 +98,15 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                                       SizedBox(
                                                         width: ScreenUtil().setWidth(24),
                                                       ),
-                                                      Text(
-                                                        '${datos[index].familiaNombre}',
-                                                        style: Theme.of(context).textTheme.button!.copyWith(
-                                                              color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(22),
-                                                              fontWeight: FontWeight.w600,
-                                                            ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          '${datos[index].familiaNombre}',
+                                                          style: Theme.of(context).textTheme.button!.copyWith(
+                                                                color: kTitleTextColor,
+                                                                fontSize: ScreenUtil().setSp(22),
+                                                                fontWeight: FontWeight.w600,
+                                                              ),
+                                                        ),
                                                       )
                                                     ],
                                                   ));
@@ -244,7 +246,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                                                         '${datos[index].productoNombre}',
                                                         style: Theme.of(context).textTheme.button!.copyWith(
                                                               color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(20),
+                                                              fontSize: ScreenUtil().setSp(18),
                                                               fontWeight: FontWeight.w400,
                                                             ),
                                                       ),

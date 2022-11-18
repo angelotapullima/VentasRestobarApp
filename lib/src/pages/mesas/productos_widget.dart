@@ -6,7 +6,9 @@ import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/familias_model.dart';
 import 'package:ventas_restobar/src/models/productos_familia_model.dart';
+import 'package:ventas_restobar/src/pages/mesas/agregar_productos_comanda_acompanamiento.dart';
 import 'package:ventas_restobar/src/pages/mesas/agregrar_producto_comanda.dart';
+//import 'package:ventas_restobar/src/pages/mesas/agregrar_producto_comanda.dart';
 import 'package:ventas_restobar/src/utils/constants.dart';
 
 class ProductoFamilia2 extends StatefulWidget {
@@ -149,6 +151,7 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
               ),
               Container(
                 width: ScreenUtil().setWidth(328),
+                height: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -181,134 +184,13 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
                           builder: (context, AsyncSnapshot<List<ProductosFamiliaModel>> snapshot) {
                             if (snapshot.hasData) {
                               if (snapshot.data!.length > 0) {
-                                var datos = snapshot.data;
+                                var datos = snapshot.data!;
                                 return ListView.builder(
                                     padding: EdgeInsets.zero,
-                                    itemCount: datos!.length,
+                                    itemCount: datos.length,
                                     scrollDirection: Axis.vertical,
                                     itemBuilder: (context, index) {
-                                      return InkWell(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(24)),
-                                          child: Container(
-                                            //padding: EdgeInsets.all(ScreenUtil().setHeight(16)),
-                                            height: ScreenUtil().setHeight(150),
-                                            child: Row(
-                                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                  height: ScreenUtil().setHeight(100),
-                                                  width: ScreenUtil().setWidth(100),
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.white,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Color(0XFF808080).withOpacity(0.25),
-                                                        blurRadius: 0.4,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  child: Stack(
-                                                    children: [
-                                                      Center(
-                                                        child: Container(
-                                                          height: ScreenUtil().setHeight(75),
-                                                          width: ScreenUtil().setWidth(75),
-                                                          decoration: BoxDecoration(
-                                                            shape: BoxShape.circle,
-                                                            color: Colors.white,
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Color(0XFF808080).withOpacity(0.25),
-                                                                blurRadius: 0.4,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Center(
-                                                        child: Container(
-                                                          height: ScreenUtil().setHeight(50),
-                                                          child: SvgPicture.asset('assets/svg/cubiertos.svg'),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: ScreenUtil().setWidth(130),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Spacer(),
-                                                      Text(
-                                                        '${datos[index].productoNombre}',
-                                                        style: Theme.of(context).textTheme.button!.copyWith(
-                                                              color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(18),
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                      ),
-                                                      Spacer(),
-                                                      Text(
-                                                        'S/${datos[index].productoPrecio}',
-                                                        style: Theme.of(context).textTheme.button!.copyWith(
-                                                              color: kTextColor,
-                                                              fontSize: ScreenUtil().setSp(20),
-                                                              fontWeight: FontWeight.w600,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Spacer(),
-                                                Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Spacer(),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          PageRouteBuilder(
-                                                            opaque: false,
-                                                            pageBuilder: (context, animation, secondaryAnimation) {
-                                                              return AgregarProductoComanda(
-                                                                producto: datos[index],
-                                                                nombreCategoria: _controller.categoria,
-                                                              );
-                                                            },
-                                                            // transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                                            //   var begin = Offset(0.0, 1.0);
-                                                            //   var end = Offset.zero;
-                                                            //   var curve = Curves.ease;
-
-                                                            //   var tween = Tween(begin: begin, end: end).chain(
-                                                            //     CurveTween(curve: curve),
-                                                            //   );
-
-                                                            //   return SlideTransition(
-                                                            //     position: animation.drive(tween),
-                                                            //     child: child,
-                                                            //   );
-                                                            // },
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Container(
-                                                        width: ScreenUtil().setWidth(40),
-                                                        height: ScreenUtil().setHeight(40),
-                                                        child: SvgPicture.asset('assets/svg/add.svg'),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      return _productossItem(datos[index]);
                                     });
                               } else {
                                 return Center(
@@ -344,6 +226,131 @@ class _ProductoFamilia2State extends State<ProductoFamilia2> {
             ],
           );
         });
+  }
+
+  Widget _productossItem(ProductosFamiliaModel item) {
+    return InkWell(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: ScreenUtil().setHeight(5)),
+        child: Container(
+          margin: EdgeInsets.all(8),
+          width: double.infinity,
+          //height: ScreenUtil().setHeight(150),
+          child: Row(
+            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                height: ScreenUtil().setHeight(100),
+                width: ScreenUtil().setWidth(100),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0XFF808080).withOpacity(0.25),
+                      blurRadius: 0.4,
+                    ),
+                  ],
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        height: ScreenUtil().setHeight(75),
+                        width: ScreenUtil().setWidth(75),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0XFF808080).withOpacity(0.25),
+                              blurRadius: 0.4,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        height: ScreenUtil().setHeight(50),
+                        child: SvgPicture.asset('assets/svg/cubiertos.svg'),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${item.productoNombre}',
+                      style: Theme.of(context).textTheme.button!.copyWith(
+                            color: kTitleTextColor,
+                            fontSize: ScreenUtil().setSp(18),
+                            fontWeight: FontWeight.w400,
+                          ),
+                    ),
+                    Row(
+                      //mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'S/${item.productoPrecio}',
+                          style: Theme.of(context).textTheme.button!.copyWith(
+                                color: kTextColor,
+                                fontSize: ScreenUtil().setSp(20),
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        //SizedBox(width: ScreenUtil().setWidth(10)),
+                        Spacer(),
+                        InkWell(
+                          onTap: () {
+                            //TODO NO FITZCA
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                opaque: false,
+                                pageBuilder: (context, animation, secondaryAnimation) {
+                                  return AgregarProductoComanda(
+                                    producto: item,
+                                    nombreCategoria: _controller.categoria,
+                                  );
+                                },
+                              ),
+                            );
+
+                            //**************** TODO Fizcarraldo *********************//
+                            // Navigator.push(
+                            //   context,
+                            //   PageRouteBuilder(
+                            //     opaque: false,
+                            //     pageBuilder: (context, animation, secondaryAnimation) {
+                            //       return AgregarProductoComandaAcompanamiento(
+                            //         producto: item,
+                            //         nombreCategoria: _controller.categoria,
+                            //       );
+                            //     },
+                            //   ),
+                            // );
+                            //****************/////////////*********************//
+                          },
+                          child: Container(
+                            width: ScreenUtil().setWidth(40),
+                            height: ScreenUtil().setHeight(40),
+                            child: SvgPicture.asset('assets/svg/add.svg'),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

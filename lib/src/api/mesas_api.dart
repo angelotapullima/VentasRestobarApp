@@ -89,47 +89,47 @@ class MesasApi {
       return false;
     }
   }
+//TODO CAMBIAR MESA
+  // Future<ResultApiModel> cambiarMesa(String idMesaOrigen, String idMesaDestino) async {
+  //   final ResultApiModel result = ResultApiModel();
+  //   try {
+  //     final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesaOrigen);
 
-  Future<ResultApiModel> cambiarMesa(String idMesaOrigen, String idMesaDestino) async {
-    final ResultApiModel result = ResultApiModel();
-    try {
-      final _listaComandaMesa = await _comandaDatabase.obtenerComandaPorIdMesa(idMesaOrigen);
+  //     if (_listaComandaMesa.length > 0) {
+  //       final url = Uri.parse('${_prefs.url}/api/Pedido/cambiar_mesa');
 
-      if (_listaComandaMesa.length > 0) {
-        final url = Uri.parse('${_prefs.url}/api/Pedido/cambiar_mesa');
+  //       final resp = await http.post(
+  //         url,
+  //         body: {
+  //           'tn': _prefs.token,
+  //           'id_mesa': idMesaOrigen,
+  //           'id_mesa_nuevo': idMesaDestino,
+  //           'id_comanda': _listaComandaMesa[0].idComanda,
+  //           'app': 'true',
+  //         },
+  //       );
 
-        final resp = await http.post(
-          url,
-          body: {
-            'tn': _prefs.token,
-            'id_mesa': idMesaOrigen,
-            'id_mesa_nuevo': idMesaDestino,
-            'id_comanda': _listaComandaMesa[0].idComanda,
-            'app': 'true',
-          },
-        );
+  //       final decodedData = json.decode(resp.body);
+  //       result.code = decodedData['result']["code"];
 
-        final decodedData = json.decode(resp.body);
-        result.code = decodedData['result']["code"];
+  //       if (decodedData['result']["code"] == 1) {
+  //         result.message = 'Ok';
+  //       } else {
+  //         result.message = 'Ocurrió un error';
+  //       }
 
-        if (decodedData['result']["code"] == 1) {
-          result.message = 'Ok';
-        } else {
-          result.message = 'Ocurrió un error';
-        }
-
-        return result;
-      } else {
-        result.code = 2;
-        result.message = 'Ocurrió un error';
-        return result;
-      }
-    } catch (e) {
-      result.code = 2;
-      result.message = 'Ocurrió un error';
-      return result;
-    }
-  }
+  //       return result;
+  //     } else {
+  //       result.code = 2;
+  //       result.message = 'Ocurrió un error';
+  //       return result;
+  //     }
+  //   } catch (e) {
+  //     result.code = 2;
+  //     result.message = 'Ocurrió un error';
+  //     return result;
+  //   }
+  // }
 
   Future<ResultApiModel> limpiarMesa(String idMesa) async {
     final ResultApiModel result = ResultApiModel();

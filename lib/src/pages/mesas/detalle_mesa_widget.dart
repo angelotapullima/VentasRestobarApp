@@ -71,46 +71,47 @@ class _DetalleMesaState extends State<DetalleMesa> {
                       ],
                     ),
                     Spacer(),
-                    (mesa[0].mesaEstadoAtencion == '1')
-                        ? InkWell(
-                            onTap: () {
-                              detalleMesaBloc.obtenerMesasDisponibles();
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  opaque: false,
-                                  pageBuilder: (context, animation, secondaryAnimation) {
-                                    return MoverMesaPage(
-                                      mesa: mesa[0],
-                                    );
-                                  },
-                                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                    var begin = Offset(0.0, 1.0);
-                                    var end = Offset.zero;
-                                    var curve = Curves.ease;
+                    //TODO CAMBIAR MESA
+                    // (mesa[0].mesaEstadoAtencion == '1')
+                    //     ? InkWell(
+                    //         onTap: () {
+                    //           detalleMesaBloc.obtenerMesasDisponibles();
+                    //           Navigator.push(
+                    //             context,
+                    //             PageRouteBuilder(
+                    //               opaque: false,
+                    //               pageBuilder: (context, animation, secondaryAnimation) {
+                    //                 return MoverMesaPage(
+                    //                   mesa: mesa[0],
+                    //                 );
+                    //               },
+                    //               transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    //                 var begin = Offset(0.0, 1.0);
+                    //                 var end = Offset.zero;
+                    //                 var curve = Curves.ease;
 
-                                    var tween = Tween(begin: begin, end: end).chain(
-                                      CurveTween(curve: curve),
-                                    );
+                    //                 var tween = Tween(begin: begin, end: end).chain(
+                    //                   CurveTween(curve: curve),
+                    //                 );
 
-                                    return SlideTransition(
-                                      position: animation.drive(tween),
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: Text(
-                              'Mover mesa',
-                              style: Theme.of(context).textTheme.button!.copyWith(
-                                    color: kOrangeColor,
-                                    fontSize: ScreenUtil().setSp(12),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                          )
-                        : Container(),
+                    //                 return SlideTransition(
+                    //                   position: animation.drive(tween),
+                    //                   child: child,
+                    //                 );
+                    //               },
+                    //             ),
+                    //           );
+                    //         },
+                    //         child: Text(
+                    //           'Mover mesa',
+                    //           style: Theme.of(context).textTheme.button!.copyWith(
+                    //                 color: kOrangeColor,
+                    //                 fontSize: ScreenUtil().setSp(12),
+                    //                 fontWeight: FontWeight.w600,
+                    //               ),
+                    //         ),
+                    //       )
+                    //     : Container(),
                     IconButton(
                       padding: EdgeInsets.all(0),
                       onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:ventas_restobar/src/database/database_provider.dart';
 import 'package:ventas_restobar/src/models/comanda_model.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
@@ -5,30 +6,58 @@ import 'package:ventas_restobar/src/models/detalle_comanda_model.dart';
 class ComandaDatabase {
   final dbprovider = DatabaseProvider.db;
 
-  insertarComanda(ComandaModel comanda) async {
+  // insertarComanda(ComandaModel comanda) async {
+  //   try {
+  //     final db = await dbprovider.database;
+
+  //     final res = await db.rawInsert("INSERT OR REPLACE INTO Comanda(idComanda,idMesa,total,fecha,estado) "
+  //         "VALUES ('${comanda.idComanda}','${comanda.idMesa}','${comanda.total}','${comanda.fecha}','${comanda.estado}')");
+
+  //     return res;
+  //   } catch (exception) {
+  //     print(exception);
+  //   }
+  // }
+
+  Future<void> insertarComanda(ComandaModel comanda) async {
     try {
-      final db = await dbprovider.database;
+      final Database db = await dbprovider.getDatabase();
 
-      final res = await db.rawInsert("INSERT OR REPLACE INTO Comanda(idComanda,idMesa,total,fecha,estado) "
-          "VALUES ('${comanda.idComanda}','${comanda.idMesa}','${comanda.total}','${comanda.fecha}','${comanda.estado}')");
-
-      return res;
-    } catch (exception) {
-      print(exception);
+      await db.insert(
+        'Comanda',
+        comanda.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      return;
     }
   }
 
-  insertarDetalleComanda(DetalleComandaModel detalleComanda) async {
+  // insertarDetalleComanda(DetalleComandaModel detalleComanda) async {
+  //   try {
+  //     final db = await dbprovider.database;
+
+  //     final res = await db.rawInsert(
+  //         "INSERT OR REPLACE INTO DetalleComandad(idDetalle,idComanda,idProducto,nombreProducto,fotoProducto,cantidad,subtotal,totalDetalle,observaciones,estado,llevar) "
+  //         "VALUES ('${detalleComanda.idDetalle}','${detalleComanda.idComanda}','${detalleComanda.idProducto}','${detalleComanda.nombreProducto}','${detalleComanda.fotoProducto}','${detalleComanda.cantidad}','${detalleComanda.subtotal}','${detalleComanda.totalDetalle}','${detalleComanda.observaciones}','${detalleComanda.estado}','${detalleComanda.llevar}')");
+
+  //     return res;
+  //   } catch (exception) {
+  //     print(exception);
+  //   }
+  // }
+
+  Future<void> insertarDetalleComanda(DetalleComandaModel detalleComanda) async {
     try {
-      final db = await dbprovider.database;
+      final Database db = await dbprovider.getDatabase();
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO DetalleComandad(idDetalle,idComanda,idProducto,nombreProducto,fotoProducto,cantidad,subtotal,totalDetalle,observaciones,estado,llevar) "
-          "VALUES ('${detalleComanda.idDetalle}','${detalleComanda.idComanda}','${detalleComanda.idProducto}','${detalleComanda.nombreProducto}','${detalleComanda.fotoProducto}','${detalleComanda.cantidad}','${detalleComanda.subtotal}','${detalleComanda.totalDetalle}','${detalleComanda.observaciones}','${detalleComanda.estado}','${detalleComanda.llevar}')");
-
-      return res;
-    } catch (exception) {
-      print(exception);
+      await db.insert(
+        'DetalleComandad',
+        detalleComanda.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      return;
     }
   }
 

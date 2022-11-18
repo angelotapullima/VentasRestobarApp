@@ -18,6 +18,14 @@ class ComandaModel {
     this.detalleComanda,
   });
 
+  Map<String, dynamic> toJson() => {
+        'idComanda': idComanda,
+        'idMesa': idMesa,
+        'total': total,
+        'fecha': fecha,
+        'estado': estado,
+      };
+
   factory ComandaModel.fromJson(Map<String, dynamic> json) => ComandaModel(
         idComanda: json["idComanda"],
         idMesa: json["idMesa"],

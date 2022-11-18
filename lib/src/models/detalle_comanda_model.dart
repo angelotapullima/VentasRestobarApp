@@ -25,6 +25,20 @@ class DetalleComandaModel {
     this.llevar,
   });
 
+  Map<String, dynamic> toJson() => {
+        'idDetalle': idDetalle,
+        'idComanda': idComanda,
+        'idProducto': idProducto,
+        'nombreProducto': nombreProducto,
+        'fotoProducto': fotoProducto,
+        'cantidad': cantidad,
+        'subtotal': subtotal,
+        'totalDetalle': totalDetalle,
+        'observaciones': observaciones,
+        'estado': estado,
+        'llevar': llevar,
+      };
+
   factory DetalleComandaModel.fromJson(Map<String, dynamic> json) => DetalleComandaModel(
         idDetalle: json["idDetalle"],
         idComanda: json["idComanda"],

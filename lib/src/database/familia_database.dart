@@ -1,19 +1,34 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:ventas_restobar/src/database/database_provider.dart';
 import 'package:ventas_restobar/src/models/familias_model.dart';
 
 class FamiliaDatabase {
   final dbprovider = DatabaseProvider.db;
 
-  insertarFamilia(FamiliasModel familia) async {
+  // insertarFamilia(FamiliasModel familia) async {
+  //   try {
+  //     final db = await dbprovider.database;
+
+  //     final res = await db.rawInsert("INSERT OR REPLACE INTO Familias(idFamilia,familiaNombre,familiaEstado) "
+  //         "VALUES ('${familia.idFamilia}','${familia.familiaNombre}','${familia.familiaEstado}')");
+
+  //     return res;
+  //   } catch (exception) {
+  //     print(exception);
+  //   }
+  // }
+
+  Future<void> insertarFamilia(FamiliasModel familia) async {
     try {
-      final db = await dbprovider.database;
+      final Database db = await dbprovider.getDatabase();
 
-      final res = await db.rawInsert("INSERT OR REPLACE INTO Familias(idFamilia,familiaNombre,familiaEstado) "
-          "VALUES ('${familia.idFamilia}','${familia.familiaNombre}','${familia.familiaEstado}')");
-
-      return res;
-    } catch (exception) {
-      print(exception);
+      await db.insert(
+        'Familias',
+        familia.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      return;
     }
   }
 

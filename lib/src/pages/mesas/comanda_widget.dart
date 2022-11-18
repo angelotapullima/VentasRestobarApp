@@ -55,7 +55,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                 margin: EdgeInsets.only(
                                   left: ScreenUtil().setWidth(16),
                                   right: ScreenUtil().setWidth(16),
-                                  bottom: ScreenUtil().setHeight(120),
+                                  bottom: ScreenUtil().setHeight(160),
                                 ),
                                 child: ListView.builder(
                                   itemCount: datos[0].detalleComanda!.length,
@@ -81,33 +81,64 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                   wmin: 30,
                                                   image: (datos[0].detalleComanda![index].llevar == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                                 ),
-                                                Container(
-                                                  width: ScreenUtil().setWidth(105),
-                                                  child: Text(
-                                                    '${datos[0].detalleComanda![index].nombreProducto}',
-                                                    style: Theme.of(context).textTheme.button!.copyWith(
-                                                          color: kTitleTextColor,
-                                                          fontSize: ScreenUtil().setSp(18),
-                                                          fontWeight: FontWeight.w400,
-                                                        ),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        '${datos[0].detalleComanda![index].nombreProducto}',
+                                                        style: Theme.of(context).textTheme.button!.copyWith(
+                                                              color: kTitleTextColor,
+                                                              fontSize: ScreenUtil().setSp(18),
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
+                                                      ),
+                                                      Row(
+                                                        //mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              '${datos[0].detalleComanda![index].observaciones ?? ""}',
+                                                              style: Theme.of(context).textTheme.button!.copyWith(
+                                                                    color: kTitleTextColor,
+                                                                    fontSize: ScreenUtil().setSp(9),
+                                                                    fontWeight: FontWeight.w400,
+                                                                    fontStyle: FontStyle.italic,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            '${datos[0].detalleComanda![index].cantidad} X ',
+                                                            style: Theme.of(context).textTheme.button!.copyWith(
+                                                                  color: kTitleTextColor,
+                                                                  fontSize: ScreenUtil().setSp(18),
+                                                                  fontWeight: FontWeight.w400,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            'S/${datos[0].detalleComanda![index].totalDetalle}',
+                                                            style: Theme.of(context).textTheme.button!.copyWith(
+                                                                  color: kTextColor,
+                                                                  fontSize: ScreenUtil().setSp(16),
+                                                                  fontWeight: FontWeight.w400,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                                Text(
-                                                  'X ${datos[0].detalleComanda![index].cantidad}',
-                                                  style: Theme.of(context).textTheme.button!.copyWith(
-                                                        color: kTitleTextColor,
-                                                        fontSize: ScreenUtil().setSp(18),
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  'S/${datos[0].detalleComanda![index].totalDetalle}',
-                                                  style: Theme.of(context).textTheme.button!.copyWith(
-                                                        color: kTextColor,
-                                                        fontSize: ScreenUtil().setSp(16),
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                )
+                                                // Container(
+                                                //   width: ScreenUtil().setWidth(105),
+                                                //   child: Text(
+                                                //     '${datos[0].detalleComanda![index].nombreProducto}',
+                                                //     style: Theme.of(context).textTheme.button!.copyWith(
+                                                //           color: kTitleTextColor,
+                                                //           fontSize: ScreenUtil().setSp(18),
+                                                //           fontWeight: FontWeight.w400,
+                                                //         ),
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                           ),
@@ -197,9 +228,10 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                 right: 0,
                                 child: Container(
                                   width: double.infinity,
-                                  height: ScreenUtil().setWidth(120),
+                                  height: ScreenUtil().setWidth(100),
                                   decoration: BoxDecoration(
                                     color: Color(0XFF48BDFF),
+                                    //color: Color(0XFFF1C40F),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: Padding(
@@ -377,8 +409,7 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                   children: [
                                     Container(
                                       margin: EdgeInsets.only(
-                                        bottom: ScreenUtil().setHeight(90),
-                                      ),
+                                          bottom: (data == EnumIndex.mesas) ? ScreenUtil().setHeight(120) : ScreenUtil().setHeight(90)),
                                       child: ListView.builder(
                                         itemCount: datitos!.length,
                                         scrollDirection: Axis.vertical,
@@ -398,84 +429,94 @@ class _ComandaWidgetState extends State<ComandaWidget> {
                                                       wmin: 30,
                                                       image: (datitos[index].despacho == 'PARA LLEVAR') ? 'llevar' : 'cubiertos',
                                                     ),
-                                                    Container(
-                                                      width: ScreenUtil().setWidth(80),
-                                                      child: Text(
-                                                        '${datitos[index].nombreProducto}',
-                                                        style: Theme.of(context).textTheme.button!.copyWith(
-                                                              color: kTitleTextColor,
-                                                              fontSize: ScreenUtil().setSp(18),
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () async {
-                                                                final apiTemporal = ComandaTemporalApi();
-
-                                                                final res = await apiTemporal.updateDetalle(datitos[index], -1);
-
-                                                                if (res.code == 1) {
-                                                                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
-                                                                } else {
-                                                                  showToast2('Ocurrió un error', Colors.red);
-                                                                }
-                                                              },
-                                                              child: Container(
-                                                                height: ScreenUtil().setHeight(24),
-                                                                child: SvgPicture.asset('assets/svg/minus_on.svg'),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets.symmetric(
-                                                                horizontal: ScreenUtil().setWidth(8),
-                                                              ),
-                                                              child: Text(
-                                                                '${datitos[index].cantidad}',
-                                                                textAlign: TextAlign.center,
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            '${datitos[index].nombreProducto}',
+                                                            style: Theme.of(context).textTheme.button!.copyWith(
+                                                                  color: kTitleTextColor,
+                                                                  fontSize: ScreenUtil().setSp(16),
+                                                                  fontWeight: FontWeight.w400,
+                                                                ),
+                                                          ),
+                                                          (datitos[index].observaciones!.isNotEmpty)
+                                                              ? Text(
+                                                                  '${datitos[index].observaciones ?? ""}',
+                                                                  style: Theme.of(context).textTheme.button!.copyWith(
+                                                                        color: kTitleTextColor,
+                                                                        fontSize: ScreenUtil().setSp(9),
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontStyle: FontStyle.italic,
+                                                                      ),
+                                                                )
+                                                              : Container(),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                'S/${datitos[index].totalDetalle}',
                                                                 style: Theme.of(context).textTheme.button!.copyWith(
-                                                                      color: kTitleTextColor,
+                                                                      color: kTextColor,
                                                                       fontSize: ScreenUtil().setSp(16),
-                                                                      fontWeight: FontWeight.w500,
+                                                                      fontWeight: FontWeight.w400,
                                                                     ),
                                                               ),
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () async {
-                                                                final apiTemporal = ComandaTemporalApi();
+                                                              Spacer(),
+                                                              InkWell(
+                                                                onTap: () async {
+                                                                  final apiTemporal = ComandaTemporalApi();
 
-                                                                final res = await apiTemporal.updateDetalle(datitos[index], 1);
+                                                                  final res = await apiTemporal.updateDetalle(datitos[index], -1);
 
-                                                                if (res.code == 1) {
-                                                                  comandaBloc.obtenerComandaTemporal(widget.idMesa);
-                                                                } else {
-                                                                  showToast2('Ocurrió un error', Colors.red);
-                                                                }
-                                                              },
-                                                              child: Container(
-                                                                height: ScreenUtil().setHeight(24),
-                                                                child: SvgPicture.asset('assets/svg/add.svg'),
+                                                                  if (res.code == 1) {
+                                                                    comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                                  } else {
+                                                                    showToast2('Ocurrió un error', Colors.red);
+                                                                  }
+                                                                },
+                                                                child: Container(
+                                                                  height: ScreenUtil().setHeight(24),
+                                                                  child: SvgPicture.asset('assets/svg/minus_on.svg'),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: ScreenUtil().setHeight(8),
-                                                        ),
-                                                        Text(
-                                                          'S/${datitos[index].totalDetalle}',
-                                                          style: Theme.of(context).textTheme.button!.copyWith(
-                                                                color: kTextColor,
-                                                                fontSize: ScreenUtil().setSp(16),
-                                                                fontWeight: FontWeight.w400,
+                                                              Container(
+                                                                margin: EdgeInsets.symmetric(
+                                                                  horizontal: ScreenUtil().setWidth(8),
+                                                                ),
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    '${datitos[index].cantidad}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: Theme.of(context).textTheme.button!.copyWith(
+                                                                          color: kTitleTextColor,
+                                                                          fontSize: ScreenUtil().setSp(16),
+                                                                          fontWeight: FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                        )
-                                                      ],
+                                                              InkWell(
+                                                                onTap: () async {
+                                                                  final apiTemporal = ComandaTemporalApi();
+
+                                                                  final res = await apiTemporal.updateDetalle(datitos[index], 1);
+
+                                                                  if (res.code == 1) {
+                                                                    comandaBloc.obtenerComandaTemporal(widget.idMesa);
+                                                                  } else {
+                                                                    showToast2('Ocurrió un error', Colors.red);
+                                                                  }
+                                                                },
+                                                                child: Container(
+                                                                  height: ScreenUtil().setHeight(24),
+                                                                  child: SvgPicture.asset('assets/svg/add.svg'),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

@@ -1,20 +1,35 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:ventas_restobar/src/database/database_provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
 
 class MesaDatabase {
   final dbprovider = DatabaseProvider.db;
 
-  insertarMesa(MesaModel mesa) async {
-    print('inserrtar mesas');
+  // insertarMesa(MesaModel mesa) async {
+  //   print('inserrtar mesas');
+  //   try {
+  //     final db = await dbprovider.database;
+
+  //     final res = await db.rawInsert("INSERT OR REPLACE INTO Mesas (idMesa,idNegocio,mesaNombre,mesaCapacidad,mesaEstado,mesaEstadoAtencion) "
+  //         "VALUES ('${mesa.idMesa}','${mesa.idNegocio}','${mesa.mesaNombre}','${mesa.mesaCapacidad}','${mesa.mesaEstado}','${mesa.mesaEstadoAtencion}')");
+
+  //     return res;
+  //   } catch (exception) {
+  //     print(exception);
+  //   }
+  // }
+
+  Future<void> insertarMesa(MesaModel mesa) async {
     try {
-      final db = await dbprovider.database;
+      final Database db = await dbprovider.getDatabase();
 
-      final res = await db.rawInsert("INSERT OR REPLACE INTO Mesas (idMesa,idNegocio,mesaNombre,mesaCapacidad,mesaEstado,mesaEstadoAtencion) "
-          "VALUES ('${mesa.idMesa}','${mesa.idNegocio}','${mesa.mesaNombre}','${mesa.mesaCapacidad}','${mesa.mesaEstado}','${mesa.mesaEstadoAtencion}')");
-
-      return res;
-    } catch (exception) {
-      print(exception);
+      await db.insert(
+        'Mesas',
+        mesa.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      return;
     }
   }
 

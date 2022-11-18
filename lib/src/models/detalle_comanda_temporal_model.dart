@@ -25,6 +25,19 @@ class DetalleComandaTemporalModel {
     this.despacho,
   });
 
+  Map<String, dynamic> toJson() => {
+        'idMesa': idMesa,
+        'idProducto': idProducto,
+        'nombreProducto': nombreProducto,
+        'fotoProducto': fotoProducto,
+        'cantidad': cantidad,
+        'subtotal': subtotal,
+        'totalDetalle': totalDetalle,
+        'observaciones': observaciones,
+        'estado': estado,
+        'despacho': despacho,
+      };
+
   factory DetalleComandaTemporalModel.fromJson(Map<String?, dynamic> json) => DetalleComandaTemporalModel(
         id: json["id"],
         idMesa: json["idMesa"],

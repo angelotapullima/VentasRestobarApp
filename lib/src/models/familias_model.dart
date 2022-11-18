@@ -9,6 +9,12 @@ class FamiliasModel {
     this.familiaEstado,
   });
 
+  Map<String, dynamic> toJson() => {
+        'idFamilia': idFamilia,
+        'familiaNombre': familiaNombre,
+        'familiaEstado': familiaEstado,
+      };
+
   factory FamiliasModel.fromJson(Map<String?, dynamic> json) => FamiliasModel(
         idFamilia: json["idFamilia"],
         familiaNombre: json["familiaNombre"],

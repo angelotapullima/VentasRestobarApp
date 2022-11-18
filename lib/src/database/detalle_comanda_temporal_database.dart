@@ -1,16 +1,33 @@
+import 'package:sqflite/sqflite.dart';
 import 'package:ventas_restobar/src/database/database_provider.dart';
 import 'package:ventas_restobar/src/models/detalle_comanda_temporal_model.dart';
 
 class DetalleComandaTemporalDatabase {
   final dbprovider = DatabaseProvider.db;
 
+  // insertarDetalleComandaTemporal(DetalleComandaTemporalModel detalleComanda) async {
+  //   try {
+  //     final db = await dbprovider.database;
+
+  //     final res = await db.rawInsert(
+  //         "INSERT OR REPLACE INTO DetalleComandaTemporal(idMesa,idProducto,nombreProducto,fotoProducto,cantidad,subtotal,totalDetalle,observaciones,estado,despacho) "
+  //         "VALUES ('${detalleComanda.idMesa}','${detalleComanda.idProducto}','${detalleComanda.nombreProducto}','${detalleComanda.fotoProducto}','${detalleComanda.cantidad}','${detalleComanda.subtotal}','${detalleComanda.totalDetalle}','${detalleComanda.observaciones}','${detalleComanda.estado}','${detalleComanda.despacho}')");
+
+  //     return res;
+  //   } catch (exception) {
+  //     print(exception);
+  //   }
+  // }
+
   insertarDetalleComandaTemporal(DetalleComandaTemporalModel detalleComanda) async {
     try {
       final db = await dbprovider.database;
 
-      final res = await db.rawInsert(
-          "INSERT OR REPLACE INTO DetalleComandaTemporal(idMesa,idProducto,nombreProducto,fotoProducto,cantidad,subtotal,totalDetalle,observaciones,estado,despacho) "
-          "VALUES ('${detalleComanda.idMesa}','${detalleComanda.idProducto}','${detalleComanda.nombreProducto}','${detalleComanda.fotoProducto}','${detalleComanda.cantidad}','${detalleComanda.subtotal}','${detalleComanda.totalDetalle}','${detalleComanda.observaciones}','${detalleComanda.estado}','${detalleComanda.despacho}')");
+      final res = await db.insert(
+        'DetalleComandaTemporal',
+        detalleComanda.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
 
       return res;
     } catch (exception) {

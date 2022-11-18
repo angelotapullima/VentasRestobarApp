@@ -24,7 +24,7 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
   final TextEditingController _observacionController = TextEditingController();
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _controller.changeCantidadPrecio(0, widget.producto.productoPrecio.toString());
     });
 
@@ -126,94 +126,88 @@ class _AgregarProductoComandaState extends State<AgregarProductoComanda> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: ScreenUtil().setHeight(150),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ProductoImage(
-                            himage: 50,
-                            hmax: 100,
-                            wmax: 100,
-                            hmin: 75,
-                            wmin: 75,
-                            image: 'cubiertos',
-                          ),
-                          Container(
-                            width: ScreenUtil().setWidth(130),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Spacer(),
-                                Text(
-                                  '${widget.producto.productoNombre}',
-                                  style: Theme.of(context).textTheme.button!.copyWith(
-                                        color: kTitleTextColor,
-                                        fontSize: ScreenUtil().setSp(18),
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                ),
-                                Spacer(),
-                                AnimatedBuilder(
-                                    animation: _controller,
-                                    builder: (_, p) {
-                                      return Text(
-                                        'S/${_controller.precioMuestra}',
-                                        style: Theme.of(context).textTheme.button!.copyWith(
-                                              color: kTextColor,
-                                              fontSize: ScreenUtil().setSp(18),
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      );
-                                    }),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: ScreenUtil().setWidth(90),
-                          ),
-                          AnimatedBuilder(
-                            animation: _controller,
-                            builder: (_, s) {
-                              return Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      _controller.changeCantidadPrecio(-1, widget.producto.productoPrecio.toString());
-                                    },
-                                    child: Container(
-                                      height: ScreenUtil().setHeight(40),
-                                      child: SvgPicture.asset('assets/svg/minus.svg'),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ProductoImage(
+                          himage: 50,
+                          hmax: 100,
+                          wmax: 100,
+                          hmin: 75,
+                          wmin: 75,
+                          image: 'cubiertos',
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${widget.producto.productoNombre}',
+                                style: Theme.of(context).textTheme.button!.copyWith(
+                                      color: kTitleTextColor,
+                                      fontSize: ScreenUtil().setSp(18),
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: ScreenUtil().setWidth(24),
-                                    ),
-                                    child: Text(
-                                      '${_controller.cantidad}',
+                              ),
+                              AnimatedBuilder(
+                                  animation: _controller,
+                                  builder: (_, p) {
+                                    return Text(
+                                      'S/${_controller.precioMuestra}',
                                       style: Theme.of(context).textTheme.button!.copyWith(
-                                            color: kTitleTextColor,
-                                            fontSize: ScreenUtil().setSp(20),
-                                            fontWeight: FontWeight.w500,
+                                            color: kTextColor,
+                                            fontSize: ScreenUtil().setSp(18),
+                                            fontWeight: FontWeight.w600,
                                           ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      _controller.changeCantidadPrecio(1, widget.producto.productoPrecio.toString());
-                                    },
-                                    child: Container(
-                                      height: ScreenUtil().setHeight(40),
-                                      child: SvgPicture.asset('assets/svg/add.svg'),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
+                                    );
+                                  }),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          width: ScreenUtil().setWidth(90),
+                        ),
+                        AnimatedBuilder(
+                          animation: _controller,
+                          builder: (_, s) {
+                            return Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    _controller.changeCantidadPrecio(-1, widget.producto.productoPrecio.toString());
+                                  },
+                                  child: Container(
+                                    height: ScreenUtil().setHeight(40),
+                                    child: SvgPicture.asset('assets/svg/minus.svg'),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: ScreenUtil().setWidth(24),
+                                  ),
+                                  child: Text(
+                                    '${_controller.cantidad}',
+                                    style: Theme.of(context).textTheme.button!.copyWith(
+                                          color: kTitleTextColor,
+                                          fontSize: ScreenUtil().setSp(20),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    _controller.changeCantidadPrecio(1, widget.producto.productoPrecio.toString());
+                                  },
+                                  child: Container(
+                                    height: ScreenUtil().setHeight(40),
+                                    child: SvgPicture.asset('assets/svg/add.svg'),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: ScreenUtil().setHeight(30),

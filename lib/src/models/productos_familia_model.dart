@@ -1,3 +1,5 @@
+import 'package:ventas_restobar/src/models/acompanamiento_model.dart';
+
 class ProductosFamiliaModel {
   String? idProducto;
   String? idFamilia;
@@ -8,6 +10,9 @@ class ProductosFamiliaModel {
   String? productoPrecio;
   String? productoEstado;
 
+  //No en DB
+  List<AcompanamientoModel>? acompList;
+
   ProductosFamiliaModel({
     this.idProducto,
     this.idFamilia,
@@ -17,7 +22,19 @@ class ProductosFamiliaModel {
     this.productoFoto,
     this.productoPrecio,
     this.productoEstado,
+    this.acompList,
   });
+
+  Map<String, dynamic> toJson() => {
+        'idProducto': idProducto,
+        'idFamilia': idFamilia,
+        'idReceta': idReceta,
+        'productoNombre': productoNombre,
+        'productoDescripcion': productoDescripcion,
+        'productoFoto': productoFoto,
+        'productoPrecio': productoPrecio,
+        'productoEstado': productoEstado,
+      };
 
   factory ProductosFamiliaModel.fromJson(Map<String?, dynamic> json) => ProductosFamiliaModel(
         idProducto: json["idProducto"],

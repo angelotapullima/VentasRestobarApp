@@ -15,6 +15,15 @@ class MesaModel {
     this.mesaEstadoAtencion,
   });
 
+  Map<String, dynamic> toJson() => {
+        'idMesa': idMesa,
+        'idNegocio': idNegocio,
+        'mesaNombre': mesaNombre,
+        'mesaEstado': mesaEstado,
+        'mesaCapacidad': mesaCapacidad,
+        'mesaEstadoAtencion': mesaEstadoAtencion,
+      };
+
   factory MesaModel.fromJson(Map<String?, dynamic> json) => MesaModel(
         idMesa: json["idMesa"],
         idNegocio: json["idNegocio"],

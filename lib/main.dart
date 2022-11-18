@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         ],
         child: ScreenUtilInit(
           designSize: Size(1024, 768),
-          builder: () => MaterialApp(
+          builder: (_, w) => MaterialApp(
             title: 'Ventas restobar app',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

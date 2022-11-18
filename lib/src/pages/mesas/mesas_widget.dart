@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ventas_restobar/src/bloc/index_mesa_bloc.dart';
 import 'package:ventas_restobar/src/bloc/provider.dart';
 import 'package:ventas_restobar/src/models/mesas_model.dart';
@@ -21,15 +20,15 @@ int cargaInicial = 0;
 final _controller = Controller();
 
 class _MesasWidgetState extends State<MesasWidget> {
-  final _refreshController = RefreshController(initialRefresh: false);
+  // final _refreshController = RefreshController(initialRefresh: false);
 
   void _refresher(int value) async {
     final mesasBloc = ProviderBloc.mesas(context);
     mesasBloc.obtenerMesasNegocio(value);
     await Future.delayed(Duration(milliseconds: 1000));
-    _refreshController.refreshCompleted();
+    // _refreshController.refreshCompleted();
 
-    _refreshController.refreshCompleted();
+    // _refreshController.refreshCompleted();
   }
 
   @override
@@ -167,10 +166,11 @@ class _MesasWidgetState extends State<MesasWidget> {
                                   if (snapshot.hasData) {
                                     if (snapshot.data!.length > 0) {
                                       var datos = snapshot.data;
-                                      return SmartRefresher(
-                                        controller: _refreshController,
-                                        onRefresh: () {
+                                      return RefreshIndicator(
+                                        //controller: _refreshController,
+                                        onRefresh: () async {
                                           _refresher(1);
+                                          return null;
                                         },
                                         child: GridView.builder(
                                             padding: EdgeInsets.symmetric(
@@ -354,10 +354,11 @@ class _MesasWidgetState extends State<MesasWidget> {
                                   if (snapshot.hasData) {
                                     if (snapshot.data!.length > 0) {
                                       var datos = snapshot.data;
-                                      return SmartRefresher(
-                                        controller: _refreshController,
-                                        onRefresh: () {
+                                      return RefreshIndicator(
+                                        // controller: _refreshController,
+                                        onRefresh: () async {
                                           _refresher(2);
+                                          return null;
                                         },
                                         child: SingleChildScrollView(
                                           child: Column(
@@ -539,7 +540,7 @@ class _MesasWidgetState extends State<MesasWidget> {
             Text(
               '${mesa.mesaNombre}',
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(20),
+                fontSize: ScreenUtil().setSp(14),
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
@@ -547,7 +548,7 @@ class _MesasWidgetState extends State<MesasWidget> {
             Text(
               texto,
               style: TextStyle(
-                fontSize: ScreenUtil().setSp(16),
+                fontSize: ScreenUtil().setSp(9),
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
